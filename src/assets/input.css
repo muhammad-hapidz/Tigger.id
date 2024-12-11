@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  p {
+    color: #334155;
+  }
+  .custom-underline {
+    position: relative;
+  }
+
+  .custom-underline::after {
+    content: "";
+    position: absolute;
+    bottom: 0; /* Letak underline */
+    left: 0; /* Mulai dari kiri */
+    width: 10%; /* Panjang underline */
+    height: 2px; /* Ketebalan underline */
+    background-color: #1e293b; /* Warna underline */
+  }
+}
