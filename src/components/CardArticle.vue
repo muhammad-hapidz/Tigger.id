@@ -18,7 +18,7 @@
           <RouterLink :to="'/article/' + article.id" 
             class="mt-4 w-2/5 bg-primary text-white text-sm font-medium py-2 px-4 rounded-lg hover:opacity-75 transition-colors duration-300"
           >
-            Read More ->
+            Read More
           </RouterLink>
         </div>
       </div>

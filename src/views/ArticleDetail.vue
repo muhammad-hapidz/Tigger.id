@@ -52,7 +52,7 @@
     methods: {
       async fetchArticle() {
         try {
-          const response = await axios.get(`http://apitiggerid.tri3a.com/api/article/${this.id}`);
+          const response = await axios.get(`https://apitiggerid.tri3a.com/api/Contents/${this.id}`);
           this.article = response.data; // Simpan data artikel dari API
         } catch (error) {
           console.error("Error fetching article:", error);
@@ -66,7 +66,6 @@
   </script>
   
   <style scoped>
-  /* Tambahkan styling tambahan jika diperlukan */
   .container {
     max-width: 800px;
   }

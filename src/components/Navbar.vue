@@ -35,7 +35,7 @@
                         <!-- Navbar -->
                         <nav
                             id="nav-menu"
-                            class="hidden absolute py-5 shadow-lg rounded-lg max-w-[250px] w-full right-4 top-full lg:block lg:static lg:max-w-full lg:bg-transparent lg:shadow-none lg:rounded-none lg:dark:bg-transparent dark:bg-dark dark:shadow-slate-500">
+                            class="hidden py-5 shadow-lg rounded-lg max-w-[250px] w-full right-4 top-full lg:block lg:static lg:max-w-full lg:bg-transparent lg:shadow-none lg:rounded-none lg:dark:bg-transparent dark:bg-dark dark:shadow-slate-500 fixed">
                             <ul class="block lg:flex">
                                 <li class="group">
                                     <RouterLink to="/" class="text-lg font-semibold text-slate-500 py-2 mx-8 flex group-hover:text-slate-400 lg:mx-4">Home</RouterLink>
@@ -47,13 +47,13 @@
                                     <RouterLink to="/news-and-event" class="text-lg font-semibold text-slate-500 py-2 mx-8 flex group-hover:text-slate-400 lg:mx-4">News & Event</RouterLink>
                                 </li>
                                 <li class="group">
-                                    <a href="/article" class="text-lg font-semibold text-slate-500 py-2 mx-8 flex group-hover:text-slate-400 lg:mx-4">Article</a>
+                                    <RouterLink to="/article" class="text-lg font-semibold text-slate-500 py-2 mx-8 flex group-hover:text-slate-400 lg:mx-4">Article</RouterLink>
                                 </li>
                                 <li class="group">
-                                    <a href="/" class="text-lg font-semibold text-slate-500 py-2 mx-8 flex group-hover:text-slate-400 lg:mx-4">Tips & Trick</a>
+                                    <RouterLink to="/tips-and-trick" class="text-lg font-semibold text-slate-500 py-2 mx-8 flex group-hover:text-slate-400 lg:mx-4">Tips & Trick</RouterLink>
                                 </li>
                                 <li class="group">
-                                    <a href="/join-us" class="text-lg font-semibold text-slate-500 py-2 mx-8 flex group-hover:text-slate-400 lg:mx-4">Join Us</a>
+                                    <RouterLink to="/join-us" class="text-lg font-semibold text-slate-500 py-2 mx-8 flex group-hover:text-slate-400 lg:mx-4">Join Us</RouterLink>
                                 </li>
                             </ul>
                         </nav>

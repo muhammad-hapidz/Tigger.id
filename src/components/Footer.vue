@@ -1,5 +1,5 @@
 <template>
-    <footer class="bg-gray-700 text-white py-8">
+    <footer class="bg-gray-700 text-white py-8 bottom-0">
       <div class="container mx-auto px-4">
         <div class="flex flex-wrap justify-between gap-1">
           <!-- About Section -->

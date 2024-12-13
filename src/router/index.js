@@ -5,7 +5,8 @@ import NewsEvent from '@/views/NewsEvent.vue'
 import NewsEventDetail from '@/views/NewsEventDetail.vue'
 import Article from '@/views/Article.vue'
 import ArticleDetail from '@/views/ArticleDetail.vue'
-import JoinUs from '@/components/JoinUs.vue'
+import TipsTrick from '@/views/TipsTrick.vue'
+import JoinUs from '@/views/JoinUs.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -42,7 +43,11 @@ const router = createRouter({
       component: ArticleDetail,
       props:true,
     },
-    
+    {
+      path:'/tips-and-trick',
+      name:'tipsandtrick',
+      component:TipsTrick,
+    },
     {
       path:'/join-us',
       name:'joinus',

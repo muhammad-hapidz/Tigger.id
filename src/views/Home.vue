@@ -1,7 +1,7 @@
 <template>
     <div>
       <div>
-        <img src="../assets/img/tiggo-banner.webp" alt="" class="w-full">
+        <img src="../assets/img/tiggoowner.png" alt="" class="w-full mt-20">
       </div>
       <div class="pt-20 pb-5 bg-slate-200">
         <div class="text-center tracking-wider pt-5 pb-10">
@@ -39,7 +39,7 @@
       </div>
 
       <div class="">
-
+        <!-- <CardNewsEvent/> -->
       </div>
     </div>
   </template>
@@ -47,6 +47,7 @@
   <script>
   import axios from "axios";
   import CardArticle from "@/components/CardArticle.vue";
+  // import CardNewsEvent from "@/components/CardNewsEvent.vue";
   
   export default {
     components: {
@@ -66,7 +67,7 @@
     mounted() {
       // Fetch data artikel dari API menggunakan axios
       axios
-        .get("https://apitiggerid.tri3a.com/api/article")
+        .get("https://apitiggerid.tri3a.com/api/Contents/BySegmentArticle")
         .then((response) => {
           this.articles = response.data; // Menyimpan semua data API ke state
         })
