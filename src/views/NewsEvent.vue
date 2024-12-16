@@ -1,5 +1,6 @@
 <template>
   <div class="mt-32">
+    <!-- Input Pencarian dan Dropdown Filter Category -->
     <div class="flex flex-wrap justify-between mx-20 mb-5 p-5 items-center">
       <!-- Input Pencarian -->
       <div class="mb-5">
@@ -27,8 +28,13 @@
       </div>
     </div>
 
-    <!-- Tampilkan Card NewsEvent -->
-    <CardNewsEvent :newsAndEvents="paginatedNewsAndEvents" />
+    <!-- Tampilkan Loading -->
+    <div v-if="loading" class="flex justify-center items-center py-10">
+      <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-blue-500"></div>
+    </div>
+
+    <!-- Tampilkan Card NewsEvent setelah data dimuat -->
+    <CardNewsEvent v-else :newsAndEvents="paginatedNewsAndEvents" />
 
     <!-- Tampilkan Pagination -->
     <div v-if="filteredNewsAndEvents.length > 0" class="flex justify-end mt-10 mb-5 mx-10">
@@ -111,6 +117,7 @@ export default {
       selectedCategory: "",
       currentPage: 1,
       newsPerPage: 5,
+      loading: true, // Menambahkan status loading
     };
   },
   computed: {
@@ -144,6 +151,7 @@ export default {
   },
   methods: {
     async fetchNewsAndEvents() {
+      this.loading = true; // Set loading true sebelum mengambil data
       try {
         const response = await axios.get(
           'https://apitiggerid.tri3a.com/api/Contents/BySegmentNewsAndEvent'
@@ -151,6 +159,8 @@ export default {
         this.newsAndEvents = response.data;
       } catch (error) {
         console.error('Error fetching news and events:', error);
+      } finally {
+        this.loading = false; // Set loading false setelah proses selesai
       }
     },
     applyFilter() {

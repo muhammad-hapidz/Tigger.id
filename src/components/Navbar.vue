@@ -1,12 +1,12 @@
 <template>
     <div>
         <!-- Tombol "Back to Top" -->
-        <a
+        <!-- <a
             id="to-top"
             href=""
             class="hidden justify-center items-center fixed z-50 bottom-4 right-4 h-12 w-12 bg-primary rounded-full">
             <span class="block h-4 w-4 rotate-45 border-t-2 border-l-2 mt-2"></span>
-        </a>
+        </a> -->
 
         <!-- Header -->
         <header
@@ -65,46 +65,46 @@
 </template>
 
 <script setup>
-import { onMounted, onUnmounted } from 'vue';
+// import { onMounted, onUnmounted } from 'vue';
 
-onMounted(() => {
-    const handleScroll = () => {
-        const header = document.querySelector('header');
-        const toTop = document.querySelector('#to-top');
+// onMounted(() => {
+//     const handleScroll = () => {
+//         const header = document.querySelector('header');
+//         const toTop = document.querySelector('#to-top');
 
-        if (header) {
-            const fixedNav = header.offsetTop;
+//         if (header) {
+//             const fixedNav = header.offsetTop;
 
-            if (window.pageYOffset > fixedNav) {
-                header.classList.add('navbar-fixed');
-                if (toTop) {
-                    toTop.classList.remove('hidden');
-                    toTop.classList.add('flex');
-                }
-            } else {
-                header.classList.remove('navbar-fixed');
-                if (toTop) {
-                    toTop.classList.remove('flex');
-                    toTop.classList.add('hidden');
-                }
-            }
-        }
-    };
+//             if (window.pageYOffset > fixedNav) {
+//                 header.classList.add('navbar-fixed');
+//                 if (toTop) {
+//                     toTop.classList.remove('hidden');
+//                     toTop.classList.add('flex');
+//                 }
+//             } else {
+//                 header.classList.remove('navbar-fixed');
+//                 if (toTop) {
+//                     toTop.classList.remove('flex');
+//                     toTop.classList.add('hidden');
+//                 }
+//             }
+//         }
+//     };
 
-    // Tambahkan event listener untuk scroll
-    window.addEventListener('scroll', handleScroll);
+//     // Tambahkan event listener untuk scroll
+//     window.addEventListener('scroll', handleScroll);
 
-    // Hapus event listener saat komponen dilepas
-    onUnmounted(() => {
-        window.removeEventListener('scroll', handleScroll);
-    });
+//     // Hapus event listener saat komponen dilepas
+//     onUnmounted(() => {
+//         window.removeEventListener('scroll', handleScroll);
+//     });
 
-    const hamburger = document.querySelector('#hamburger');
-  if (!hamburger) {
-    console.error('Hamburger button not found!');
-  }
+//     const hamburger = document.querySelector('#hamburger');
+//   if (!hamburger) {
+//     console.error('Hamburger button not found!');
+//   }
 
-});
+// });
 </script>
 
 

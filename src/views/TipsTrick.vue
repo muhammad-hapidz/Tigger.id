@@ -32,15 +32,27 @@
         class="overflow-hidden transition-all duration-300"
       >
         <div class="px-4 py-2 space-y-4">
-          <div v-for="content in item.contents" :key="content.title">
-            <h2 class="font-bold">{{ content.title }}</h2>
-            <p class="px-4">{{ content.content }}</p>
+          <div v-for="content in item.contents" :key="content.title" class="flex items-start space-x-6 gap-5">
+           
+            <!-- Flex container for image and text -->
+            <div class="flex-shrink-0">
+              <img v-if="content.image" :src="content.image" alt="Content Image" class="w-96 h-auto rounded-md"/>
+            </div>
+            <div class="flex-1">
+              <h2 class="font-bold">{{ content.title }}</h2>
+              <p class="px-4">{{ content.content }}</p>
+              
+            </div>
+            
           </div>
+        
         </div>
       </div>
+      
     </div>
   </div>
 </template>
+
 
 <script>
 import axios from "axios";
@@ -68,11 +80,13 @@ export default {
           groupedData[type] = {
             type,
             contents: [], // Menyimpan kombinasi title dan content
+            image:[],
           };
         }
 
         groupedData[type].contents.push({
           title: item.title,
+          image:item.image,
           content: item.description,
         });
       });
