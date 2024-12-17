@@ -54,6 +54,8 @@ const router = createRouter({
       component: JoinUs,
     },
   ],
+
+  
 })
 
 export default router

@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-32">
+  <div class="mt-24">
     <!-- Input Pencarian dan Dropdown Filter Category -->
     <div class="flex flex-wrap justify-between mx-20 mb-5 p-5 items-center">
       <!-- Input Pencarian -->

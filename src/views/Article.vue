@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="bg-cover mt-20">
+    <div class="bg-cover mt-16">
       <img src="../assets/img/wcwl.webp" class="bg-cover w-full rounded-2xl" alt="" />
     </div>
 

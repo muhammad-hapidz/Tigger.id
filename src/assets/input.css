@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer components {
+  html {
+    scroll-behavior: smooth;
+  }
+  
   p {
     color: #334155;
   }
@@ -20,3 +24,4 @@
     background-color: #1e293b; /* Warna underline */
   }
 }
+

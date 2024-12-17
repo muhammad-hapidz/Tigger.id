@@ -14,11 +14,11 @@
         <img
           :src="newsAndEvents.image"
           alt="newsAndEvents Image"
-          class="w-full h-80 object-cover rounded-lg mb-5"
+          class="w-3/4 object-cover rounded-lg mb-5 mx-auto"
         />
         <h1 class="text-slate-950 text-3xl underline mb-3 mt-8">Description</h1>
         <p class="text-lg">{{ newsAndEvents.description }}</p>
-        <p class="text-lg text-slate-800">{{ newsAndEvents.categoryNewsAndEvent.categoryName }}</p>
+        <p class="text-lg text-slate-800">{{ newsAndEvents.category.categoryName }}</p>
       </div>
   
       <!-- Jika data artikel tidak ditemukan -->
@@ -42,7 +42,7 @@
     },
     data() {
       return {
-        article: null, // Untuk menyimpan data artikel
+        newsAndEvents: null, // Untuk menyimpan data artikel
         isLoading: true, // Untuk status pemuatan data
       };
     },
@@ -52,7 +52,7 @@
     methods: {
       async fetchnewsAndEvents() {
         try {
-          const response = await axios.get(`https://apitiggerid.tri3a.com/api/NewsAndEvent/${this.id}`);
+          const response = await axios.get(`https://apitiggerid.tri3a.com/api/Contents/${this.id}`);
           this.newsAndEvents = response.data; // Simpan data artikel dari API
         } catch (error) {
           console.error("Error fetching newsAndEvents:", error);

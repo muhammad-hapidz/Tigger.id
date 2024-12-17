@@ -14,7 +14,7 @@
         <img
           :src="article.image"
           alt="Article Image"
-          class="w-full h-80 object-cover rounded-lg mb-5"
+          class="w-3/4 object-cover rounded-lg mb-5 mx-auto"
         />
         <h1 class="text-slate-950 text-3xl underline mb-3 mt-8">Description</h1>
         <p class="text-lg">{{ article.description }}</p>

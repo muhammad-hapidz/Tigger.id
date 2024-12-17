@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <img src="../assets/img/2.png" alt="" class="w-full mt-20">
+      <img src="../assets/img/2.png" alt="" class="w-full mt-16">
     </div>
     <div class="pt-20 pb-5 bg-slate-200">
       <div class="text-center tracking-wider pt-5 pb-10">
