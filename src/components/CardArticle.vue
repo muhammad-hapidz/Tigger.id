@@ -10,7 +10,7 @@
           v-if="article.image"
           :src="article.image"
           alt="Card image"
-          class="object-cover w-full h-full"
+          class="object-cover w-full h-48"
         />
         <!-- Tampilkan teks jika image null -->
         <div

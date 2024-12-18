@@ -45,11 +45,12 @@
     <!-- News and Events Section -->
     <div class="bg-slate-100 lg:mx-10 py-5 mb-5">
       <div class="text-center tracking-wider mb-5 mt-5 pt-5">
-        <h1 class="text-slate-800 text-3xl mt-12">ABOUT OUR <span class="bg-white p-1 rounded-lg px-3 underline underline-offset-[15px]">NEWS AND EVENT</span></h1>
+        <h1 class="text-slate-600 text-2xl mt-12">ABOUT OUR </h1>
+        <h2 class="text-3xl bg-white p-1 rounded-lg px-3 underline underline-offset-[15px] inline-block">NEWS AND EVENT</h2>
       </div>
 
       <div class="mx-8 mb-10 pt-10">
-        <div class="flex justify-end lg:mr-16 mb-5">
+        <div class="flex justify-end lg:mx-48 mb-5">
           <RouterLink to="/news-and-event" class="text-cyan-800 text-lg tracking-wider underline underline-offset-8">See All</RouterLink>
         </div>
 

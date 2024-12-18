@@ -4,9 +4,9 @@
             <img src="../assets/img/1.jpeg" class="rounded-e-md" alt="chery community">
             </div>
            
-            <div class="flex-1 lg:mr-10 mt-5 lg:mt-0 text-lg p-10 lg:p-0 lg:px-10 text-justify">
+            <div class="flex-1 lg:mr-10 mt-5 lg:mt-0 text-lg p-10 lg:p-0 lg:px-10 ">
                     <h1 class="text-2xl text-slate-700 font-semibold mb-4">CHERY COMMUNITY INDONESIA</h1>
-                    <p class="mt-1"><span class="text-slate-800 font-semibold text-2xl">Tigger.id </span>adalah Komunitas Exclusive khusus pengguna dan pemilik Chery Tiggo Series di Indonesia. Berdiri pada tanggal 19 Juli 2024 oleh beberapa pengguna Chery Tiggo dengan dukungan dari pihak Chery Sales Indonesia (CSI)
+                    <p class="mt-1 text-justify"><span class="text-slate-800 font-semibold text-2xl">Tigger.id </span>adalah Komunitas Exclusive khusus pengguna dan pemilik Chery Tiggo Series di Indonesia. Berdiri pada tanggal 19 Juli 2024 oleh beberapa pengguna Chery Tiggo dengan dukungan dari pihak Chery Sales Indonesia (CSI)
                     Komunitas Tigger.id berbentuk non profit dimana tujuannya adalah sebagai wadah berkumpul, tukar pikiran, diskusi, dan having fun bagi seluruh tiggo owners di Indonesia. 
                     </p>
                     <p class="mt-1">

@@ -1,5 +1,5 @@
 <template>
-    <div class="mx-auto mt-36 px-52">
+    <div class="mx-auto mt-36 lg:px-52">
       <!-- Jika sedang memuat data -->
       <div v-if="isLoading">
         <p class="text-center text-blue-500 text-xl font-semibold">
@@ -16,11 +16,12 @@
           alt="newsAndEvents Image"
           class="w-3/4 object-cover rounded-lg mb-5 mx-auto"
         />
+        <div class="mx-5">
         <h1 class="text-slate-950 text-3xl underline mb-3 mt-8">Description</h1>
         <p class="text-lg">{{ newsAndEvents.description }}</p>
         <p class="text-lg text-slate-800">{{ newsAndEvents.category.categoryName }}</p>
       </div>
-  
+    </div>
       <!-- Jika data artikel tidak ditemukan -->
       <div v-else>
         <p class="text-center text-red-600 text-xl font-semibold">

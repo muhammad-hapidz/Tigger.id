@@ -1,7 +1,13 @@
 <template>
   <div class="space-y-4 mt-20 px-10 flex justify-center flex-col mb-20">
+    <!-- Tampilkan pesan jika tidak ada data -->
+    <div v-if="errorMessage" class="text-center text-red-600 font-semibold">
+      {{ errorMessage }}
+    </div>
+
     <!-- Accordion Item -->
     <div
+      v-else
       v-for="(item, index) in accordionItems"
       :key="index"
       class="border rounded-md"
@@ -32,27 +38,30 @@
         class="overflow-hidden transition-all duration-300"
       >
         <div class="px-4 py-2 space-y-4">
-          <div v-for="content in item.contents" :key="content.title" class="flex items-start space-x-6 gap-5">
-           
+          <div
+            v-for="content in item.contents"
+            :key="content.title"
+            class="flex items-start space-x-6 gap-5"
+          >
             <!-- Flex container for image and text -->
             <div class="flex-shrink-0">
-              <img v-if="content.image" :src="content.image" alt="Content Image" class="w-96 h-auto rounded-md"/>
+              <img
+                v-if="content.image"
+                :src="content.image"
+                alt="Content Image"
+                class="w-96 h-auto rounded-md"
+              />
             </div>
             <div class="flex-1">
               <h2 class="font-bold">{{ content.title }}</h2>
               <p class="px-4">{{ content.content }}</p>
-              
             </div>
-            
           </div>
-        
         </div>
       </div>
-      
     </div>
   </div>
 </template>
-
 
 <script>
 import axios from "axios";
@@ -62,49 +71,61 @@ export default {
     return {
       activeIndex: null, // Menyimpan indeks item yang sedang terbuka
       accordionItems: [], // Data awal kosong
+      errorMessage: null, // Pesan error atau pemberitahuan
     };
   },
   methods: {
-  async fetchAccordionData() {
-    try {
-      const response = await axios.get(
-        "https://apitiggerid.tri3a.com/api/Contents/ByTipsAndTrick"
-      );
+    async fetchAccordionData() {
+      try {
+        const response = await axios.get(
+          "https://apitiggerid.tri3a.com/api/Contents/ByTipsAndTrick"
+        );
 
-      // Proses data agar item.type hanya muncul satu kali
-      const groupedData = {};
-      response.data.forEach((item) => {
-        const type = item.category.categoryName;
-
-        if (!groupedData[type]) {
-          groupedData[type] = {
-            type,
-            contents: [], // Menyimpan kombinasi title dan content
-            image:[],
-          };
+        if (response.data.length === 0) {
+          // Tampilkan pemberitahuan jika data kosong
+          this.errorMessage = "No data available at the moment. Please check back later.";
+          return;
         }
 
-        groupedData[type].contents.push({
-          title: item.title,
-          image:item.image,
-          content: item.description,
+        // Proses data agar item.type hanya muncul satu kali
+        const groupedData = {};
+        response.data.forEach((item) => {
+          const type = item.category.categoryName;
+
+          if (!groupedData[type]) {
+            groupedData[type] = {
+              type,
+              contents: [], // Menyimpan kombinasi title dan content
+              image: [],
+            };
+          }
+
+          groupedData[type].contents.push({
+            title: item.title,
+            image: item.image,
+            content: item.description,
+          });
         });
-      });
 
-      // Ubah menjadi array untuk penggunaan pada v-for
-      this.accordionItems = Object.values(groupedData);
-    } catch (error) {
-      console.error("Error fetching accordion data:", error);
-    }
+        // Ubah menjadi array untuk penggunaan pada v-for
+        this.accordionItems = Object.values(groupedData);
+        this.errorMessage = null; // Reset pesan error jika data berhasil dimuat
+      } catch (error) {
+        console.error("Error fetching accordion data:", error);
+        this.errorMessage = "Data Pada Menu Ini Tidak Tersedia / Tidak Ada";
+      }
+    },
+    toggleAccordion(index) {
+      this.activeIndex = this.activeIndex === index ? null : index;
+    },
   },
-  toggleAccordion(index) {
-    this.activeIndex = this.activeIndex === index ? null : index;
-  },
-},
-
   mounted() {
     // Fetch data saat komponen dimuat
     this.fetchAccordionData();
   },
 };
 </script>
+
+<style scoped>
+/* Tambahkan gaya jika diperlukan */
+</style>
