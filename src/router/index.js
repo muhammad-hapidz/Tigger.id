@@ -18,6 +18,7 @@ const router = createRouter({
       meta:{
         title:'TIGGER ID | Home'
       },
+      meta: { showNavbar: true, showFooter: true, layout: 'MainLayout' },
     },
     {
       path:'/news-and-event',
@@ -25,7 +26,8 @@ const router = createRouter({
       component: NewsEvent,
       meta:{
         title:'TIGGER ID | News & Event '
-      }
+      },
+      meta: { showNavbar: true, showFooter: true, layout: 'MainLayout' },
     },
     {
       path: '/news-and-event/:id',
@@ -35,6 +37,7 @@ const router = createRouter({
       meta:{
         title: 'TIGGER ID | News & Event'
       },
+      meta: { showNavbar: true, showFooter: true, layout: 'MainLayout' },
     },
     {
       path:'/about',
@@ -42,7 +45,9 @@ const router = createRouter({
       component: About,
       meta:{
         title:'TIGGER ID | About Us'
-      }
+      },
+      meta: { showNavbar: true, showFooter: true, layout: 'MainLayout' },
+      
     },
     {
       path:'/article',
@@ -50,7 +55,8 @@ const router = createRouter({
       component: Article,
       meta:{
         title:'TIGGER ID | Article'
-      }
+      },
+      meta: { showNavbar: true, showFooter: true, layout: 'MainLayout' },
     },
     {
       path:'/article/:id',
@@ -59,7 +65,9 @@ const router = createRouter({
       props:true,
       meta:{
         title:'TIGGER ID | Article'
-      }
+      },
+      meta: { showNavbar: true, showFooter: true, layout: 'MainLayout' },
+      
     },
     {
       path:'/tips-and-trick',
@@ -67,7 +75,9 @@ const router = createRouter({
       component:TipsTrick,
       meta:{
         title:'TIGGER ID | Tips & Trick'
-      }
+      },
+      meta: { showNavbar: true, showFooter: true, layout: 'MainLayout' },
+
     },
     {
       path:'/join-us',
@@ -75,7 +85,31 @@ const router = createRouter({
       component: JoinUs,
       meta:{
         title:'TIGGER ID | Join Us'
-      }
+      },
+      meta: { showNavbar: true, showFooter: true, layout: 'MainLayout' },
+    },
+    {
+      path: '/cms',
+      name: 'Dashboard',
+      component: () => import('../views/cms/Dashboard/index.vue'),
+      meta: { showLayout: true }, // Tidak menampilkan Navbar
+    },
+    {
+      path: '/cms/Contents',
+      name: 'Contents',
+      component: () => import('../views/cms/Contents/index.vue'),
+      meta: { showNavbar: false, showFooter: false, },
+
+    },
+    {
+      path: '/cms/Contents/Create',
+      name: 'Create',
+      component: () => import('../views/cms/Contents/create.vue'),
+    },
+    {
+      path: '/cms/category',
+      name: 'Category',
+      component: () => import('../views/cms/Category/index.vue'),
     },
   ],
 
