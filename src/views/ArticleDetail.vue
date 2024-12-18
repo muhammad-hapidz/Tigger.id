@@ -18,6 +18,7 @@
         />
         <h1 class="text-slate-950 text-3xl underline mb-3 mt-8">Description</h1>
         <p class="text-lg">{{ article.description }}</p>
+        <p class="text-gray-500 text-sm mt-4">{{ formatDate (article.createdDate) }}</p>
         <p class="text-lg text-slate-800">{{ article.category.categoryName }}</p>
       </div>
   
@@ -61,6 +62,15 @@
           this.isLoading = false; // Set status pemuatan selesai
         }
       },
+      formatDate(dateString){
+      if(!dateString) return "Unknown Date"
+      const date = new Date(dateString)
+      return new Intl.DateTimeFormat("en-US",{
+        year : "numeric",
+        month: "long",
+        day : "numeric"
+      }).format(date);
+    },
     },
   };
   </script>

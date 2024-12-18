@@ -9,7 +9,7 @@
     </div>
 
     <!-- Input Pencarian dan filter category -->
-    <div class="flex flex-wrap justify-between mx-20 mb-5 p-5 items-center">
+    <div class="flex flex-wrap lg:justify-between justify-end mx-8 lg:mx-20 mb-5 lg:p-5 items-center">
       <div class="mb-5">
         <input
           v-model="searchQuery"
@@ -87,6 +87,7 @@ export default defineComponent({
       error: null,
       loading: true,
       selectedCategory: "", // Menyimpan kategori yang dipilih
+      refreshInterval: null, // Interval untuk auto-refresh
     };
   },
   computed: {
@@ -144,9 +145,29 @@ export default defineComponent({
         this.currentPage = page;
       }
     },
+    startAutoRefresh(interval = 30000) {
+      // Default interval 30 detik
+      this.refreshInterval = setInterval(() => {
+        this.fetchArticles();
+      }, interval);
+    },
+    stopAutoRefresh() {
+      if (this.refreshInterval) {
+        clearInterval(this.refreshInterval);
+        this.refreshInterval = null;
+      }
+    },
   },
   mounted() {
     this.fetchArticles();
+    this.startAutoRefresh(); // Mulai auto-refresh saat komponen di-mount
+  },
+  beforeUnmount() {
+    this.stopAutoRefresh(); // Hentikan auto-refresh saat komponen di-unmount
   },
 });
 </script>
+
+<style scoped>
+/* Tambahkan gaya jika diperlukan */
+</style>

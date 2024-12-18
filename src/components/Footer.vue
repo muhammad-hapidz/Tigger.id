@@ -14,12 +14,12 @@
           <div class="w-full md:w-1/3 mb-6 md:mb-0">
             <h3 class="text-lg font-semibold mb-3">Quick Links</h3>
             <ul class="text-sm text-gray-300 space-y-2">
-              <li><RouterLink to="/" class="hover:text-white">Home</RouterLink></li>
-              <li><RouterLink to="/about" class="hover:text-white">About Us</RouterLink></li>
-              <li><RouterLink to="/news-and-event" class="hover:text-white">News & Event</RouterLink></li>
-              <li><RouterLink to="/article" class="hover:text-white">Article</RouterLink></li>
-              <li><RouterLink to="/tips-and-trick" class="hover:text-white">Tips & Trick</RouterLink></li>
-              <li><RouterLink to="/join-us" class="hover:text-white">Join Us</RouterLink></li>
+              <li><RouterLink to="/" @click="scrollToTop" class="hover:text-white">Home</RouterLink></li>
+              <li><RouterLink to="/about" @click="scrollToTop" class="hover:text-white">About Us</RouterLink></li>
+              <li><RouterLink to="/news-and-event" @click="scrollToTop" class="hover:text-white">News & Event</RouterLink></li>
+              <li><RouterLink to="/article" @click="scrollToTop" class="hover:text-white">Article</RouterLink></li>
+              <li><RouterLink to="/tips-and-trick" @click="scrollToTop" class="hover:text-white">Tips & Trick</RouterLink></li>
+              <li><RouterLink to="/join-us" @click="scrollToTop" class="hover:text-white">Join Us</RouterLink></li>
             </ul>
           </div>
   
@@ -58,7 +58,7 @@
         </div>
   
         <!-- Bottom Section -->
-        <div class="mt-8 text-center text-sm text-gray-500">
+        <div class="mt-8 text-center text-sm text-gray-300">
           &copy; 2024 TIGGER.ID. All rights reserved.
         </div>
       </div>
@@ -68,7 +68,17 @@
   <script>
   export default {
     name: "Footer",
-  };
+  
+
+  methods:{
+    scrollToTop(){
+      window.scrollTo({
+        top:0,
+        behavior:'smooth',
+      })
+    }
+  }
+}
   </script>
   
   <style scoped>

@@ -20,5 +20,11 @@ export default defineConfig({
   },
   build: {
     target: 'esnext', // Target output modern
+    outDir: 'dist', // Folder output
+  },
+  server: {
+    port: 5173, // Port pengembangan
+    open: true, // Buka otomatis di browser
+    historyApiFallback: true, // Tambahkan fallback untuk Vue Router
   },
 });

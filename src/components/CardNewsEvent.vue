@@ -16,7 +16,7 @@
           <p class="text-gray-500 text-sm mt-4">{{ formatDate(news.createdDate) }}</p>
           <div class="flex justify-end">
             <RouterLink :to="'/news-and-event/' + news.id" 
-              class="mt-4 w-2/5 bg-primary text-white text-sm font-medium py-2 px-4 rounded-lg hover:opacity-75 transition-colors duration-300"
+              class="mt-4 w-2/5 bg-primary text-white text-sm font-medium py-2 text-center px-4 rounded-lg hover:opacity-75 transition-colors duration-300"
             >
               Read More
             </RouterLink>
