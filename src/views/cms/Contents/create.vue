@@ -94,6 +94,7 @@ onMounted(fetchSegmentCategories)
 
     <div class="mt-8">
       <h4 class="text-gray-600">Forms</h4>
+      <h4 class="text-gray-600">Forms</h4>
 
       <div class="mt-4">
         <div class="p-6 bg-white rounded-md shadow-md">
