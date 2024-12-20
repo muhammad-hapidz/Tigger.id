@@ -93,7 +93,6 @@ onMounted(fetchSegmentCategories)
 
 
     <div class="mt-8">
-      <h4 class="text-gray-600">Forms</h4>
       <h4 class="text-gray-600">Form Input</h4>
 
       <div class="mt-4">
