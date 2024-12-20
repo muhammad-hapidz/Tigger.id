@@ -10,17 +10,31 @@ const itemsPerPage = 10
 
 // Fungsi untuk mengambil data API
 const fetchContents = async () => {
+const authToken = localStorage.getItem('authToken')
+
+  if (!authToken) {
+    console.error('Auth token tidak ditemukan. Harap login terlebih dahulu.')
+    return
+  }
+
   try {
-    const response = await axios.get('https://apitiggerid.tri3a.com/api/Contents/GETAll')
+    const response = await axios.get(
+      'https://apitiggerid.tri3a.com/api/Contents/Getall/cms',
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        }
+      }
+    )
     contents.value = response.data
   } catch (error) {
-    console.error('Error fetching contents:', error)
+    console.error('Kesalahan saat mengambil data konten:', error)
   }
 }
 
 // Fungsi untuk memotong teks
 const truncateText = (text, maxLength) => {
-  if (!text) return '' // Cegah error jika teks null atau undefined
+  if (!text) return '' 
   return text.length > maxLength ? text.substring(0, maxLength) + '...' : text
 }
 
@@ -71,6 +85,8 @@ const formatDate = (dateString) => {
 
 onMounted(fetchContents)
 </script>
+
+
 
 <template>
   <h3 class="text-gray-700 text-3xl font-medium">Contents</h3>

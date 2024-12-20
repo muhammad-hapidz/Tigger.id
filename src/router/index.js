@@ -8,6 +8,7 @@ import ArticleDetail from '@/views/ArticleDetail.vue'
 import TipsTrick from '@/views/TipsTrick.vue'
 import JoinUs from '@/views/JoinUs.vue'
 
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -90,15 +91,26 @@ const router = createRouter({
     },
     {
       path: '/cms',
+      name: 'CmsRedirect',  // Menambahkan route untuk redirect
+      redirect: '/cms/dashboard'  // Redirect ke halaman dashboard
+    },
+    {
+      path: '/cms/dashboard',
       name: 'Dashboard',
       component: () => import('../views/cms/Dashboard/index.vue'),
-      meta: { showLayout: true }, // Tidak menampilkan Navbar
+      meta: { requiresAuth: true, showNavbar: false, showFooter: false }
+    },
+    {
+      path: '/cms/Login',
+      name: 'Login',
+      component: () => import('../views/cms/Login.vue'),
+      meta: { guestOnly: true, layout: 'empty' },
     },
     {
       path: '/cms/Contents',
       name: 'Contents',
       component: () => import('../views/cms/Contents/index.vue'),
-      meta: { showNavbar: false, showFooter: false, },
+      meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
 
     },
     {
@@ -119,4 +131,41 @@ router.beforeEach((to, from, next) => {
   document.title = to.meta.title || 'TIGGER ID'; // Default title
   next();
 });
+
+
+
+// // Middleware untuk proteksi route
+// router.beforeEach((to, from, next) => {
+//   const token = localStorage.getItem('authToken')
+
+//   if (to.matched.some(record => record.meta.requiresAuth)) {
+//     // Cek jika ada token
+//     if (!token) {
+//       // Redirect ke halaman login jika tidak ada token
+//       next('/cms/login')
+//     } else {
+//       next('/cms/dashboard') // Lanjutkan jika ada token
+//     }
+//   } else {
+//     next() // Lanjutkan jika route tidak perlu autentikasi
+//   }
+// })
+
+// Navigation Guard
+router.beforeEach((to, from, next) => {
+  const token = localStorage.getItem('authToken')
+
+  // Halaman yang memerlukan autentikasi
+  if (to.meta.requiresAuth && !token) {
+    next('/cms/login') // Redirect ke login jika belum login
+  } 
+  // Halaman untuk tamu (tanpa token)
+  else if (to.meta.guestOnly && token) {
+    next('/cms/dashboard') // Redirect ke /cms jika sudah login
+  } 
+  else {
+    next() // Lanjut ke halaman yang diminta
+  }
+})
+
 export default router

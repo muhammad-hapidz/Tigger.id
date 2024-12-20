@@ -1,22 +1,23 @@
-<script setup lang="ts">
-import { ref } from 'vue'
+<script setup>
+import { ref, computed, onMounted } from 'vue'
+import axios from 'axios'
 
-interface User {
-  name: string
-  email: string
-  title: string
-  title2: string
-  status: string
-  role: string
-}
-
-const testUser: User = {
-  name: 'John Doe',
-  email: 'john@example.com',
-  title: 'Software Engineer',
-  title2: 'Web dev',
-  status: 'Active',
-  role: 'Owner',
+  
+// Fungsi untuk mengambil data API
+const fetchContents = async () => {
+  try {
+    const response = await axios.get(
+      'https://apitiggerid.tri3a.com/api/Contents/Getall/cms',
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        }
+      }
+    )
+    contents.value = response.data
+  } catch (error) {
+    console.error('Error fetching contents:', error)
+  }
 }
 
 
