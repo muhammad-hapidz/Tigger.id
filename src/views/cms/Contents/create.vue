@@ -1,13 +1,100 @@
+<script setup>
+import { ref, computed, onMounted } from 'vue'
+import Multiselect from 'vue-multiselect'
+import 'vue-multiselect/dist/vue-multiselect.min.css'
+import axios from 'axios'
+import vueFilePond from 'vue-filepond'
+import 'filepond/dist/filepond.min.css'
+
+// Import CSS
+import 'filepond/dist/filepond.min.css'
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css'
+
+
+// State Data
+const segmentcategories = ref([])
+const content = ref({
+  title: '',
+  segmentcategory: null,
+  category: null,
+  description: ''
+})
+
+// Fetch API
+const fetchSegmentCategories = async () => {
+  const authToken = localStorage.getItem('authToken')
+  if (!authToken) {
+    console.error('Auth token tidak ditemukan. Harap login terlebih dahulu.')
+    return
+  }
+  try {
+    const response = await axios.get(
+      'https://apitiggerid.tri3a.com/api/SegmentCategory/Getall/cms',
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        }
+      }
+    )
+    segmentcategories.value = response.data
+  } catch (error) {
+    console.error('Error fetching segmentcategories:', error)
+  }
+}
+
+// Hapus duplikat berdasarkan segmentName
+const uniqueSegments = computed(() => {
+  const seen = new Set()
+  return segmentcategories.value.filter(item => {
+    const name = item.segment.segmentName
+    if (seen.has(name)) {
+      return false
+    }
+    seen.add(name)
+    return true
+  })
+})
+
+// Filter Categories
+const filteredCategories = computed(() =>
+  segmentcategories.value.filter(
+    item =>
+      item.segment.segmentId === content.value.segmentcategory?.segmentId
+  )
+)
+
+// Submit Function
+const create = () => {
+  console.log('Content Data:', content.value)
+  alert('Form submitted successfully!')
+}
+const FilePond = vueFilePond()
+const files = ref([])
+
+// On Mount
+onMounted(fetchSegmentCategories)
+</script>
+
 <template>
   <div>
-    <!-- Judul Halaman -->
     <h3 class="text-3xl font-semibold text-gray-700">Create Content</h3>
 
-    <!-- Section untuk form -->
-    <div class="mt-8">
-      <h4 class="text-gray-600">Forms</h4>
+    <div class="mt-6">
+      <router-link to="/cms/Contents">
+        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full flex items-center space-x-2">
+          <svg class="h-6 w-6 text-white" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  
+            <path stroke="none" d="M0 0h24v24H0z"/>  
+            <path d="M9 11l-4 4l4 4m-4 -4h11a4 4 0 0 0 0 -8h-1" />
+          </svg>
+          <span>Back</span>
+        </button>
+      </router-link>
+    </div>
 
-      <!-- Form Section -->
+
+    <div class="mt-8">
+      <h4 class="text-gray-600">Form Input</h4>
+
       <div class="mt-4">
         <div class="p-6 bg-white rounded-md shadow-md">
           <h2 class="text-lg font-semibold text-gray-700 capitalize">
@@ -16,42 +103,27 @@
 
           <form @submit.prevent="create">
             <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-              <!-- Input Segment -->
-              <div class="sm:col-span-2 mt-4">
-                <label class="text-gray-700" for="segmentcategories">Menu</label>
-                <select
-                  v-model="content.segementcategory"
-                  id="segmentcategories"
-                  class="p-2 w-full mt-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-300 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                >
-                  <option value="" disabled>Select Segment</option>
-                  <option
-                    v-for="segment in uniqueSegments"
-                    :key="segment"
-                    :value="segment"
-                  >
-                    {{ segment }}
-                  </option>
-                </select>
+              <!-- Select Segment -->
+              <div class="sm:col-span-2">
+                <label class="text-gray-700" for="segmentcategory">Segment</label>
+                <Multiselect class="border border-gray-300 rounded-md"
+                  v-model="content.segmentcategory"
+                  :options="uniqueSegments.map(item => item.segment) "
+                  label="segmentName"
+                  placeholder="Select or Search Segment"
+                />
               </div>
 
-              <!-- Input Category -->
-              <div class="sm:col-span-2 mt-4">
-                <label class="text-gray-700" for="categories">Category</label>
-                <select
+              <!-- Select Category -->
+              <div class="sm:col-span-2">
+                <label class="text-gray-700" for="category">Category</label>
+                <Multiselect class="border border-gray-300 rounded-md"
                   v-model="content.category"
-                  id="categories"
-                  class="p-2 w-full mt-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-300 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                >
-                  <option value="" disabled>Select Category</option>
-                  <option
-                    v-for="category in filteredCategories"
-                    :key="category"
-                    :value="category"
-                  >
-                    {{ category }}
-                  </option>
-                </select>
+                  :options="filteredCategories.map(item => item.category)"
+                  label="categoryName"
+                  placeholder="Select or Search Category"
+                  :disabled="!content.segmentcategory"
+                />
               </div>
 
               <!-- Input Title -->
@@ -62,114 +134,46 @@
                   id="title"
                   class="p-2 w-full mt-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-300 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
                   type="text"
-                  placeholder="Enter title"
                 />
               </div>
 
               <!-- Input Description -->
-              <div class="sm:col-span-2 mt-4">
+              <div class="sm:col-span-2">
                 <label class="text-gray-700" for="description">Description</label>
                 <textarea
                   v-model="content.description"
                   id="description"
                   rows="4"
                   class="p-2 w-full mt-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-300 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                  placeholder="Enter description"
                 ></textarea>
               </div>
-              
-              <!--  -->
-              <div class="">
-              <input type="file" name="" id="" placeholder="">
-              <!--  -->
             </div>
 
-              <!-- Tombol Submit -->
-              <div class="flex justify-end mt-4">
-                <button
-                  type="submit"
-                  class="px-4 py-2 text-white bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
-                >
-                  Submit
-                </button>
-              </div>
-
+            <!-- Upload Image -->
+            <div class="sm:col-span-2">
+            <FilePond
+              v-model="files"
+              name="files"
+              allow-multiple
+              accepted-file-types="image/*"
+              label-idle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
+              allow-image-preview
+              image-preview-height="200"
+            />
             </div>
+
+            <!-- Submit Button -->
+            <div class="sm:col-span-2 flex justify-end mt-8">
+              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full flex items-center space-x-2"
+              type="submit">
+              <svg class="h-5 w-5 text-white-900"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />  <polyline points="17 21 17 13 7 13 7 21" />  <polyline points="7 3 7 8 15 8" /></svg>
+                <span>Save</span>
+              </button>
+            </div>
+            
           </form>
         </div>
       </div>
     </div>
   </div>
 </template>
-
-<script setup>
-import { ref, computed, onMounted } from 'vue';
-import axios from 'axios';
-
-// State untuk data segment categories
-const segmentcategories = ref([]); // Data segment categories dari API
-const content = ref({
-  title: '',
-  segementcategory: '',
-  category: '',
-  description: '',
-});
-
-// Ambil data segment unique
-const uniqueSegments = computed(() =>
-  Array.from(new Set(segmentcategories.value.map((item) => item.segment.segmentName)))
-);
-
-// Ambil data kategori berdasarkan segment yang dipilih
-const filteredCategories = computed(() => {
-  if (!content.value.segementcategory) return [];
-  return segmentcategories.value
-    .filter((item) => item.segment.segmentName === content.value.segementcategory)
-    .map((item) => item.category.categoryName);
-});
-
-// Fungsi untuk fetch segment categories
-const fetchSegmentCategories = async () => {
-  try {
-    const response = await axios.get('https://apitiggerid.tri3a.com/api/SegmentCategory');
-    segmentcategories.value = response.data;
-  } catch (error) {
-    console.error('Error fetching segment categories:', error);
-  }
-};
-
-// Fungsi submit form untuk mengirim data ke API
-const create = async () => {
-  // Validasi form
-  if (!content.value.title || !content.value.segementcategory || !content.value.category) {
-    alert('Please fill in all required fields!');
-    return;
-  }
-
-  // Data yang akan dikirim
-  const formData = {
-    title: content.value.title,
-    segment: content.value.segementcategory,
-    category: content.value.category,
-    description: content.value.description,
-  };
-
-  try {
-    // Mengirim data ke API
-    const response = await axios.post('https://your-api-endpoint.com/create', formData);
-
-    // Respon sukses
-    if (response.status === 200) {
-      alert('Form submitted successfully!');
-      // Reset form setelah submit
-      content.value = { title: '', segementcategory: '', category: '', description: '' };
-    }
-  } catch (error) {
-    console.error('Error submitting form:', error);
-    alert('There was an error submitting the form.');
-  }
-};
-
-// Panggil data segment categories saat mounted
-onMounted(fetchSegmentCategories);
-</script>
