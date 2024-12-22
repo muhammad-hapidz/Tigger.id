@@ -111,6 +111,12 @@ const router = createRouter({
       name: 'Category',
       component: () => import('../views/cms/Category/index.vue'),
     },
+    {
+      path: '/cms/category/:id',
+      name:'DetailCategory',
+      component: () => import ('@/views/cms/Category/DetailCategory.vue'),
+      props:true,
+    },
   ],
 
   
