@@ -107,6 +107,19 @@ const router = createRouter({
       meta: { guestOnly: true, layout: 'empty' },
     },
     {
+      path: '/cms/Users',
+      name: 'Users',
+      component: () => import('../views/cms/Users/index.vue'),
+      meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
+
+    },
+    {
+      path: '/cms/Users/Create',
+      name: 'userCreate',
+      component: () => import('../views/cms/Users/create.vue'),
+      meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
+    },
+    {
       path: '/cms/Contents',
       name: 'Contents',
       component: () => import('../views/cms/Contents/index.vue'),
