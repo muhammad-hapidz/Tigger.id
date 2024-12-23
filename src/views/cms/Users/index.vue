@@ -3,13 +3,13 @@ import { ref, computed, onMounted } from 'vue'
 import axios from 'axios'
 
 // State
-const contents = ref([])
+const users = ref([])
 const searchQuery = ref('')
 const currentPage = ref(1)
 const itemsPerPage = 10
 
 // Fungsi untuk mengambil data API
-const fetchContents = async () => {
+const fetchUsers = async () => {
 const authToken = localStorage.getItem('authToken')
 
   if (!authToken) {
@@ -19,14 +19,14 @@ const authToken = localStorage.getItem('authToken')
 
   try {
     const response = await axios.get(
-      'https://apitiggerid.tri3a.com/api/Contents/Getall/cms',
+      'https://apitiggerid.tri3a.com/api/Users/Getall/cms',
       {
         headers: {
           Authorization: `Bearer ${authToken}`,
         }
       }
     )
-    contents.value = response.data
+    users.value = response.data
   } catch (error) {
     console.error('Kesalahan saat mengambil data konten:', error)
   }
@@ -38,31 +38,29 @@ const truncateText = (text, maxLength) => {
   return text.length > maxLength ? text.substring(0, maxLength) + '...' : text
 }
 
-// Filtered contents
-const filteredContents = computed(() => {
-  if (!searchQuery.value) return contents.value
+// Filtered users
+const filteredUsers = computed(() => {
+  if (!searchQuery.value) return users.value
 
   const query = searchQuery.value.toLowerCase()
 
-  return contents.value.filter(content => {
-    const titleMatch = content.title?.toLowerCase().includes(query)
-    const segmentMatch = content.segments?.segmentName?.toLowerCase().includes(query)
-    const categoryMatch = content.category?.categoryName?.toLowerCase().includes(query)
-
-    return titleMatch || segmentMatch || categoryMatch
+  return users.value.filter(user => {
+    const fullNameMatch = user.fullName?.toLowerCase().includes(query)
+    const userNameMatch = user.userNames?.userNameName?.toLowerCase().includes(query)
+    return fullNameMatch || userNameMatch
   })
 })
 
 // Paginasi data
-const paginatedContents = computed(() => {
+const paginatedUsers = computed(() => {
   const start = (currentPage.value - 1) * itemsPerPage
   const end = start + itemsPerPage
-  return filteredContents.value.slice(start, end)
+  return filteredUsers.value.slice(start, end)
 })
 
 // Total halaman
 const totalPages = computed(() => 
-  Math.ceil(filteredContents.value.length / itemsPerPage)
+  Math.ceil(filteredUsers.value.length / itemsPerPage)
 )
 
 // Navigasi halaman
@@ -83,16 +81,14 @@ const formatDate = (dateString) => {
   return `${day}-${month}-${year}`
 }
 
-onMounted(fetchContents)
+onMounted(fetchUsers)
 </script>
 
-
-
 <template>
-  <h3 class="text-gray-700 text-3xl font-medium">Contents</h3>
+  <h3 class="text-gray-700 text-3xl font-medium">Users</h3>
 
   <div class="mt-6">
-    <router-link to="/cms/Contents/create">
+    <router-link to="/cms/Users/create">
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
             + Create New
         </button>
@@ -110,32 +106,33 @@ onMounted(fetchContents)
       </div>
     </div>
 
-    <!-- Table to display Contents -->
+    <!-- Table to display Users -->
     <div class="px-4 py-4 -mx-4 overflow-x-auto sm:-mx-8 sm:px-8">
       <div class="inline-block min-w-full overflow-hidden rounded-lg shadow">
         <table class="min-w-full leading-normal">
           <thead>
             <tr>
               <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">No</th>
-              <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">Title</th>
-              <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">Description</th>
-              <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">Segment</th>
-              <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">Category</th>
+              <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">Name</th>
+              <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">Username</th>
+              <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">Email</th>
+              <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">Role</th>
+              <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">Status</th>
               <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">Created By</th>
               <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">Created At</th>
               <th class="px-5 py-3 text-xs font-semibold text-center text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200 ">Action</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(content, index) in paginatedContents" :key="content.id">
+            <tr v-for="(user, index) in paginatedUsers" :key="user.id">
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">{{ index + 1 + (currentPage - 1) * itemsPerPage }}</td>
-              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">{{ content.title }}</td>
-              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200"> <p class="text-gray-900 whitespace-nowrap">
-                    {{ truncateText(content.description, 50) }}</p></td>
-              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">{{ content.segments?.segmentName }}</td>
-              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">{{ content.category?.categoryName }}</td>
-              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">{{ content.createdBy }}</td>
-              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">{{ formatDate(content.createdDate) }}</td>
+              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">{{ user.fullName }}</td>
+              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">{{ user.userName }}</td>
+              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">{{ user.email }}</td>
+              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">{{ user.role?.roleName }}</td>
+              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">{{ user.isActive }}</td>
+              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">{{ user.createdBy }}</td>
+              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">{{ formatDate(user.createdDate) }}</td>
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200 text-center">
                 <button class="px-4 py-2 text-sm font-semibold text-white bg-blue-500 rounded hover:bg-blue-600">
                   <span>
@@ -161,7 +158,7 @@ onMounted(fetchContents)
 
         <!-- Pagination controls -->
         <div class="flex items-center justify-between px-5 py-5 bg-white border-t">
-          <span class="text-xs text-gray-900 xs:text-sm">Showing {{ (currentPage - 1) * itemsPerPage + 1 }} to {{ Math.min(currentPage * itemsPerPage, filteredContents.length) }} of {{ filteredContents.length }} Entries</span>
+          <span class="text-xs text-gray-900 xs:text-sm">Showing {{ (currentPage - 1) * itemsPerPage + 1 }} to {{ Math.min(currentPage * itemsPerPage, filteredUsers.length) }} of {{ filteredUsers.length }} Entries</span>
           <div class="inline-flex mt-2 xs:mt-0">
             <button @click="prevPage" class="px-4 py-2 text-sm font-semibold text-gray-800 bg-gray-300 rounded-l hover:bg-gray-400" :disabled="currentPage === 1">Prev</button>
             <button @click="nextPage" class="px-4 py-2 text-sm font-semibold text-gray-800 bg-gray-300 rounded-r hover:bg-gray-400" :disabled="currentPage === totalPages">Next</button>

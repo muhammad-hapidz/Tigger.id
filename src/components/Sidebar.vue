@@ -50,9 +50,9 @@
 
         <router-link
           class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
-          :class="[$route.name === 'Users' ? activeClass : inactiveClass]"
-          to="/users"
-        >
+            :class="[$route.path.startsWith('/cms/Users') ? activeClass : inactiveClass]"
+            to="/cms/Users"
+          >
           <svg
             class="w-5 h-5"
             viewBox="0 0 20 20"
