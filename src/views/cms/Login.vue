@@ -1,47 +1,6 @@
-<script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import axios from 'axios'
-
-const router = useRouter()
-const username = ref('')
-const password = ref('')
-
-// Fungsi Login
-async function login() {
-  try {
-    const response = await axios.post(
-      'https://apitiggerid.tri3a.com/api/Auth/login',
-      {
-        username: username.value,
-        password: password.value,
-      }
-    )
-
-    const token = response.data.token
-    if (token) {
-      // Simpan token ke Local Storage
-      localStorage.setItem('authToken', token)
-      
-      // Tampilkan alert login berhasil
-      alert('Login berhasil!')
-      
-      // Redirect setelah login
-      router.push('/cms/dashboard') 
-    } else {
-      alert('Login gagal. Silakan periksa kredensial Anda.')
-    }
-  } catch (error) {
-    console.error('Error during login:', error)
-    alert('Kesalahan login! Silakan coba lagi.')
-  }
-}
-</script>
-
 <template>
   <div
-    class="flex items-center justify-center h-screen px-6"
-    style="background: url('/src/assets/img/2.png') no-repeat center center / cover"
+    class="flex items-center justify-center h-screen bg-cover bg-center px-6 bg-login"
   >
     <div class="w-full max-w-sm p-6 bg-white rounded-md shadow-md">
       <div class="flex items-center justify-center">
@@ -83,3 +42,53 @@ async function login() {
     </div>
   </div>
 </template>
+
+<script setup>
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import axios from 'axios'
+
+const router = useRouter()
+const username = ref('')
+const password = ref('')
+
+// Fungsi Login
+async function login() {
+  try {
+    const response = await axios.post(
+      'https://apitiggerid.tri3a.com/api/Auth/login',
+      {
+        username: username.value,
+        password: password.value,
+      }
+    )
+
+    const token = response.data.token
+    if (token) {
+      // Simpan token ke Local Storage
+      localStorage.setItem('authToken', token)
+      
+      // Tampilkan alert login berhasil
+      alert('Login berhasil!')
+      
+      // Redirect setelah login
+      router.push('/cms/dashboard') 
+    } else {
+      alert('Login gagal. Silakan periksa kredensial Anda.')
+    }
+  } catch (error) {
+    console.error('Error during login:', error)
+    alert('Kesalahan login! Silakan coba lagi.')
+  }
+}
+</script>
+
+<style scoped>
+/* Kelas untuk menambahkan gambar sebagai background */
+.bg-login {
+  background-image: url('@/assets/img/2.png');
+  background-size: cover; /* Pastikan gambar memenuhi layar */
+  background-position: center; /* Pusatkan gambar */
+  background-repeat: no-repeat; /* Hindari pengulangan gambar */
+}
+</style>

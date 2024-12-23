@@ -28,6 +28,7 @@
               <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2">Category Name </th>
               <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2">Description</th>
               <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2">Created By</th>
+              <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2">Updated By</th>
               <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2">Created At</th>
               <th class="px-5 py-3 text-xs font-semibold text-center text-gray-600 uppercase bg-gray-100 border-b-2">Action</th>
             </tr>
@@ -37,10 +38,16 @@
               <td class="px-5 py-5 text-sm bg-white border-b">{{ content.categoryName }}</td>
               <td class="px-5 py-5 text-sm bg-white border-b">{{ content.description }}</td>
               <td class="px-5 py-5 text-sm bg-white border-b">{{ content.createdBy || 'N/A' }}</td>
+              <td class="px-5 py-5 text-sm bg-white border-b">{{ content.updatedBy || 'N/A' }}</td>
               <td class="px-5 py-5 text-sm bg-white border-b">{{ formatDate(content.createdDate) }}</td>
               <td class="px-5 py-5 text-sm bg-white border-b text-center flex flex-wrap justify-center gap-2">
                 <RouterLink :to="'/cms/category/' + content.id" class="px-4 py-2 text-sm font-semibold text-white bg-blue-500 rounded hover:bg-blue-600">View</RouterLink>
-                <button class="px-4 py-2 text-sm font-semibold text-white bg-green-500 rounded hover:bg-green-600">Edit</button>
+                <RouterLink
+  :to="`/cms/category/${content.id}/edit`"
+  class="px-4 py-2 text-sm font-semibold text-white bg-green-500 rounded hover:bg-green-600"
+>
+  Edit
+</RouterLink>
               </td>
             </tr>
           </tbody>
