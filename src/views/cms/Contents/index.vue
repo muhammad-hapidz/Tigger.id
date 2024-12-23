@@ -7,7 +7,6 @@ const contents = ref([])
 const searchQuery = ref('')
 const currentPage = ref(1)
 const itemsPerPage = 10
-const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW4iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJBZG1pbmlzdHJhdG9yQGV4YW1wbGUuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiIyYjdhOTgzOS1jN2E4LTQ1YTUtOTMzNy0yNzgwZDQ5NWU2M2QiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNzM3MjU1NTE0LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUxNDIvIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MTQyLyJ9.JCMrWU4sT12wrKip98wWKVr1L8AQGKKng-KeINV5eQ8';
 
 // Fungsi untuk mengambil data API
 const fetchContents = async () => {
@@ -20,16 +19,6 @@ const authToken = localStorage.getItem('authToken')
 
   try {
     const response = await axios.get(
-<<<<<<< HEAD
-      'https://apitiggerid.tri3a.com/api/Segments/Getall/cms',
-    {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      }
-    );
-    
-=======
       'https://apitiggerid.tri3a.com/api/Contents/Getall/cms',
       {
         headers: {
@@ -37,7 +26,6 @@ const authToken = localStorage.getItem('authToken')
         }
       }
     )
->>>>>>> 0d1a98b4738bf037010f6cafe0048d5e4a1b14a3
     contents.value = response.data
   } catch (error) {
     console.error('Kesalahan saat mengambil data konten:', error)
