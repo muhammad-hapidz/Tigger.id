@@ -155,6 +155,12 @@ const router = createRouter({
       component: () => import ('@/views/cms/Category/EditCategory.vue'),
       props:true,
     },
+    {
+      path: '/cms/segment',
+      name:'Segment',
+      component: () => import ('@/views/cms/Segment/Index.vue'),
+      props:true,
+    },
   ],
 
   
