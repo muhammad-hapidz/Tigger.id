@@ -3,7 +3,7 @@
     <div class="container mx-auto flex items-center justify-between px-4 py-3">
       <!-- Logo -->
       <div class="text-2xl font-bold text-gray-800">
-        <a href="#">TIGGER.ID</a>
+        <a href="/">TIGGER.ID</a>
       </div>
 
       <!-- Hamburger Menu -->

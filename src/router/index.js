@@ -129,6 +129,11 @@ const router = createRouter({
       component: () => import ('@/views/cms/Category/DetailCategory.vue'),
       props:true,
     },
+    {
+      path:'/cms/category/create',
+      name:'Create',
+      component: () => import ('@/views/cms/Category/Create.vue')
+    },
   ],
 
   

@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-4 mt-20 px-10 flex justify-center flex-col mb-20">
+  <div class="space-y-4 px-10 flex justify-center flex-col mb-20">
     <!-- Tampilkan pesan jika tidak ada data -->
     <div v-if="errorMessage" class="text-center text-red-600 font-semibold">
       {{ errorMessage }}
@@ -41,7 +41,7 @@
           <div
             v-for="content in item.contents"
             :key="content.title"
-            class="flex items-start space-x-6 gap-5"
+            class="flex flex-wrap items-start space-x-6 gap-5"
           >
             <!-- Flex container for image and text -->
             <div class="flex-shrink-0">
@@ -49,7 +49,7 @@
                 v-if="content.image"
                 :src="content.image"
                 alt="Content Image"
-                class="w-96 h-auto rounded-md"
+                class="w-64 lg:w-96 h-auto rounded-md"
               />
             </div>
             <div class="flex-1">

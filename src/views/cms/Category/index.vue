@@ -7,8 +7,16 @@
       type="text"
       v-model="searchQuery"
       placeholder="Search by category name..."
-      class="px-4 py-2 border rounded-md w-full"
+      class="px-4 py-2 border rounded-md lg:w-1/4"
     />
+  </div>
+  <div class="mt-3">
+    <RouterLink
+    to="/cms/category/create"
+    class="bg-blue-500 hover:bg-blue-600 duration-300 px-3 py-2 text-white rounded-md"
+    >
+      + Create New
+    </RouterLink>
   </div>
 
   <div class="mt-6">
@@ -17,8 +25,8 @@
         <table class="min-w-full leading-normal">
           <thead>
             <tr>
-              <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2">Menu </th>
-              <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2">Category Name</th>
+              <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2">Category Name </th>
+              <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2">Description</th>
               <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2">Created By</th>
               <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2">Created At</th>
               <th class="px-5 py-3 text-xs font-semibold text-center text-gray-600 uppercase bg-gray-100 border-b-2">Action</th>
@@ -26,8 +34,8 @@
           </thead>
           <tbody>
             <tr v-for="(content, index) in paginatedCategory" :key="content.id">
-              <td class="px-5 py-5 text-sm bg-white border-b">{{ content.segment.segmentName }}</td>
-              <td class="px-5 py-5 text-sm bg-white border-b">{{ content.category.categoryName }}</td>
+              <td class="px-5 py-5 text-sm bg-white border-b">{{ content.categoryName }}</td>
+              <td class="px-5 py-5 text-sm bg-white border-b">{{ content.description }}</td>
               <td class="px-5 py-5 text-sm bg-white border-b">{{ content.createdBy || 'N/A' }}</td>
               <td class="px-5 py-5 text-sm bg-white border-b">{{ formatDate(content.createdDate) }}</td>
               <td class="px-5 py-5 text-sm bg-white border-b text-center flex flex-wrap justify-center gap-2">
@@ -54,7 +62,13 @@
           </button>
 
           <button @click="nextPage" :disabled="currentPage.value >= totalPages.value" class="px-4 py-2 text-sm font-semibold text-gray-800 bg-gray-300 hover:bg-gray-400 disabled:opacity-50 disabled:cursor-not-allowed">›</button>
-          <button @click="goToPage(totalPages.value)" :disabled="currentPage.value === totalPages.value" class="px-4 py-2 text-sm font-semibold text-gray-800 bg-gray-300 rounded-r hover:bg-gray-400 disabled:opacity-50 disabled:cursor-not-allowed">»</button>
+          <button 
+  @click="goToPage(totalPages)" 
+  :disabled="currentPage.value >= totalPages" 
+  class="px-4 py-2 text-sm font-semibold text-gray-800 bg-gray-300 rounded-r hover:bg-gray-400 disabled:opacity-50 disabled:cursor-not-allowed">
+  »
+</button>
+
         </div>
       </div>
     </div>
@@ -81,7 +95,7 @@ const fetchCategory = async () => {
       return;
     }
 
-    const response = await api.get('/SegmentCategory/Getall/cms');
+    const response = await api.get('/Category/Getall/cms');
     category.value = response.data || [];
   } catch (error) {
     console.error('Error fetching category:', error);
@@ -94,7 +108,7 @@ onMounted(fetchCategory);
 const filteredCategory = computed(() => {
   if (!searchQuery.value) return category.value;
   return category.value.filter((item) =>
-    item.category.categoryName.toLowerCase().includes(searchQuery.value.toLowerCase())
+    item.categoryName.toLowerCase().includes(searchQuery.value.toLowerCase())
   );
 });
 
@@ -104,6 +118,7 @@ const paginatedCategory = computed(() => {
 });
 
 const totalPages = computed(() => Math.ceil(filteredCategory.value.length / pageSize));
+
 
 const pageNumbers = computed(() => {
   const pages = [];
