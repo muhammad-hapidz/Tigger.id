@@ -143,7 +143,7 @@
         <!-- <router-link
           class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
           :class="[$route.name === 'Modal' ? activeClass : inactiveClass]"
-          to="/modal"
+          to="/"
         >
           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
             <path d="M3 12v3c0 1.657 3.134 3 7 3s7-1.343 7-3v-3c0 1.657-3.134 3-7 3s-7-1.343-7-3z" />
@@ -157,7 +157,7 @@
         <router-link
           class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
           :class="[$route.name === 'Blank' ? activeClass : inactiveClass]"
-          to="/blank"
+          to="/"
         >
           <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
             <path
