@@ -120,11 +120,16 @@ const router = createRouter({
       meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
     },
     {
+      path: '/cms/Users/Edit',
+      name: 'userEdit',
+      component: () => import('../views/cms/Users/edit.vue'),
+      meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
+    },
+    {
       path: '/cms/Contents',
       name: 'Contents',
       component: () => import('../views/cms/Contents/index.vue'),
       meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
-
     },
     {
       path: '/cms/Contents/Create',

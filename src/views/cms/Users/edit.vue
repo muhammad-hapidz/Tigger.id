@@ -96,7 +96,7 @@ onMounted(fetchRoles);
 
 <template>
   <div>
-    <h3 class="text-3xl font-semibold text-gray-700">Create User</h3>
+    <h3 class="text-3xl font-semibold text-gray-700">Edit User</h3>
 
     <div class="mt-6">
       <router-link to="/cms/Users">
@@ -182,16 +182,44 @@ onMounted(fetchRoles);
                 <button
                   type="button"
                   @click="togglePasswordVisibility"
-                  class="absolute right-3 top-11 text-gray-500 focus:outline-none"
+                  class="absolute right-3 top-3 text-gray-500 focus:outline-none"
                 >
-                <svg
-                v-if="showPassword"
-                class="h-5 w-5 text-blue-500"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>
-                </svg>
-
-                  
-                  <svg v-else class="h-5 w-5 text-blue-500"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />  <circle cx="12" cy="12" r="3" /></svg>
+                  <svg
+                    v-if="showPassword"
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M13.875 18.825A10.05 10.05 0 0112 19c-5.523 0-10-4.477-10-10a9.963 9.963 0 013.874-7.825m15.152 1.666a9.935 9.935 0 012.949 6.159c0 5.523-4.477 10-10 10a9.935 9.935 0 01-6.159-2.949m-3.22-3.222a10.054 10.054 0 01-.655-1.167"
+                    />
+                  </svg>
+                  <svg
+                    v-else
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 12a3 3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-.21.649-.456 1.267-.738 1.853m-2.252 3.873A9.953 9.953 0 0112 19c-4.477 0-8.268-2.943-9.542-7"
+                    />
+                  </svg>
                 </button>
               </div>
 
