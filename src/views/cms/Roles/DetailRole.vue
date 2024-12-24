@@ -21,6 +21,22 @@
             <span class="font-semibold text-gray-600 w-40">Description:</span>
             <span class="text-gray-800">{{ detailRole.description }}</span>
           </li>
+          <li class="flex">
+            <span class="font-semibold text-gray-600 w-40">Created By:</span>
+            <span class="text-gray-800">{{ detailRole.createdBy || '-' }}</span>
+          </li>
+          <li class="flex">
+            <span class="font-semibold text-gray-600 w-40">Created Date:</span>
+            <span class="text-gray-800">{{ formatDate(detailRole.createdDate) }}</span>
+          </li>
+          <li class="flex">
+            <span class="font-semibold text-gray-600 w-40">Updated By:</span>
+            <span class="text-gray-800">{{ detailRole.updatedBy || '-' }}</span>
+          </li>
+          <li class="flex">
+            <span class="font-semibold text-gray-600 w-40">Updated Date:</span>
+            <span class="text-gray-800">{{ formatDate(detailRole.updatedDate) }}</span>
+          </li>
         </ul>
         <div class="pt-16 flex justify-end gap-2">
           <button
@@ -65,7 +81,7 @@
   const fetchDetailRole = async () => {
     try {
       console.log('Fetching data for role with ID:', id);  // Tambahkan log untuk memeriksa ID
-      const response = await api.get(`/roles/cms/${id}`);
+      const response = await api.get(`/Roles/cms/${id}`);
       console.log('API Response:', response.data);  // Tambahkan log untuk memverifikasi data respons
       detailRole.value = response.data;
     } catch (error) {
