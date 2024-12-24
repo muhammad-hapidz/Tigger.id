@@ -74,45 +74,7 @@ export default {
       errorMessage: null, // Pesan error atau pemberitahuan
     };
   },
-  methods: {
-  async fetchAccordionData() {
-    try {
-      const response = await axios.get(
-        "https://apitiggerid.tri3a.com/api/Contents/ByTipsAndTrick"
-      );
-
-      if (response.data.length === 0) {
-        this.errorMessage = "No data available at the moment. Please check back later.";
-        return;
-      }
-
-      const groupedData = {};
-      response.data.forEach((item) => {
-        const type = item.category.categoryName;
-
-        if (!groupedData[type]) {
-          groupedData[type] = {
-            type,
-            contents: [],
-          };
-        }
-
-        groupedData[type].contents.push({
-          title: item.title,
-          image: item.image,
-          content: item.description,
-        });
-      });
-
-      this.accordionItems = Object.values(groupedData);
-      this.errorMessage = null;
-    } catch (error) {
-      console.error("Error fetching accordion data:", error);
-      this.errorMessage = "Data Pada Menu Ini Tidak Tersedia / Tidak Ada";
-    }
-  },
-},
-
+  
   mounted() {
   // Fetch data saat komponen dimuat
   this.fetchAccordionData().then(() => {

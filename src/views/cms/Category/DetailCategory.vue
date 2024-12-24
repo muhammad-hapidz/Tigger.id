@@ -23,7 +23,7 @@
         </li>
         <li class="flex">
           <span class="font-semibold text-gray-600 w-40">Created By:</span>
-          <span class="text-gray-800">{{ detailCategory.createdBy || 'N/A' }}</span>
+          <span class="text-gray-800">{{ detailCategory.createdBy || '-' }}</span>
         </li>
         <li class="flex">
           <span class="font-semibold text-gray-600 w-40">Created Date:</span>
@@ -38,12 +38,12 @@
         >
           Back
         </button>
-        <RouterLink 
-          type="submit" 
-          class="px-4 py-2 bg-blue-500 text-white rounded-md hover:opacity-80"
-        >
-          Edit
-        </RouterLink>
+        <RouterLink
+                  :to="`/cms/category/${detailCategory.id}/edit`"
+                  class="px-4 py-2 text-sm font-semibold text-white bg-green-500 rounded hover:bg-green-600"
+                >
+                  Edit
+                </RouterLink>
       </div>
     </div>
 

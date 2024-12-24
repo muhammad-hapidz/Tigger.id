@@ -40,7 +40,7 @@
                   {{ index + 1 + ((currentPage || 1) - 1) * pageSize }}
                 </td>
                 <td class="px-5 py-5 text-sm bg-white border-b">{{ content.segmentName }}</td>
-                <td class="px-5 py-5 text-sm bg-white border-b">{{ content.description }}</td>
+                <td class="px-5 py-5 text-sm bg-white border-b">{{ content.description || '-'}}</td>
                 <td class="px-5 py-5 text-sm bg-white border-b">{{ content.createdBy || 'N/A' }}</td>
                 <!-- <td class="px-5 py-5 text-sm bg-white border-b">{{ content.updatedBy || 'N/A' }}</td> -->
                 <td class="px-5 py-5 text-sm bg-white border-b">{{ formatDate(content.createdDate) }}</td>
