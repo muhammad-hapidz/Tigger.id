@@ -122,8 +122,6 @@ onMounted(fetchUsers)
               <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">Email</th>
               <th class="px-5 py-3 text-xs font-semibold text-center text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">Role</th>
               <th class="px-5 py-3 text-xs font-semibold text-center text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">Status</th>
-              <th class="px-5 py-3 text-xs font-semibold text-center text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">Created By</th>
-              <th class="px-5 py-3 text-xs font-semibold text-center text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">Created At</th>
               <th class="px-5 py-3 text-xs font-semibold text-center text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200 ">Action</th>
             </tr>
           </thead>
@@ -134,15 +132,13 @@ onMounted(fetchUsers)
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">{{ user.userName }}</td>
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">{{ user.email }}</td>
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200 text-center">{{ user.role?.roleName }}</td>
-              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200 text-center">
+              <td class="px-10 py-5 text-sm bg-white border-b border-gray-200 text-center">
                   <span
-                    :class="user.isActive ? 'bg-blue-500' : 'bg-red-500'"
-                    class="text-white font-bold py-2 px-4 rounded-l rounded-r appearance-none sm:rounded-l-r">
+                    :class="user.isActive ? 'text-blue-500' : 'text-red-500'"
+                    class=" font-bold py-[0.6px] px-[0.6px] rounded-l rounded-r appearance-none sm:rounded-l-r">
                     {{ user.isActive ? 'Active' : 'Non Active' }}
                   </span>
                 </td>
-              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200 text-center">{{ user.createdBy }}</td>
-              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200 text-center">{{ formatDate(user.createdDate) }}</td>
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200 text-center">
                 <button class="px-4 py-2 text-sm font-semibold text-white bg-blue-500 rounded hover:bg-blue-600">
                   <span>
