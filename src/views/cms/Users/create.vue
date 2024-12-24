@@ -99,10 +99,8 @@ onMounted(fetchRoles);
     <h3 class="text-3xl font-semibold text-gray-700">Create User</h3>
 
     <div class="mt-6">
-      <router-link to="/cms/Users">
-        <button
-          class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full flex items-center space-x-2"
-        >
+      <router-link to="/cms/Users"
+      class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex items-center space-x-2 w-24">
           <svg
             class="h-6 w-6 text-white"
             width="24"
@@ -118,12 +116,11 @@ onMounted(fetchRoles);
             <path d="M9 11l-4 4l4 4m-4 -4h11a4 4 0 0 0 0 -8h-1" />
           </svg>
           <span>Back</span>
-        </button>
       </router-link>
     </div>
 
-    <div class="mt-8">
-      <h4 class="text-gray-600">Form Input</h4>
+    <div class="mt-2">
+      <h4 class="text-gray-600 font-bold">Form Input</h4>
 
       <div class="mt-4">
         <div class="p-6 bg-white rounded-md shadow-md">
@@ -151,6 +148,7 @@ onMounted(fetchRoles);
                 <input
                   v-model="content.userName"
                   id="userName"
+                  autocomplete="new-username"
                   class="p-2 w-full mt-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-300 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
                   type="text"
                   required
@@ -176,6 +174,7 @@ onMounted(fetchRoles);
                   :type="showPassword ? 'text' : 'password'"
                   v-model="content.password"
                   id="password"
+                  autocomplete="new-password"
                   class="p-2 w-full mt-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-300 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
                   required
                 />

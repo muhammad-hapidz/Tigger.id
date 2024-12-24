@@ -87,11 +87,13 @@ onMounted(fetchUsers)
 </script>
 
 <template>
-  <h3 class="text-gray-700 text-3xl font-medium">Users</h3>
+  <div>
+    <h3 class="text-gray-700 text-3xl font-medium">Users</h3>
+  </div>
 
   <div class="mt-6">
     <router-link to="/cms/Users/create">
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             + Create New
         </button>
     </router-link>
@@ -151,6 +153,9 @@ onMounted(fetchUsers)
                   </span>
                 </button>
                 <span class="text-center"> | </span>
+                <router-link
+                    :to="{ name: 'userEdit', params: { id: user.id } }"
+                  >
                 <button class="px-4 py-2 text-sm font-semibold text-white bg-green-500 rounded hover:bg-green-600">
                   <span>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-3">
@@ -159,6 +164,7 @@ onMounted(fetchUsers)
                     </svg>
                 </span>
                 </button>
+                </router-link>
               </td>
             </tr>
           </tbody>

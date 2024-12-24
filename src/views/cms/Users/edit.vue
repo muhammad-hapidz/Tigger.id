@@ -1,21 +1,21 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import Multiselect from 'vue-multiselect';
 import 'vue-multiselect/dist/vue-multiselect.min.css';
 import axios from 'axios';
 
-// Router instance
+// Router and Route instances
 const router = useRouter();
+const route = useRoute();
 
 // State Data
 const content = ref({
   fullName: '',
   userName: '',
   email: '',
-  password: '',
-  role: null, // Role yang dipilih
-  isActive: true, // Default aktif
+  roleId: null, // Role yang dipilih
+  isActive: true,
 });
 
 const roles = ref([]); // Menyimpan semua role dari API
@@ -26,11 +26,6 @@ const filteredRoles = computed(() =>
   }))
 );
 
-// Password Visibility Toggle
-const showPassword = ref(false);
-const togglePasswordVisibility = () => {
-  showPassword.value = !showPassword.value;
-};
 
 // Fetch Roles API
 const fetchRoles = async () => {
@@ -51,26 +46,69 @@ const fetchRoles = async () => {
   }
 };
 
-// Submit Function
-const createUser = async () => {
+const fetchUserData = async () => {
   const authToken = localStorage.getItem('authToken');
   if (!authToken) {
     console.error('Auth token tidak ditemukan. Harap login terlebih dahulu.');
     return;
   }
 
+  const userId = route.params.id;
   try {
-    const payload = {
-      fullName: content.value.fullName,
-      userName: content.value.userName,
-      email: content.value.email,
-      password: content.value.password,
-      roleId: content.value.role?.id || null, // Ambil ID dari role yang dipilih
-      isActive: content.value.isActive,
+    const response = await axios.get(`https://apitiggerid.tri3a.com/api/Users/cms/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+
+    const userData = response.data;
+
+    // Cari role berdasarkan ID dari userData.roleId
+    const userRole = roles.value.find(role => role.id === userData.roleId) || null;
+
+    content.value = {
+      fullName: userData.fullName,
+      userName: userData.userName,
+      email: userData.email,
+      role: userRole, // Set default role
+      isActive: userData.isActive,
+    };
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+    alert('Gagal mengambil data pengguna.');
+  }
+};
+
+// Submit Function
+const updateUser = async () => {
+  const authToken = localStorage.getItem('authToken');
+  if (!authToken) {
+    console.error('Auth token tidak ditemukan. Harap login terlebih dahulu.');
+    return;
+  }
+
+  const userId = route.params.id;
+  try {
+        const payload = {
+    fullName: content.value.fullName,
+    userName: content.value.userName,
+    email: content.value.email,
+    roleId: content.value.role?.id, // Ambil ID dari role yang dipilih
+    isActive: content.value.isActive,
     };
 
-    const response = await axios.post(
-      'https://apitiggerid.tri3a.com/api/Users/Post/all',
+    if (!payload.fullName || !payload.userName || !payload.email || !payload.roleId) {
+  alert('Semua kolom wajib diisi.');
+  return;
+}
+
+if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) {
+  alert('Format email tidak valid.');
+  return;
+}
+
+    const response = await axios.put(
+      `https://apitiggerid.tri3a.com/api/Users/cms/${userId}`,
       payload,
       {
         headers: {
@@ -79,19 +117,22 @@ const createUser = async () => {
       }
     );
 
-    console.log('User created successfully:', response.data);
-    alert('User berhasil dibuat!');
+    console.log('User updated successfully:', response.data);
+    alert('User berhasil diperbarui!');
 
     // Redirect ke halaman sebelumnya atau halaman /cms/Users
     router.push('/cms/Users');
   } catch (error) {
-    console.error('Error creating user:', error);
-    alert('Gagal membuat user. Silakan coba lagi.');
+    console.error('Error updating user:', error);
+    alert('Gagal memperbarui user. Silakan coba lagi.');
   }
 };
 
 // On Mounted
-onMounted(fetchRoles);
+onMounted(async () => {
+  await fetchRoles();
+  await fetchUserData();
+});
 </script>
 
 <template>
@@ -99,27 +140,28 @@ onMounted(fetchRoles);
     <h3 class="text-3xl font-semibold text-gray-700">Edit User</h3>
 
     <div class="mt-6">
-      <router-link to="/cms/Users">
-        <button
-          class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full flex items-center space-x-2"
-        >
-          <svg
-            class="h-6 w-6 text-white"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            stroke-width="2"
-            stroke="currentColor"
-            fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" />
-            <path d="M9 11l-4 4l4 4m-4 -4h11a4 4 0 0 0 0 -8h-1" />
-          </svg>
-          <span>Back</span>
-        </button>
-      </router-link>
+          <!-- Tombol Back -->
+    <router-link
+      to="/cms/Users"
+      class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex items-center space-x-2 w-24"
+    >
+      <svg
+        class="h-6 w-6 text-white"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        stroke-width="2"
+        stroke="currentColor"
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path stroke="none" d="M0 0h24v24H0z" />
+        <path d="M9 11l-4 4l4 4m-4 -4h11a4 4 0 0 0 0 -8h-1" />
+      </svg>
+      <span>Back</span>
+    </router-link>
+    
     </div>
 
     <div class="mt-8">
@@ -128,10 +170,10 @@ onMounted(fetchRoles);
       <div class="mt-4">
         <div class="p-6 bg-white rounded-md shadow-md">
           <h2 class="text-lg font-semibold text-gray-700 capitalize">
-            User Settings
+            Edit User Settings
           </h2>
 
-          <form @submit.prevent="createUser">
+          <form @submit.prevent="updateUser">
             <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
               <!-- Input Full Name -->
               <div class="sm:col-span-2">
@@ -169,71 +211,17 @@ onMounted(fetchRoles);
                 />
               </div>
 
-              <!-- Input Password -->
-              <div class="sm:col-span-2 relative">
-                <label class="text-gray-700" for="password">Password</label>
-                <input
-                  :type="showPassword ? 'text' : 'password'"
-                  v-model="content.password"
-                  id="password"
-                  class="p-2 w-full mt-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-300 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                  required
-                />
-                <button
-                  type="button"
-                  @click="togglePasswordVisibility"
-                  class="absolute right-3 top-3 text-gray-500 focus:outline-none"
-                >
-                  <svg
-                    v-if="showPassword"
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M13.875 18.825A10.05 10.05 0 0112 19c-5.523 0-10-4.477-10-10a9.963 9.963 0 013.874-7.825m15.152 1.666a9.935 9.935 0 012.949 6.159c0 5.523-4.477 10-10 10a9.935 9.935 0 01-6.159-2.949m-3.22-3.222a10.054 10.054 0 01-.655-1.167"
-                    />
-                  </svg>
-                  <svg
-                    v-else
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M15 12a3 3 3 0 11-6 0 3 3 0 016 0z"
-                    />
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-.21.649-.456 1.267-.738 1.853m-2.252 3.873A9.953 9.953 0 0112 19c-4.477 0-8.268-2.943-9.542-7"
-                    />
-                  </svg>
-                </button>
-              </div>
-
               <!-- Select Role -->
               <div class="sm:col-span-2">
                 <label class="text-gray-700" for="role">Role</label>
                 <Multiselect
-                  class="border border-gray-300 rounded-md"
-                  v-model="content.role"
-                  :options="filteredRoles"
-                  label="name"
-                  track-by="id"
-                  placeholder="Select a role"
-                />
+  class="border border-gray-300 rounded-md"
+  v-model="content.role"
+  :options="filteredRoles"
+  label="name"
+  track-by="id"
+  placeholder="Select a role"
+/>
               </div>
 
               <!-- Checkbox IsActive -->
@@ -253,7 +241,7 @@ onMounted(fetchRoles);
                   type="submit"
                   class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md"
                 >
-                  Create User
+                  Update User
                 </button>
               </div>
             </div>
