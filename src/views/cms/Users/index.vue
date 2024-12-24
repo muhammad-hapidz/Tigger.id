@@ -140,6 +140,9 @@ onMounted(fetchUsers)
                   </span>
                 </td>
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200 text-center">
+                <router-link
+                    :to="{ name: 'userDetail', params: { id: user.id } }"
+                  >
                 <button class="px-4 py-2 text-sm font-semibold text-white bg-blue-500 rounded hover:bg-blue-600">
                   <span>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-3">
@@ -148,6 +151,7 @@ onMounted(fetchUsers)
                     </svg>
                   </span>
                 </button>
+              </router-link>
                 <span class="text-center"> | </span>
                 <router-link
                     :to="{ name: 'userEdit', params: { id: user.id } }"

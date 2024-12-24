@@ -80,7 +80,7 @@ const formatDate = (dateString) => {
   const day = String(date.getDate()).padStart(2, '0')
   const month = String(date.getMonth() + 1).padStart(2, '0')
   const year = date.getFullYear()
-  return `${day}-${month}-${year}`
+  return `${day}/${month}/${year}`
 }
 
 onMounted(fetchContents)
@@ -121,8 +121,8 @@ onMounted(fetchContents)
               <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">Description</th>
               <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">Segment</th>
               <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">Category</th>
-              <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">Created By</th>
-              <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">Created At</th>
+              <!-- <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">Created By</th>
+              <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">Created At</th> -->
               <th class="px-5 py-3 text-xs font-semibold text-center text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200 ">Action</th>
             </tr>
           </thead>
@@ -134,8 +134,8 @@ onMounted(fetchContents)
                     {{ truncateText(content.description, 30) }}</p></td>
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">{{ content.segments?.segmentName }}</td>
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">{{ content.category?.categoryName }}</td>
-              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">{{ content.createdBy }}</td>
-              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">{{ formatDate(content.createdDate) }}</td>
+              <!-- <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">{{ content.createdBy }}</td> -->
+              <!-- <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">{{ formatDate(content.createdDate) }}</td> -->
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200 text-center">
                 <button class="px-4 py-2 text-sm font-semibold text-white bg-blue-500 rounded hover:bg-blue-600">
                   <span>
@@ -145,7 +145,6 @@ onMounted(fetchContents)
                     </svg>
                   </span>
                 </button>
-                <span class="text-center">|</span>
                 <button class="px-4 py-2 text-sm font-semibold text-white bg-green-500 rounded hover:bg-green-600">
                   <span>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-3">
@@ -162,7 +161,7 @@ onMounted(fetchContents)
         <!-- Pagination controls -->
         <div class="flex items-center justify-between px-5 py-5 bg-white border-t">
           <span class="text-xs text-gray-900 xs:text-sm">Showing {{ (currentPage - 1) * itemsPerPage + 1 }} to {{ Math.min(currentPage * itemsPerPage, filteredContents.length) }} of {{ filteredContents.length }} Entries</span>
-          <div class="inline-flex mt-2 xs:mt-0">
+          <div class="inline-flex mt-2 xs:mt-0 gap-1">
             <button @click="prevPage" class="px-4 py-2 text-sm font-semibold text-gray-800 bg-gray-300 rounded-l hover:bg-gray-400" :disabled="currentPage === 1">Prev</button>
             <button @click="nextPage" class="px-4 py-2 text-sm font-semibold text-gray-800 bg-gray-300 rounded-r hover:bg-gray-400" :disabled="currentPage === totalPages">Next</button>
           </div>
