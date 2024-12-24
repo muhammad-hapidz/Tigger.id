@@ -184,6 +184,31 @@ const router = createRouter({
       props:true,
       meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
     },
+    {
+      path: '/cms/roles',
+      name:'Roles',
+      component: () => import ('@/views/cms/Roles/index.vue'),
+      props:true,
+      meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
+    },
+    {
+      path:'/cms/roles/create',
+      name:'CreateRole',
+      component: () => import ('@/views/cms/Roles/Create.vue'),
+      meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
+    },
+    {
+      path:'/cms/roles/:id',
+      name:'DetailRole',
+      component: () => import ('@/views/cms/Roles/DetailRole.vue'),
+      meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
+    },
+    {
+      path:'/cms/roles/:id/edit',
+      name:'EditRole',
+      component: () => import ('@/views/cms/Roles/EditRole.vue'),
+      meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
+    },
   ],
 
   
