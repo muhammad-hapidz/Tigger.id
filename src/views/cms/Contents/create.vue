@@ -19,19 +19,20 @@ const content = ref({
 
 const segments = ref([]);
 const categories = ref([]);
+const imagePreviewUrl = ref(null); // Untuk menyimpan URL gambar preview
 
 // Filtered Segments
 const filteredSegments = computed(() =>
   segments.value.map(segment => ({ id: segment.id, name: segment.segmentName }))
 );
 
-// Filtered Categories
-const filteredCategories = computed(() => {
-  if (!content.value.segment) return []; // Jika segment belum dipilih, return array kosong
-  return categories.value
-    .filter(category => category.segmentId === content.value.segment.id) // Filter berdasarkan segmentId
-    .map(category => ({ id: category.id, name: category.categoryName }));
-});
+// Filter Categories
+const filteredCategories = computed(() =>
+  categories.value.filter(
+    item =>
+      item.segment.segmentId === content.value.segment?.id
+  )
+)
 
 // Fetch Segments API
 const fetchSegments = async () => {
@@ -67,6 +68,19 @@ const fetchCategories = async () => {
   }
 };
 
+// Handle Image Preview
+const handleImageUpload = (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    content.value.image = file;
+    const reader = new FileReader();
+    reader.onload = () => {
+      imagePreviewUrl.value = reader.result;
+    };
+    reader.readAsDataURL(file);
+  }
+};
+
 // Submit Function
 const createContent = async () => {
   const authToken = localStorage.getItem('authToken');
@@ -79,7 +93,7 @@ const createContent = async () => {
     const payload = {
       title: content.value.title,
       description: content.value.description,
-      image: content.value.image,
+      image: content.value.image, // Jika Anda ingin meng-upload gambar, gunakan objek File
       segmentId: content.value.segment?.id || null,
       categoryId: content.value.category?.id || null,
     };
@@ -138,10 +152,10 @@ onMounted(() => {
                 class="border border-gray-300 rounded-md"
                 v-model="content.category"
                 :options="filteredCategories"
-                label="name"
+                label="categoryName" 
                 track-by="id"
-                placeholder="Select a category"
-                required
+                placeholder="Select or Search Category"
+                :disabled="!content.segment"
               />
             </div>
 
@@ -157,6 +171,21 @@ onMounted(() => {
               />
             </div>
 
+            <!-- Input Image -->
+            <div class="sm:col-span-2">
+              <label class="text-gray-700" for="image">Image Upload</label>
+              <input
+                @change="handleImageUpload"
+                type="file"
+                id="image"
+                class="p-2 w-full mt-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-300 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
+              />
+              <!-- Image Preview -->
+              <div v-if="imagePreviewUrl" class="mt-4">
+                <img :src="imagePreviewUrl" alt="Image Preview" class="w-auto h-64 object-cover rounded-md" />
+              </div>
+            </div>
+
             <!-- Input Description -->
             <div class="sm:col-span-2">
               <label class="text-gray-700" for="description">Description</label>
@@ -167,17 +196,6 @@ onMounted(() => {
                 rows="4"
                 required
               ></textarea>
-            </div>
-
-            <!-- Input Image -->
-            <div class="sm:col-span-2">
-              <label class="text-gray-700" for="image">Image URL</label>
-              <input
-                v-model="content.image"
-                id="image"
-                class="p-2 w-full mt-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-300 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                type="text"
-              />
             </div>
 
           </div>
