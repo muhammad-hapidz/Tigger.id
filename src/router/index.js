@@ -141,8 +141,8 @@ const router = createRouter({
       meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
     },
     {
-      path: '/cms/Contents/Create',
-      name: 'Create',
+      path: '/cms/Contents/create',
+      name: 'contentCreate',
       component: () => import('../views/cms/Contents/create.vue'),
     },
     {

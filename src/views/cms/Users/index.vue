@@ -87,9 +87,9 @@ onMounted(fetchUsers)
 </script>
 
 <template>
-  <div>
+  <div class="mt-6 p-4 bg-white shadow rounded-lg">
     <h3 class="text-gray-700 text-3xl font-medium">Users</h3>
-  </div>
+
 
   <div class="mt-6">
     <router-link to="/cms/Users/create">
@@ -169,11 +169,12 @@ onMounted(fetchUsers)
             </tr>
           </tbody>
         </table>
+      </div>
 
         <!-- Pagination controls -->
         <div class="flex items-center justify-between px-5 py-5 bg-white border-t">
           <span class="text-xs text-gray-900 xs:text-sm">Showing {{ (currentPage - 1) * itemsPerPage + 1 }} to {{ Math.min(currentPage * itemsPerPage, filteredUsers.length) }} of {{ filteredUsers.length }} Entries</span>
-          <div class="inline-flex mt-2 xs:mt-0">
+          <div class="inline-flex mt-2 xs:mt-0 gap-1">
             <button @click="prevPage" class="px-4 py-2 text-sm font-semibold text-gray-800 bg-gray-300 rounded-l hover:bg-gray-400" :disabled="currentPage === 1">Prev</button>
             <button @click="nextPage" class="px-4 py-2 text-sm font-semibold text-gray-800 bg-gray-300 rounded-r hover:bg-gray-400" :disabled="currentPage === totalPages">Next</button>
           </div>
