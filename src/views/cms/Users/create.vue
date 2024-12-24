@@ -95,32 +95,9 @@ onMounted(fetchRoles);
 </script>
 
 <template>
-  <div>
-    <h3 class="text-3xl font-semibold text-gray-700">Create User</h3>
+  <div class="mt-6 p-4 bg-white shadow rounded-lg">
+    <h3 class="text-3xl font-semibold text-gray-700 text-center underline">Create User</h3>
 
-    <div class="mt-6">
-      <router-link to="/cms/Users"
-      class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex items-center space-x-2 w-24">
-          <svg
-            class="h-6 w-6 text-white"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            stroke-width="2"
-            stroke="currentColor"
-            fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" />
-            <path d="M9 11l-4 4l4 4m-4 -4h11a4 4 0 0 0 0 -8h-1" />
-          </svg>
-          <span>Back</span>
-      </router-link>
-    </div>
-
-    <div class="mt-2">
-      <h4 class="text-gray-600 font-bold">Form Input</h4>
 
       <div class="mt-4">
         <div class="p-6 bg-white rounded-md shadow-md">
@@ -217,20 +194,25 @@ onMounted(fetchRoles);
                 />
                 <label for="isActive" class="text-gray-700">Is Active</label>
               </div>
-
-              <!-- Submit Button -->
-              <div class="sm:col-span-2">
-                <button
-                  type="submit"
-                  class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md"
-                >
-                  Create User
-                </button>
-              </div>
             </div>
           </form>
         </div>
+                      <!-- Submit Button -->
+                      <div class="flex justify-end gap-2">
+                        <router-link
+        to="/cms/Users"
+        class="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex items-center"
+        >
+        <span>Back</span>
+        </router-link>
+                <button
+                  type="submit"
+                  class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
+                >
+                  Create User
+                </button>
+
+              </div>
       </div>
     </div>
-  </div>
 </template>
