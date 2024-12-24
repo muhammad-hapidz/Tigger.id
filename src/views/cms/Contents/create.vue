@@ -17,24 +17,21 @@ const content = ref({
   category: null, // Category yang dipilih
 });
 
-// Data API
 const segments = ref([]);
 const categories = ref([]);
 
-// Filtered Segments and Categories
+// Filtered Segments
 const filteredSegments = computed(() =>
-  segments.value.map(segment => ({
-    id: segment.id,
-    name: segment.segmentName,
-  }))
+  segments.value.map(segment => ({ id: segment.id, name: segment.segmentName }))
 );
 
-const filteredCategories = computed(() =>
-  categories.value.map(category => ({
-    id: category.id,
-    name: category.categoryName,
-  }))
-);
+// Filtered Categories
+const filteredCategories = computed(() => {
+  if (!content.value.segment) return []; // Jika segment belum dipilih, return array kosong
+  return categories.value
+    .filter(category => category.segmentId === content.value.segment.id) // Filter berdasarkan segmentId
+    .map(category => ({ id: category.id, name: category.categoryName }));
+});
 
 // Fetch Segments API
 const fetchSegments = async () => {
@@ -45,11 +42,9 @@ const fetchSegments = async () => {
   }
   try {
     const response = await axios.get('https://apitiggerid.tri3a.com/api/Segments/Getall/cms', {
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
+      headers: { Authorization: `Bearer ${authToken}` },
     });
-    segments.value = response.data; // Simpan hasil API ke segments
+    segments.value = response.data;
   } catch (error) {
     console.error('Error fetching segments:', error);
   }
@@ -64,11 +59,9 @@ const fetchCategories = async () => {
   }
   try {
     const response = await axios.get('https://apitiggerid.tri3a.com/api/Category/Getall/cms', {
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
+      headers: { Authorization: `Bearer ${authToken}` },
     });
-    categories.value = response.data; // Simpan hasil API ke categories
+    categories.value = response.data;
   } catch (error) {
     console.error('Error fetching categories:', error);
   }
@@ -87,24 +80,20 @@ const createContent = async () => {
       title: content.value.title,
       description: content.value.description,
       image: content.value.image,
-      segmentId: content.value.segment?.id || null, // Ambil ID dari segment yang dipilih
-      categoryId: content.value.category?.id || null, // Ambil ID dari category yang dipilih
+      segmentId: content.value.segment?.id || null,
+      categoryId: content.value.category?.id || null,
     };
 
     const response = await axios.post(
       'https://apitiggerid.tri3a.com/api/Contents/POST/cms',
       payload,
       {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
+        headers: { Authorization: `Bearer ${authToken}` },
       }
     );
 
     console.log('Content created successfully:', response.data);
     alert('Content berhasil dibuat!');
-
-    // Redirect ke halaman sebelumnya atau halaman /cms/Contents
     router.push('/cms/Contents');
   } catch (error) {
     console.error('Error creating content:', error);
@@ -127,6 +116,35 @@ onMounted(() => {
       <div class="p-6 bg-white rounded-md shadow-md">
         <form @submit.prevent="createContent">
           <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+
+            <!-- Select Segment -->
+            <div class="sm:col-span-2">
+              <label class="text-gray-700" for="segment">Segment</label>
+              <Multiselect
+                class="border border-gray-300 rounded-md"
+                v-model="content.segment"
+                :options="filteredSegments"
+                label="name"
+                track-by="id"
+                placeholder="Select a segment"
+                required
+              />
+            </div>
+
+            <!-- Select Category -->
+            <div class="sm:col-span-2">
+              <label class="text-gray-700" for="category">Category</label>
+              <Multiselect
+                class="border border-gray-300 rounded-md"
+                v-model="content.category"
+                :options="filteredCategories"
+                label="name"
+                track-by="id"
+                placeholder="Select a category"
+                required
+              />
+            </div>
+
             <!-- Input Title -->
             <div class="sm:col-span-2">
               <label class="text-gray-700" for="title">Title</label>
@@ -162,33 +180,6 @@ onMounted(() => {
               />
             </div>
 
-            <!-- Select Segment -->
-            <div class="sm:col-span-2">
-              <label class="text-gray-700" for="segment">Segment</label>
-              <Multiselect
-                class="border border-gray-300 rounded-md"
-                v-model="content.segment"
-                :options="filteredSegments"
-                label="name"
-                track-by="id"
-                placeholder="Select a segment"
-                required
-              />
-            </div>
-
-            <!-- Select Category -->
-            <div class="sm:col-span-2">
-              <label class="text-gray-700" for="category">Category</label>
-              <Multiselect
-                class="border border-gray-300 rounded-md"
-                v-model="content.category"
-                :options="filteredCategories"
-                label="name"
-                track-by="id"
-                placeholder="Select a category"
-                required
-              />
-            </div>
           </div>
         </form>
       </div>
