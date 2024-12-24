@@ -137,29 +137,40 @@ const router = createRouter({
       path: '/cms/category',
       name: 'Category',
       component: () => import('../views/cms/Category/index.vue'),
+      meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
     },
     {
       path: '/cms/category/:id',
       name:'DetailCategory',
       component: () => import ('@/views/cms/Category/DetailCategory.vue'),
       props:true,
+      meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
     },
     {
       path:'/cms/category/create',
       name:'Create',
-      component: () => import ('@/views/cms/Category/Create.vue')
+      component: () => import ('@/views/cms/Category/Create.vue'),
+      meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
     },
     {
       path: '/cms/category/:id/edit',
       name:'EditCategory',
       component: () => import ('@/views/cms/Category/EditCategory.vue'),
       props:true,
+      meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
     },
     {
       path: '/cms/segment',
       name:'Segment',
       component: () => import ('@/views/cms/Segment/Index.vue'),
+      meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
+    },
+    {
+      path: '/cms/segment/:id',
+      name:'DetailSegment',
+      component: () => import ('@/views/cms/Segment/DetailSegment.vue'),
       props:true,
+      meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
     },
   ],
 
