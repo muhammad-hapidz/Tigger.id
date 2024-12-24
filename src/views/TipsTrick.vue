@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-4 mt-20 px-10 flex justify-center flex-col mb-20">
+  <div class="space-y-4 px-10 flex justify-center flex-col mb-20 mt-32">
     <!-- Tampilkan pesan jika tidak ada data -->
     <div v-if="errorMessage" class="text-center text-red-600 font-semibold">
       {{ errorMessage }}
@@ -41,7 +41,7 @@
           <div
             v-for="content in item.contents"
             :key="content.title"
-            class="flex items-start space-x-6 gap-5"
+            class="flex flex-wrap items-start space-x-6 gap-5"
           >
             <!-- Flex container for image and text -->
             <div class="flex-shrink-0">
@@ -49,7 +49,7 @@
                 v-if="content.image"
                 :src="content.image"
                 alt="Content Image"
-                class="w-96 h-auto rounded-md"
+                class="w-64 lg:w-96 h-auto rounded-md"
               />
             </div>
             <div class="flex-1">
@@ -75,54 +75,53 @@ export default {
     };
   },
   methods: {
-    async fetchAccordionData() {
-      try {
-        const response = await axios.get(
-          "https://apitiggerid.tri3a.com/api/Contents/ByTipsAndTrick"
-        );
+  async fetchAccordionData() {
+    try {
+      const response = await axios.get(
+        "https://apitiggerid.tri3a.com/api/Contents/ByTipsAndTrick"
+      );
 
-        if (response.data.length === 0) {
-          // Tampilkan pemberitahuan jika data kosong
-          this.errorMessage = "No data available at the moment. Please check back later.";
-          return;
+      if (response.data.length === 0) {
+        this.errorMessage = "No data available at the moment. Please check back later.";
+        return;
+      }
+
+      const groupedData = {};
+      response.data.forEach((item) => {
+        const type = item.category.categoryName;
+
+        if (!groupedData[type]) {
+          groupedData[type] = {
+            type,
+            contents: [],
+          };
         }
 
-        // Proses data agar item.type hanya muncul satu kali
-        const groupedData = {};
-        response.data.forEach((item) => {
-          const type = item.category.categoryName;
-
-          if (!groupedData[type]) {
-            groupedData[type] = {
-              type,
-              contents: [], // Menyimpan kombinasi title dan content
-              image: [],
-            };
-          }
-
-          groupedData[type].contents.push({
-            title: item.title,
-            image: item.image,
-            content: item.description,
-          });
+        groupedData[type].contents.push({
+          title: item.title,
+          image: item.image,
+          content: item.description,
         });
+      });
 
-        // Ubah menjadi array untuk penggunaan pada v-for
-        this.accordionItems = Object.values(groupedData);
-        this.errorMessage = null; // Reset pesan error jika data berhasil dimuat
-      } catch (error) {
-        console.error("Error fetching accordion data:", error);
-        this.errorMessage = "Data Pada Menu Ini Tidak Tersedia / Tidak Ada";
-      }
-    },
-    toggleAccordion(index) {
-      this.activeIndex = this.activeIndex === index ? null : index;
-    },
+      this.accordionItems = Object.values(groupedData);
+      this.errorMessage = null;
+    } catch (error) {
+      console.error("Error fetching accordion data:", error);
+      this.errorMessage = "Data Pada Menu Ini Tidak Tersedia / Tidak Ada";
+    }
   },
+},
+
   mounted() {
-    // Fetch data saat komponen dimuat
-    this.fetchAccordionData();
-  },
+  // Fetch data saat komponen dimuat
+  this.fetchAccordionData().then(() => {
+    if (this.accordionItems.length > 0) {
+      this.activeIndex = 0; // Set accordion pertama terbuka
+    }
+  });
+},
+
 };
 </script>
 

@@ -39,7 +39,7 @@
     </div>
 
     <!-- Section: Activities -->
-    <div class="mx-4 mt-10">
+    <div class="mx-4 lg:mx-16 mt-10">
       <h1 class="text-xl font-semibold mb-4">
         Komunitas Tigger (Chery Indonesia Family) memiliki berbagai kegiatan yang menarik dan bermanfaat bagi para
         anggotanya. Beberapa kegiatan yang biasanya dilakukan oleh Tigger antara lain:
@@ -140,7 +140,7 @@
         </li>
       </ol>
     </div>
-    <div class="px:4 lg:px-10 mt-5 pb-10">
+    <div class="mx-4 lg:mx-10 mt-5 pb-10">
       <h2 class="text-xl font-semibold underline underline-offset-8">Segment Konsumen Dari Mobil Chery</h2>
       <div class="px-2 lg:px-10"></div>
       <h2 class="mt-3"><span class="font-bold">Chery Tiggo 5X</span> ditargetkan untuk segmen konsumen keluarga muda dan profesional muda yang mencari mobil SUV kompak dengan harga terjangkau1. Mobil ini cocok untuk mereka yang membutuhkan kendaraan untuk mobilitas sehari-hari, baik di dalam kota maupun di luar kota1. Dengan fitur keselamatan yang lengkap, kenyamanan yang baik, dan desain yang stylish, Tiggo 5X menjadi pilihan yang menarik bagi mereka yang ingin memiliki mobil pertama keluarga atau kendaraan untuk perjalanan sehari-hari</h2>

@@ -14,12 +14,12 @@
       </h1>
       <ul class="space-y-4">
         <li class="flex">
-          <span class="font-semibold text-gray-600 w-40">Menu:</span>
-          <span class="text-gray-800">{{ detailCategory.segment.segmentName }}</span>
+          <span class="font-semibold text-gray-600 w-40">Category Name :</span>
+          <span class="text-gray-800">{{ detailCategory.categoryName }}</span>
         </li>
         <li class="flex">
-          <span class="font-semibold text-gray-600 w-40">Category Name:</span>
-          <span class="text-gray-800">{{ detailCategory.category.categoryName }}</span>
+          <span class="font-semibold text-gray-600 w-40">Description :</span>
+          <span class="text-gray-800">{{ detailCategory.description }}</span>
         </li>
         <li class="flex">
           <span class="font-semibold text-gray-600 w-40">Created By:</span>
@@ -30,8 +30,18 @@
           <span class="text-gray-800">{{ formatDate(detailCategory.createdDate) }}</span>
         </li>
       </ul>
-      <div class="pt-16 flex justify-end">
-        <RouterLink to="" class="px-3 py-2 bg-blue-500 rounded-md text-white hover:opacity-80">
+      <div class="pt-16 flex justify-end gap-2">
+        <button 
+          type="button" 
+          @click="goBack" 
+          class="px-4 py-2 border border-slate-800 rounded-md hover:bg-slate-800 hover:text-white duration-200"
+        >
+          Back
+        </button>
+        <RouterLink 
+          type="submit" 
+          class="px-4 py-2 bg-blue-500 text-white rounded-md hover:opacity-80"
+        >
           Edit
         </RouterLink>
       </div>
@@ -46,51 +56,48 @@
   </div>
 </template>
 
-
-<script>
+<script setup>
+import { ref, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
 import api from '@/Services/api'; // Import instance API
 
-export default {
-  props: {
-    id: {
-      type: String,
-      required: true,
-    },
-  },
-  data() {
-    return {
-      detailCategory: null,
-      isLoading: true,
-    };
-  },
-  mounted() {
-    this.fetchdetailCategory();
-  },
-  methods: {
-    // Fungsi untuk mengambil detail kategori
-    async fetchdetailCategory() {
-      try {
-        // Mengambil data kategori menggunakan instance API
-        const response = await api.get(`/SegmentCategory/cms/${this.id}`);
-        this.detailCategory = response.data;
-        // console.log('Detail Category:', this.detailCategory);
-      } catch (error) {
-        console.error('Error Fetching Data Detail Category:', error);
-        this.detailCategory = null;
-      } finally {
-        this.isLoading = false;
-      }
-    },
-    // Fungsi untuk memformat tanggal
-    formatDate(dateString) {
-      if (!dateString) return 'Unknown Date';
-      const date = new Date(dateString);
-      return new Intl.DateTimeFormat('id-ID', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-      }).format(date);
-    },
-  },
+// Ambil parameter ID dari route
+const route = useRoute();
+const id = route.params.id;
+
+// State
+const detailCategory = ref(null);
+const isLoading = ref(true);
+
+// Fungsi untuk mengambil detail kategori
+const fetchDetailCategory = async () => {
+  try {
+    const response = await api.get(`/Category/cms/${id}`);
+    detailCategory.value = response.data;
+  } catch (error) {
+    console.error('Error Fetching Data Detail Category:', error);
+    detailCategory.value = null;
+  } finally {
+    isLoading.value = false;
+  }
 };
+
+// Fungsi untuk memformat tanggal
+const formatDate = (dateString) => {
+  if (!dateString) return 'Unknown Date';
+  const date = new Date(dateString);
+  return new Intl.DateTimeFormat('id-ID', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }).format(date);
+};
+
+// Fungsi untuk kembali ke halaman sebelumnya
+const goBack = () => {
+  window.history.back();
+};
+
+// Ambil data saat komponen di-mount
+onMounted(fetchDetailCategory);
 </script>

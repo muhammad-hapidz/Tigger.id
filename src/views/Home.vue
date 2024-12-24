@@ -1,9 +1,9 @@
 <template>
   <div>
     <div>
-      <img src="../assets/img/2.png" alt="" class="w-full mt-16">
+      <img src="../assets/img/2.png" alt="" class="w-full mt-14">
     </div>
-    <div class="pt-20 pb-5 bg-slate-200">
+    <div class="pt-10 lg:pt-20 pb-5 bg-slate-200">
       <div class="text-center tracking-wider pt-5 pb-10">
         <h2 class="text-slate-600 text-lg">WELCOME TO</h2>
         <h1 class="text-slate-800 text-3xl">

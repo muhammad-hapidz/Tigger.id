@@ -89,6 +89,8 @@ const router = createRouter({
       },
       meta: { showNavbar: true, showFooter: true, layout: 'MainLayout' },
     },
+
+    // ROUTES CMS
     {
       path: '/cms',
       name: 'CmsRedirect',  // Menambahkan route untuk redirect
@@ -145,6 +147,23 @@ const router = createRouter({
       path: '/cms/category/:id',
       name:'DetailCategory',
       component: () => import ('@/views/cms/Category/DetailCategory.vue'),
+      props:true,
+    },
+    {
+      path:'/cms/category/create',
+      name:'Create',
+      component: () => import ('@/views/cms/Category/Create.vue')
+    },
+    {
+      path: '/cms/category/:id/edit',
+      name:'EditCategory',
+      component: () => import ('@/views/cms/Category/EditCategory.vue'),
+      props:true,
+    },
+    {
+      path: '/cms/segment',
+      name:'Segment',
+      component: () => import ('@/views/cms/Segment/Index.vue'),
       props:true,
     },
   ],
