@@ -3,14 +3,14 @@
     <div
       v-for="news in newsAndEvents"
       :key="news.id"
-      class="max-w-sm bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
+      class="max-w-sm bg-white border border-slate-950 rounded-md shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col"
     >
       <div class="relative min-w-96 w-full h-48">
         <img
           v-if="news.image"
           :src="news.image"
           alt="Card image"
-          class="min-w-96 w-full h-48 object-cover"
+          class="min-w-96 w-full h-48 object-cover transition-transform hover:scale-110 duration-300"
         />
         <div
           v-else
@@ -19,14 +19,17 @@
           No image uploaded
         </div>
       </div>
-      <div class="p-5">
-        <h3 class="text-lg font-semibold text-gray-800 mb-2">{{ news.title }}</h3>
-        <p class="text-gray-600 text-sm">{{ truncateText(news.description, 120) }}</p>
-        <p class="text-gray-500 text-sm mt-4">{{ formatDate(news.createdDate) }}</p>
-        <div class="flex justify-end">
+      <!-- Konten Kartu -->
+      <div class="p-5 flex-grow flex flex-col">
+        <div>
+          <h3 class="text-lg font-semibold text-gray-800 mb-2">{{ news.title }}</h3>
+          <p class="text-gray-600 text-sm" v-html="truncateText(news.description, 120)"></p>
+        </div>
+        <div class="mt-auto flex justify-between items-center">
+          <p class="text-gray-500 text-sm">{{ formatDate(news.createdDate) }}</p>
           <RouterLink
             :to="'/news-and-event/' + news.id"
-            class="mt-4 w-2/5 bg-primary text-white text-sm font-medium py-2 text-center px-4 rounded-lg hover:opacity-75 transition-colors duration-300"
+            class="bg-primary text-white hover:text-primary hover:bg-white border border-slate-900 text-sm font-medium py-2 px-4 rounded-lg hover:opacity-75 transition-colors duration-300"
           >
             Read More
           </RouterLink>
@@ -35,6 +38,7 @@
     </div>
   </div>
 </template>
+
 
 <script>
 import { RouterLink } from "vue-router";

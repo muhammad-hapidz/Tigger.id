@@ -1,5 +1,9 @@
 <template>
-    <div class="mt-32 mx-5 lg:mx-20 mb-40">
+  <div class="flex flex-wrap justify-between lg:mx-10  mt-32 mx-5 mb-40 gap-5">
+    <div class=" ml-10 max-w-96 lg:mr-28">
+  <img src="../assets/img/join us.svg"  alt="">
+</div>
+    <div class="flex-1">
   <h1 class=" font-bold text-xl pb-3">JOIN TO OUR COMMUNITY !</h1>
   <ul class="text-lg text-slate-700 font-semibold text-justify">Apakah kamu Tiggo Owner yang mencari teman satu hobi? Di sini, kami adalah komunitas yang bersemangat dalam berbagi pengetahuan, pengalaman, dan tentunya, kecintaan terhadap dunia otomotif. Kami selalu terbuka untuk anggota baru yang ingin memperluas jaringan, belajar lebih banyak tentang mobil, dan ikut serta dalam berbagai acara seru!.</ul>
   <p class="text-slate-700 font-semibold text-lg"> Kami menawarkan:</p>
@@ -12,6 +16,7 @@
 
 <div class="mt-4">
  <a href="https://tinyurl.com/tiggerid" class="font-semibold underline underline-offset-8 text-lg text-cyan-700" target="_blank" rel="noopener noreferrer">CLICK HERE TO JOIN US!</a>
+</div>
 </div>
 </div>
 </template>

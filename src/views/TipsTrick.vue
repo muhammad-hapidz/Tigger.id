@@ -1,5 +1,6 @@
 <template>
-  <div class="space-y-4 px-10 flex justify-center flex-col mb-20 mt-32">
+  <div class="bg-primary mt-[68px]">
+  <div class="space-y-4 px-10 flex justify-center flex-col py-20">
     <!-- Tampilkan pesan jika tidak ada data -->
     <div v-if="errorMessage" class="text-center text-red-600 font-semibold">
       {{ errorMessage }}
@@ -10,10 +11,10 @@
       v-else
       v-for="(item, index) in accordionItems"
       :key="index"
-      class="border rounded-md"
+      class="border rounded-md bg-white"
     >
       <button
-        class="w-full flex justify-between items-center px-4 py-2 bg-gray-100 text-left focus:outline-none"
+        class="w-full flex justify-between items-center px-4 py-2 bg-slate-200 text-left focus:outline-none"
         @click="toggleAccordion(index)"
       >
         <span class="font-semibold">{{ item.type }}</span>
@@ -61,6 +62,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -74,16 +76,57 @@ export default {
       errorMessage: null, // Pesan error atau pemberitahuan
     };
   },
-  
-  mounted() {
-  // Fetch data saat komponen dimuat
-  this.fetchAccordionData().then(() => {
-    if (this.accordionItems.length > 0) {
-      this.activeIndex = 0; // Set accordion pertama terbuka
-    }
-  });
-},
+  methods: {
+    async fetchAccordionData() {
+      try {
+        const response = await axios.get(
+          "https://apitiggerid.tri3a.com/api/Contents/ByTipsAndTrick"
+        );
 
+        if (response.data.length === 0) {
+          this.errorMessage = "No data available at the moment. Please check back later.";
+          return;
+        }
+
+        const groupedData = {};
+        response.data.forEach((item) => {
+          const type = item.category.categoryName;
+
+          if (!groupedData[type]) {
+            groupedData[type] = {
+              type,
+              contents: [],
+            };
+          }
+
+          groupedData[type].contents.push({
+            title: item.title,
+            image: item.image,
+            content: item.description,
+          });
+        });
+
+        this.accordionItems = Object.values(groupedData);
+        this.errorMessage = null;
+
+        // Set item pertama terbuka secara otomatis
+        this.activeIndex = 0;
+      } catch (error) {
+        console.error("Error fetching accordion data:", error);
+        this.errorMessage = "Data Pada Menu Ini Tidak Tersedia / Tidak Ada";
+      }
+    },
+
+    toggleAccordion(index) {
+      // Jika item yang sama diklik, tutup dengan mengatur activeIndex ke null
+      this.activeIndex = this.activeIndex === index ? null : index;
+    },
+  },
+
+  mounted() {
+    // Fetch data saat komponen dimuat
+    this.fetchAccordionData();
+  },
 };
 </script>
 

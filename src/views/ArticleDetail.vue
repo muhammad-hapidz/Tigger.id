@@ -17,7 +17,7 @@
           class="w-3/4 object-cover rounded-lg mb-5 mx-auto"
         />
         <h1 class="text-slate-950 text-3xl underline mb-3 mt-8">Description</h1>
-        <p class="text-lg">{{ article.description }}</p>
+        <p class="text-lg" v-html="article.description"></p>
         <p class="text-gray-500 text-sm mt-4">{{ formatDate (article.createdDate) }}</p>
         <p class="text-lg text-slate-800">{{ article.category.categoryName }}</p>
       </div>

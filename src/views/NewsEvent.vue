@@ -1,7 +1,11 @@
 <template>
-  <div class="mt-24">
+  <div class="bg-primary mt-16 pb-12">
+   <div class="text-secondary bg-white text-center lg:mx-14 pt-10">
+     <h1 class="text-2xl font-semibold ml-5 pb-2"> NEWS & EVENT </h1> 
+    </div>
+  <div class="mt-2 bg-white lg:mx-14">
     <!-- Input Pencarian dan Dropdown Filter Category -->
-    <div class="flex flex-wrap justify-between mx-20 mb-5 p-5 items-center">
+    <div class="flex flex-wrap justify-between lg:mx-10 mb-5 p-5 items-center">
       <!-- Input Pencarian -->
       <div class="mb-5">
         <input
@@ -9,7 +13,7 @@
           @input="applyFilter"
           type="text"
           placeholder="Search News and Events..."
-          class="w-full lg:w-80 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="w-full lg:w-80 px-4 py-2 rounded-md border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
@@ -63,7 +67,7 @@
     <div class="my-8 border-t border-gray-300"></div>
 
     <!-- Tampilkan Video YouTube -->
-    <div class="m-32 flex flex-wrap justify-center gap-5">
+    <div class="m-32 flex flex-wrap justify-center gap-5 pb-8">
       <iframe
         width="560"
         class="rounded-md"
@@ -100,6 +104,7 @@
       ></iframe>
     </div>
   </div>
+</div>
 </template>
 
 <script>

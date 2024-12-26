@@ -1,15 +1,16 @@
 <template>
-  <div>
-    <div class="bg-cover mt-16">
-      <img src="../assets/img/wcwl.webp" class="bg-cover w-full rounded-2xl" alt="" />
+  <div class="bg-primary ">
+    <div class="bg-cover mt-14 lg:mt-16">
+      <img src="../assets/img/wcwl.webp" class="bg-cover w-full" alt="" />
     </div>
-
-    <div class="mx-20 mb-10 pt-5">
-      <h1 class="text-3xl text-slate-800 custom-underline pb-2">ARTICLE</h1>
+    
+    <div class="pt-5">
+      <h1 class="text-3xl text-primary bg-white pb-2 mx-2 lg:mx-20 rounded-full text-center p-2">ARTICLE</h1>
     </div>
+    <div class="bg-white pb-5 mx-4 mt-8 rounded">
 
     <!-- Input Pencarian dan filter category -->
-    <div class="flex flex-wrap lg:justify-between justify-end mx-8 lg:mx-20 mb-5 lg:p-5 items-center">
+    <div class="pb-5 flex flex-wrap lg:justify-between justify-end mx-8 lg:mx-20 mb-5 lg:p-5 items-center">
       <div class="mb-5">
         <input
           v-model="searchQuery"
@@ -67,6 +68,7 @@
       <p>{{ error }}</p>
     </div>
   </div>
+</div>
 </template>
 
 <script>
