@@ -26,8 +26,10 @@
             <span class="text-gray-800">{{ detailMenu.menuUrl}}</span>
           </li>
           <li class="flex">
-            <span class="font-semibold text-gray-600 w-40">Status</span>
-            <span class="text-gray-800">{{ detailMenu.isActive}}</span>
+           <span class="font-semibold text-gray-600 w-40">Status</span>
+            <span class="text-gray-800">
+            {{ detailMenu.isActive ? 'Active' : 'Nonactive' }}
+           </span>
           </li>
           <li class="flex">
           <span class="font-semibold text-gray-600 w-40">Created By:</span>
