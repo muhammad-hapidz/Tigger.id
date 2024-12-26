@@ -221,6 +221,31 @@ const router = createRouter({
       component: () => import ('@/views/cms/Roles/EditRole.vue'),
       meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
     },
+    {
+      path: '/cms/menu',
+      name:'Menu',
+      component: () => import ('@/views/cms/Menu/index.vue'),
+      props:true,
+      meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
+    },
+    {
+      path:'/cms/menu/create',
+      name:'CreateRole',
+      component: () => import ('@/views/cms/Menu/Create.vue'),
+      meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
+    },
+    {
+      path:'/cms/menu/:id',
+      name:'DetailMenu',
+      component: () => import ('@/views/cms/Menu/DetailMenu.vue'),
+      meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
+    },
+    {
+      path:'/cms/menu/:id/edit',
+      name:'EditMenu',
+      component: () => import ('@/views/cms/Menu/EditMenu.vue'),
+      meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
+    },
   ],
 
   
