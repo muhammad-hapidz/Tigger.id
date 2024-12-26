@@ -129,14 +129,20 @@ const router = createRouter({
       meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
     },
     {
+      path: '/cms/Users/:id',
+      name: 'userDetail',
+      component: () => import('../views/cms/Users/detail.vue'),
+      props: true,
+    },
+    {
       path: '/cms/Contents',
       name: 'Contents',
       component: () => import('../views/cms/Contents/index.vue'),
       meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
     },
     {
-      path: '/cms/Contents/Create',
-      name: 'Create',
+      path: '/cms/Contents/create',
+      name: 'contentCreate',
       component: () => import('../views/cms/Contents/create.vue'),
     },
     {
@@ -176,6 +182,31 @@ const router = createRouter({
       name:'DetailSegment',
       component: () => import ('@/views/cms/Segment/DetailSegment.vue'),
       props:true,
+      meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
+    },
+    {
+      path: '/cms/roles',
+      name:'Roles',
+      component: () => import ('@/views/cms/Roles/index.vue'),
+      props:true,
+      meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
+    },
+    {
+      path:'/cms/roles/create',
+      name:'CreateRole',
+      component: () => import ('@/views/cms/Roles/Create.vue'),
+      meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
+    },
+    {
+      path:'/cms/roles/:id',
+      name:'DetailRole',
+      component: () => import ('@/views/cms/Roles/DetailRole.vue'),
+      meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
+    },
+    {
+      path:'/cms/roles/:id/edit',
+      name:'EditRole',
+      component: () => import ('@/views/cms/Roles/EditRole.vue'),
       meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
     },
     {
