@@ -11,6 +11,8 @@ import 'quill/dist/quill.snow.css'; // Impor CSS untuk tema snow
 import Toast, { POSITION } from 'vue-toastification'; // Import Vue Toastification
 import 'vue-toastification/dist/index.css'; // Impor CSS untuk toast
 
+
+
 const app = createApp(App);
 app.component('DefaultLayout', DashboardLayout);
 

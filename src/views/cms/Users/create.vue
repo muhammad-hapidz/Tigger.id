@@ -4,9 +4,11 @@ import { useRouter } from 'vue-router';
 import Multiselect from 'vue-multiselect';
 import 'vue-multiselect/dist/vue-multiselect.min.css';
 import axios from 'axios';
+import { useToast } from 'vue-toastification'; // Import useToast from Vue Toast
 
 // Router instance
 const router = useRouter();
+const toast = useToast(); // Initialize toast
 
 // State Data
 const content = ref({
@@ -80,13 +82,13 @@ const createUser = async () => {
     );
 
     console.log('User created successfully:', response.data);
-    alert('User berhasil dibuat!');
+    toast.success('User berhasil dibuat!');
 
     // Redirect ke halaman sebelumnya atau halaman /cms/Users
     router.push('/cms/Users');
   } catch (error) {
     console.error('Error creating user:', error);
-    alert('Gagal membuat user. Silakan coba lagi.');
+    toast.error('Gagal membuat user. Silakan coba lagi.');
   }
 };
 
@@ -98,14 +100,14 @@ onMounted(fetchRoles);
   <div class="mt-6 p-4 bg-white shadow rounded-lg">
     <h3 class="text-3xl font-semibold text-gray-700 text-center underline">Create User</h3>
 
-
+    <form @submit.prevent="createUser">
       <div class="mt-4">
         <div class="p-6 bg-white rounded-md shadow-md">
           <h2 class="text-lg font-semibold text-gray-700 capitalize">
             User Settings
           </h2>
 
-          <form @submit.prevent="createUser">
+          
             <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
               <!-- Input Full Name -->
               <div class="sm:col-span-2">
@@ -195,11 +197,11 @@ onMounted(fetchRoles);
                 <label for="isActive" class="text-gray-700">Is Active</label>
               </div>
             </div>
-          </form>
+          
         </div>
-                      <!-- Submit Button -->
-                      <div class="flex justify-end gap-2">
-                        <router-link
+        <!-- Submit Button -->
+        <div class="flex justify-end gap-2">
+          <router-link
         to="/cms/Users"
         class="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex items-center"
         >
@@ -211,8 +213,8 @@ onMounted(fetchRoles);
                 >
                   Create User
                 </button>
-
               </div>
       </div>
+    </form>
     </div>
 </template>
