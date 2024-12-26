@@ -22,19 +22,21 @@
             <span class="text-gray-800">{{ detailMenu.caption }}</span>
           </li>
           <li class="flex">
-            <span class="font-semibold text-gray-600 w-40">Menu URL</span>
+            <span class="font-semibold text-gray-600 w-40">Menu URL :</span>
             <span class="text-gray-800">{{ detailMenu.menuUrl}}</span>
           </li>
           <li class="flex">
-            <span class="font-semibold text-gray-600 w-40">Status</span>
-            <span class="text-gray-800">{{ detailMenu.isActive}}</span>
+           <span class="font-semibold text-gray-600 w-40">Status :</span>
+            <span class="text-gray-800">
+            {{ detailMenu.isActive ? 'Active' : 'Non Active' }}
+           </span>
           </li>
           <li class="flex">
-          <span class="font-semibold text-gray-600 w-40">Created By:</span>
+          <span class="font-semibold text-gray-600 w-40">Created By :</span>
           <span class="text-gray-800">{{ detailMenu.createdBy || '-' }}</span>
         </li>
         <li class="flex">
-          <span class="font-semibold text-gray-600 w-40">Created Date:</span>
+          <span class="font-semibold text-gray-600 w-40">Created Date :</span>
           <span class="text-gray-800">{{ formatDate(detailMenu.createdDate) }}</span>
         </li>
         <li class="flex">
