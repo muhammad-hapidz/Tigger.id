@@ -19,7 +19,8 @@
     "vue-filepond": "^7.0.4",
     "vue-multiselect": "^3.1.0",
     "vue-router": "^4.4.5",
-    "vue-toastification": "^2.0.0-rc.5"
+    "vue-toastification": "^2.0.0-rc.5",
+    "vue3-quill": "^0.3.1"
   },
   "devDependencies": {
     "@vitejs/plugin-legacy": "^6.0.0",

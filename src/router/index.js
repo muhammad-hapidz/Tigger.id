@@ -133,6 +133,7 @@ const router = createRouter({
       name: 'userDetail',
       component: () => import('../views/cms/Users/detail.vue'),
       props: true,
+      eta: { requiresAuth: true, showNavbar: false, showFooter: false, },
     },
     {
       path: '/cms/Contents',
@@ -144,6 +145,17 @@ const router = createRouter({
       path: '/cms/Contents/create',
       name: 'contentCreate',
       component: () => import('../views/cms/Contents/create.vue'),
+      meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
+    },
+    {
+      path: '/cms/Contents/edit/:id',
+      name: 'contentEdit',
+      component: () => import('../views/cms/Contents/edit.vue'),
+    },
+    {
+      path: '/cms/Contents/:id',
+      name: 'contentDetail',
+      component: () => import('../views/cms/Contents/detail.vue'),
     },
     {
       path: '/cms/category',

@@ -5,6 +5,8 @@ import 'vue-multiselect/dist/vue-multiselect.min.css'
 import axios from 'axios'
 import vueFilePond from 'vue-filepond'
 import 'filepond/dist/filepond.min.css'
+import Quill from 'quill'; // Import Quill
+import 'quill/dist/quill.snow.css'; // Import Quill CSS
 
 // Import CSS
 import 'filepond/dist/filepond.min.css'
