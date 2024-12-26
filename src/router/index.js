@@ -218,6 +218,7 @@ const router = createRouter({
     {
       path:'/cms/roles/:id/edit',
       name:'EditRole',
+      props:true,
       component: () => import ('@/views/cms/Roles/EditRole.vue'),
       meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
     },
