@@ -110,7 +110,7 @@ const scrollToTop = () => {
 <style scoped>
 /* Hamburger menu lines */
 .hamburger-line {
-  @apply w-6 h-[2px] bg-gray-800 my-[3px] transition-all duration-300 ease-in-out;
+  @apply w-6 h-[2px] bg-gray-200 my-[3px] transition-all duration-300 ease-in-out;
 }
 
 /* Transformasi saat menu aktif */

@@ -25,7 +25,7 @@
           <h3 class="text-lg font-semibold text-gray-800 mb-2">{{ news.title }}</h3>
           <p class="text-gray-600 text-sm" v-html="truncateText(news.description, 120)"></p>
         </div>
-        <div class="mt-auto flex justify-between items-center">
+        <div class="mt-4 flex justify-between items-center">
           <p class="text-gray-500 text-sm">{{ formatDate(news.createdDate) }}</p>
           <RouterLink
             :to="'/news-and-event/' + news.id"

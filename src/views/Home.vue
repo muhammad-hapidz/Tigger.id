@@ -1,13 +1,13 @@
 <template>
   <div class="bg-primary pb-10">
     <div>
-      <img src="../assets/img/2.png" alt="" class="w-full mt-14">
+      <img src="../assets/img/2.png" alt="" class="w-full mt-[68px]">
     </div>
     <div class="pt-10 lg:pt-20 pb-5 lg:mx-4 lg:mt-8 rounded-r-sm">
       <div class="text-center tracking-wider pt-5 pb-10">
         <h2 class="text-accent1 text-lg">WELCOME TO</h2>
         <h1 class="text-3xl text-white">
-          <span class="underline underline-offset-4 font-bold bg-white text-slate-800 rounded-lg px-2 pb-1 md:pb-2 ">CHERRY TIGGO</span> INDONESIA COMMUNITY
+          <span class="underline underline-offset-4 font-bold bg-white text-slate-800 rounded-lg px-2 pb-1 md:pb-2 leading-relaxed md:leading-none">CHERRY TIGGO</span> INDONESIA COMMUNITY
         </h1>
       </div>
 
@@ -22,7 +22,7 @@
 
     <!-- ARTICLE -->
      <div class="bg-white lg:mr-16">
-    <div class="tracking-wider mt-10 ml-12">
+    <div class="tracking-wider mt-10 text-center lg:text-left mb-10 lg:mb-5 lg:ml-12">
       <h1 class="text-slate-800 text-3xl mt-10 pt-10">
         ABOUT OUR 
         <span class="underline underline-offset-[15px] font-bold bg-slate-200 rounded-lg px-3">ARTICLE</span> 
@@ -45,7 +45,7 @@
     
     <!-- News and Events Section -->
     <div class="lg:mx-10 py-5 pb-5">
-      <div class="tracking-wider mt-5 pt-5">
+      <div class="tracking-wider text-center lg:text-left  mt-5 pt-5">
         <h1 class="text-accent1 lg:px-5 text-xl mt-12">ABOUT OUR </h1>
         <h2 class="text-3xl bg-white p-1 rounded-lg lg:px-3 underline underline-offset-[15px] inline-block">NEWS AND EVENT</h2>
       </div>
