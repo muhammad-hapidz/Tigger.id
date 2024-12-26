@@ -6,10 +6,12 @@ import 'vue-multiselect/dist/vue-multiselect.min.css';
 import axios from 'axios';
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
+import { useToast } from 'vue-toastification'; // Import useToast from Vue Toast
 
 const router = useRouter();
 const route = useRoute();
 const contentId = route.params.id;
+const toast = useToast(); // Initialize toast
 
 const content = ref({
   title: '',
@@ -101,11 +103,11 @@ const updateContent = async () => {
       }
     );
     console.log('Content updated successfully:', response.data);
-    alert('Content berhasil diperbarui!');
+    toast.success('Content berhasil diperbarui!');
     router.push('/cms/Contents');
   } catch (error) {
     console.error('Error updating content:', error);
-    alert('Gagal memperbarui content. Silakan coba lagi.');
+    toast.error('Gagal memperbarui content. Silakan coba lagi.');
   }
 };
 
@@ -122,8 +124,7 @@ onMounted(() => {
       toolbar: [
         [{ header: [1, 2, false] }],
         ['bold', 'italic', 'underline'],
-        ['image', 'code-block'],
-        [{ list: 'ordered' }, { list: 'bullet' }],
+        // [{ list: 'ordered' }, { list: 'bullet' }],
       ],
     },
   });
@@ -142,7 +143,7 @@ onMounted(() => {
               <label class="text-gray-700" for="segment">Segment</label>
               <Multiselect
                 class="border border-gray-300 rounded-md mt-2"
-                v-model="content.segments"
+                v-model="content.segment"
                 :options="filteredSegments"
                 label="name"
                 track-by="id"
@@ -190,19 +191,6 @@ onMounted(() => {
               </div>
             </div>
 
-            <!-- Input Image -->
-            <div class="sm:col-span-2">
-              <label class="text-gray-700" for="image">Image URL</label>
-              <input
-                v-model="content.image"
-                id="image"
-                class="p-2 w-full mt-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-300 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                type="text"
-              />
-              <div v-if="content.image" class="mt-4">
-                <img :src="content.image" alt="Preview Image" class="w-auto h-64 object-cover rounded-md" />
-              </div>
-            </div>
 
             <!-- Input Description -->
             <div class="sm:col-span-2 mt-4">

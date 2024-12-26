@@ -6,8 +6,10 @@ import 'vue-multiselect/dist/vue-multiselect.min.css';
 import axios from 'axios';
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
+import { useToast } from 'vue-toastification'; // Import useToast from Vue Toast
 
 const router = useRouter();
+const toast = useToast(); // Initialize toast
 
 const content = ref({
   title: '',
@@ -74,7 +76,7 @@ const uploadImage = async (file) => {
     return `https://apitiggerid.tri3a.com/${response.data.imagePath}`;
   } catch (error) {
     console.error('Error uploading image:', error);
-    alert('Gagal mengunggah gambar. Silakan coba lagi.');
+    toast.error('Gagal mengunggah gambar. Silakan coba lagi.');
     throw error;
   }
 };
@@ -93,7 +95,7 @@ const deleteImage = async (imagePath) => {
     console.log('Image deleted successfully:', response.data);
   } catch (error) {
     console.error('Error deleting image:', error.response?.data || error.message);
-    alert('Gagal menghapus gambar lama. Silakan coba lagi.');
+    toast.error('Gagal menghapus gambar lama. Silakan coba lagi.');
   }
 };
 
@@ -116,7 +118,7 @@ const handleImageUpload = async (event) => {
 
       // Simpan URL gambar baru
       content.value.image = newImagePath;
-      alert('Gambar berhasil diunggah!');
+      toast.success('Gambar berhasil diunggah!');
     } catch (error) {
       console.error('Error handling image upload:', error.response?.data || error.message);
     }
@@ -152,11 +154,11 @@ const createContent = async () => {
     );
 
     console.log('Content created successfully:', response.data);
-    alert('Content berhasil dibuat!');
+    toast.success('Content berhasil dibuat!');
     router.push('/cms/Contents');
   } catch (error) {
     console.error('Error creating content:', error);
-    alert('Gagal membuat content. Silakan coba lagi.');
+    toast('Gagal membuat content. Silakan coba lagi.');
   }
 };
 

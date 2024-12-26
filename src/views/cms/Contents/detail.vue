@@ -82,16 +82,19 @@ onMounted(() => {
         <p class="font-semibold p-2">{{ content.createdBy }}</p>
       </div>
 
+      <!-- Created Date-->
       <div class="mb-4">
-        <label class="text-gray-700">Create Date</label>
+        <label class="text-gray-700">Created Date</label>
         <p class="font-semibold p-2">{{ formatDate(content.createdDate) }}</p>
       </div>
 
+      <!-- Updated By -->
       <div class="mb-4" v-if="content.updatedBy">
         <label class="text-gray-700">Updated By</label>
         <p class="font-semibold p-2">{{ content.updatedBy }}</p>
       </div>
 
+      <!-- Updated Date -->
       <div class="mb-4" v-if="content.updatedDate">
         <label class="text-gray-700">Updated Date</label>
         <p class="font-semibold p-2">{{ formatDate(content.updatedDate) }}</p>
