@@ -19,6 +19,10 @@
     </RouterLink>
   </div>
 
+  <div v-if="isLoading" class="flex justify-center items-center py-4">
+  <div class="loader border-t-4 border-blue-500 w-16 h-16 rounded-full animate-spin"></div>
+</div>
+
   <div class="mt-6">
     <div class="px-4 py-4 -mx-4 overflow-x-auto sm:-mx-8 sm:px-8">
       <div class="inline-block min-w-full overflow-hidden rounded-lg shadow">
@@ -107,9 +111,11 @@ const category = ref([]);
 const currentPage = ref(1); // Halaman saat ini, default adalah 1
 const pageSize = 10; // Jumlah item per halaman
 const searchQuery = ref('');
+const isLoading = ref(true);
 
 // Fungsi untuk mengambil data kategori
 const fetchCategory = async () => {
+  isLoading.value = true; // Mulai loading
   try {
     const token = localStorage.getItem('authToken');
     if (!token) {
@@ -122,8 +128,11 @@ const fetchCategory = async () => {
   } catch (error) {
     console.error('Error fetching category:', error);
     alert('Gagal mengambil data kategori. Silakan coba lagi.');
+  } finally {
+    isLoading.value = false; // Selesai loading
   }
 };
+
 const deleteCategory = async (id) => {
   if (!confirm('Are you sure want to delete this category?')) return;
 
@@ -180,3 +189,10 @@ const formatDate = (dateString) => {
   return date.toLocaleDateString('id-ID');
 };
 </script>
+
+<style scoped>
+.loader {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left-color: #1d4ed8; /* Tailwind blue-500 */
+}
+</style>

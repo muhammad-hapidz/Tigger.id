@@ -178,6 +178,19 @@ const router = createRouter({
       props:true,
       meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
     },
+    {
+      path: '/cms/segment/:id/edit',
+      name:'EditSegment',
+      component: () => import ('@/views/cms/Segment/EditSegment.vue'),
+      props:true,
+      meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
+    },
+    {
+      path: '/cms/segment/create',
+      name:'CreateSegment',
+      component: () => import ('@/views/cms/Segment/Create.vue'),
+      meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
+    },
   ],
 
   

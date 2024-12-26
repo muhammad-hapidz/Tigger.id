@@ -1,4 +1,5 @@
 <template>
+  <div>
     <h3 class="text-gray-700 text-3xl font-medium mb-5">Segment / Menu</h3>
   
     <!-- Input Pencarian -->
@@ -18,8 +19,14 @@
         + Create New
       </RouterLink>
     </div>
-  
-    <div class="mt-6">
+
+    <!-- Loading Spinner -->
+    <div v-if="isLoading" class="fixed inset-0 bg-gray-800 bg-opacity-50 z-50 flex items-center justify-center">
+      <div class="spinner border-t-4 border-blue-500 rounded-full w-12 h-12 animate-spin"></div>
+    </div>
+
+    <!-- Tabel Data -->
+    <div v-else class="mt-6">
       <div class="px-4 py-4 -mx-4 overflow-x-auto sm:-mx-8 sm:px-8">
         <div class="inline-block min-w-full overflow-hidden rounded-lg shadow">
           <table class="min-w-full leading-normal">
@@ -29,7 +36,6 @@
                 <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2">Segment Name</th>
                 <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2">Description</th>
                 <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2">Created By</th>
-                <!-- <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2">Updated By</th> -->
                 <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2">Created At</th>
                 <th class="px-5 py-3 text-xs font-semibold text-center text-gray-600 uppercase bg-gray-100 border-b-2">Action</th>
               </tr>
@@ -42,7 +48,6 @@
                 <td class="px-5 py-5 text-sm bg-white border-b">{{ content.segmentName }}</td>
                 <td class="px-5 py-5 text-sm bg-white border-b">{{ content.description || '-'}}</td>
                 <td class="px-5 py-5 text-sm bg-white border-b">{{ content.createdBy || 'N/A' }}</td>
-                <!-- <td class="px-5 py-5 text-sm bg-white border-b">{{ content.updatedBy || 'N/A' }}</td> -->
                 <td class="px-5 py-5 text-sm bg-white border-b">{{ formatDate(content.createdDate) }}</td>
                 <td class="px-5 py-5 text-sm bg-white border-b text-center flex flex-wrap justify-center gap-2">
                   <RouterLink :to="'/cms/segment/' + content.id" class="px-4 py-2 text-sm font-semibold text-white bg-blue-500 rounded hover:bg-blue-600">View</RouterLink>
@@ -56,12 +61,12 @@
               </tr>
             </tbody>
           </table>
-  
+
           <!-- Pagination -->
           <div v-if="totalPages > 1" class="flex justify-center items-center py-4">
             <button @click="goToPage(1)" :disabled="currentPage.value === 1" class="px-4 py-2 text-sm font-semibold text-gray-800 bg-gray-300 rounded-l hover:bg-gray-400 disabled:opacity-50 disabled:cursor-not-allowed">«</button>
             <button @click="prevPage" :disabled="currentPage.value === 1" class="px-4 py-2 text-sm font-semibold text-gray-800 bg-gray-300 hover:bg-gray-400 disabled:opacity-50 disabled:cursor-not-allowed">‹</button>
-  
+
             <!-- Page Numbers -->
             <button
               v-for="page in totalPages"
@@ -72,7 +77,7 @@
             >
               {{ page }}
             </button>
-  
+
             <button @click="nextPage" :disabled="currentPage.value >= totalPages.value" class="px-4 py-2 text-sm font-semibold text-gray-800 bg-gray-300 hover:bg-gray-400 disabled:opacity-50 disabled:cursor-not-allowed">›</button>
             <button
               @click="goToPage(totalPages.value)"
@@ -85,8 +90,9 @@
         </div>
       </div>
     </div>
-  </template>
-  
+  </div>
+</template>
+
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import api from '@/Services/api';
@@ -95,6 +101,7 @@ const segment = ref([]);
 const currentPage = ref(1); // Halaman saat ini, default adalah 1
 const pageSize = 10; // Jumlah item per halaman
 const searchQuery = ref('');
+const isLoading = ref(true); // State untuk loading
 
 // Fungsi untuk mengambil data kategori
 const fetchSegment = async () => {
@@ -109,7 +116,8 @@ const fetchSegment = async () => {
     segment.value = response.data || [];
   } catch (error) {
     console.error('Error fetching segment:', error);
-    alert('Gagal mengambil data kategori. Silakan coba lagi.');
+  } finally {
+    isLoading.value = false; // Set loading selesai
   }
 };
 
@@ -157,3 +165,10 @@ const formatDate = (dateString) => {
 };
 </script>
 
+<style>
+.spinner {
+  border-width: 4px;
+  border-color: rgba(0, 0, 0, 0.2);
+  border-top-color: #3b82f6;
+}
+</style>
