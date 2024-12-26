@@ -133,6 +133,7 @@ const router = createRouter({
       name: 'userDetail',
       component: () => import('../views/cms/Users/detail.vue'),
       props: true,
+      eta: { requiresAuth: true, showNavbar: false, showFooter: false, },
     },
     {
       path: '/cms/Contents',
@@ -144,6 +145,17 @@ const router = createRouter({
       path: '/cms/Contents/create',
       name: 'contentCreate',
       component: () => import('../views/cms/Contents/create.vue'),
+      meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
+    },
+    {
+      path: '/cms/Contents/edit/:id',
+      name: 'contentEdit',
+      component: () => import('../views/cms/Contents/edit.vue'),
+    },
+    {
+      path: '/cms/Contents/:id',
+      name: 'contentDetail',
+      component: () => import('../views/cms/Contents/detail.vue'),
     },
     {
       path: '/cms/category',
@@ -207,30 +219,6 @@ const router = createRouter({
       path:'/cms/roles/:id/edit',
       name:'EditRole',
       component: () => import ('@/views/cms/Roles/EditRole.vue'),
-      meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
-    },
-    {
-      path:'/cms/menu',
-      name:'Menu',
-      component: () => import ('@/views/cms/Menu/index.vue'),
-      meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
-    },
-    {
-      path:'/cms/menu/create',
-      name:'MenuCreate',
-      component: () => import ('@/views/cms/Menu/Create.vue'),
-      meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
-    },
-    {
-      path:'/cms/menu/:id/edit',
-      name:'MenuEdit',
-      component: () => import ('@/views/cms/Menu/EditMenu.vue'),
-      meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
-    },
-    {
-      path:'/cms/menu/:id',
-      name:'DetailMenu',
-      component: () => import ('@/views/cms/Menu/DetailMenu.vue'),
       meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
     },
   ],

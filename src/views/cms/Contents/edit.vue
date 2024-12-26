@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import Multiselect from 'vue-multiselect';
 import 'vue-multiselect/dist/vue-multiselect.min.css';
 import axios from 'axios';
@@ -9,17 +9,18 @@ import 'quill/dist/quill.snow.css';
 import { useToast } from 'vue-toastification'; // Import useToast from Vue Toast
 
 const router = useRouter();
+const route = useRoute();
+const contentId = route.params.id;
 const toast = useToast(); // Initialize toast
 
 const content = ref({
   title: '',
   description: '',
-  image: null, // URL gambar setelah upload
+  image: null,
   segment: null,
   category: null,
 });
 
-const previousImage = ref(null); // Menyimpan URL gambar lama
 const segments = ref([]);
 const categories = ref([]);
 let quillEditor = null;
@@ -56,94 +57,43 @@ const fetchCategories = async () => {
   }
 };
 
-const uploadImage = async (file) => {
+const fetchContent = async () => {
   const authToken = localStorage.getItem('authToken');
-  const formData = new FormData();
-  formData.append('image', file);
-
   try {
-    const response = await axios.post(
-      'https://apitiggerid.tri3a.com/api/UploadImage/upload-image/cms',
-      formData,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${authToken}`,
-        },
-      }
-    );
-    console.log('Image uploaded successfully:', response.data);
-    return `https://apitiggerid.tri3a.com/${response.data.imagePath}`;
+    const response = await axios.get(`https://apitiggerid.tri3a.com/api/Contents/cms/${contentId}`, {
+      headers: { Authorization: `Bearer ${authToken}` },
+    });
+    const data = response.data;
+    content.value = {
+      title: data.title,
+      description: data.description,
+      image: data.image,
+      segment: segments.value.find(segment => segment.id === data.segmentId) || null,
+      category: categories.value.find(category => category.id === data.categoryId) || null,
+    };
+    quillEditor.root.innerHTML = data.description;
   } catch (error) {
-    console.error('Error uploading image:', error);
-    toast.error('Gagal mengunggah gambar. Silakan coba lagi.');
-    throw error;
+    console.error('Error fetching content:', error);
   }
 };
 
-const deleteImage = async (imagePath) => {
-  const authToken = localStorage.getItem('authToken');
-
-  try {
-    const response = await axios.delete(
-      `https://apitiggerid.tri3a.com/api/UploadImage/delete-image`,
-      {
-        data: { imagePath }, // Hanya kirim path relatif
-        headers: { Authorization: `Bearer ${authToken}` },
-      }
-    );
-    console.log('Image deleted successfully:', response.data);
-  } catch (error) {
-    console.error('Error deleting image:', error.response?.data || error.message);
-    toast.error('Gagal menghapus gambar lama. Silakan coba lagi.');
-  }
-};
-
-
-const handleImageUpload = async (event) => {
-  const file = event.target.files[0];
-  if (file) {
-    try {
-      // Upload gambar baru
-      const newImagePath = await uploadImage(file);
-
-      // Hapus gambar lama jika ada
-      if (content.value.image) {
-        // Ambil path relatif dari URL gambar lama
-        const oldImagePath = content.value.image.split('/')[1];
-        if (oldImagePath) {
-          await deleteImage(oldImagePath); // Kirim path relatif ke API
-        }
-      }
-
-      // Simpan URL gambar baru
-      content.value.image = newImagePath;
-      toast.success('Gambar berhasil diunggah!');
-    } catch (error) {
-      console.error('Error handling image upload:', error.response?.data || error.message);
-    }
-  }
-};
-
-
-const createContent = async () => {
+const updateContent = async () => {
   const authToken = localStorage.getItem('authToken');
 
   // Ambil nilai dari Quill.js
   content.value.description = quillEditor.root.innerHTML;
 
-  // Buat payload JSON
   const payload = {
     title: content.value.title,
     description: content.value.description,
-    image: content.value.image, // URL gambar
+    image: content.value.image,
     segmentId: content.value.segment?.id || '',
     categoryId: content.value.category?.id || '',
   };
 
   try {
-    const response = await axios.post(
-      'https://apitiggerid.tri3a.com/api/Contents/POST/cms',
+    const response = await axios.put(
+      `https://apitiggerid.tri3a.com/api/Contents/cms/${contentId}`,
       payload,
       {
         headers: {
@@ -152,42 +102,39 @@ const createContent = async () => {
         },
       }
     );
-
-    console.log('Content created successfully:', response.data);
-    toast.success('Content berhasil dibuat!');
+    console.log('Content updated successfully:', response.data);
+    toast.success('Content berhasil diperbarui!');
     router.push('/cms/Contents');
   } catch (error) {
-    console.error('Error creating content:', error);
-    toast('Gagal membuat content. Silakan coba lagi.');
+    console.error('Error updating content:', error);
+    toast.error('Gagal memperbarui content. Silakan coba lagi.');
   }
 };
 
 onMounted(() => {
   fetchSegments();
   fetchCategories();
+  fetchContent();
 
   const quillContainer = document.getElementById('editor');
   quillEditor = new Quill(quillContainer, {
     theme: 'snow',
-    placeholder: 'Write the content description...',
+    placeholder: 'Edit the content description...',
     modules: {
       toolbar: [
         [{ header: [1, 2, false] }],
         ['bold', 'italic', 'underline'],
-        ['image', 'code-block'],
-        [{ list: 'ordered' }, { list: 'bullet' }],
+        // [{ list: 'ordered' }, { list: 'bullet' }],
       ],
     },
   });
 });
 </script>
 
-
-
 <template>
   <div class="mt-6 p-4 bg-white shadow rounded-lg">
-    <h3 class="text-3xl font-semibold text-gray-700 text-center underline">Create Content</h3>
-    <form @submit.prevent="createContent">
+    <h3 class="text-3xl font-semibold text-gray-700 text-center underline">Edit Content</h3>
+    <form @submit.prevent="updateContent">
       <div class="mt-4">
         <div class="p-6 bg-white rounded-md shadow-md">
           <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2 mb-14">
@@ -244,6 +191,7 @@ onMounted(() => {
               </div>
             </div>
 
+
             <!-- Input Description -->
             <div class="sm:col-span-2 mt-4">
               <label class="text-gray-700" for="description">Description</label>
@@ -264,11 +212,10 @@ onMounted(() => {
             type="submit"
             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           >
-            Create Content
+            Update Content
           </button>
         </div>
       </div>
     </form>
   </div>
 </template>
-

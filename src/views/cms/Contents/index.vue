@@ -140,6 +140,9 @@ onMounted(fetchContents)
               <!-- <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">{{ content.createdBy }}</td> -->
               <!-- <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">{{ formatDate(content.createdDate) }}</td> -->
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200 text-center">
+                <router-link
+                    :to="{ name: 'contentDetail', params: { id: content.id } }"
+                  >
                 <button class="px-4 py-2 text-sm font-semibold text-white bg-blue-500 rounded hover:bg-blue-600">
                   <span>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-3">
@@ -148,7 +151,11 @@ onMounted(fetchContents)
                     </svg>
                   </span>
                 </button>
+              </router-link>
                 <span class="text-center"> | </span>
+                <router-link
+                    :to="{ name: 'contentEdit', params: { id: content.id } }"
+                  >
                 <button class="px-4 py-2 text-sm font-semibold text-white bg-green-500 rounded hover:bg-green-600">
                   <span>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-3">
@@ -157,6 +164,7 @@ onMounted(fetchContents)
                     </svg>
                 </span>
                 </button>
+                </router-link>
               </td>
             </tr>
           </tbody>

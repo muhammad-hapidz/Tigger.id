@@ -47,10 +47,12 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
+import { useToast } from 'vue-toastification'; // Import useToast from Vue Toast
 
 const router = useRouter()
 const username = ref('')
 const password = ref('')
+const toast = useToast(); // Initialize toast
 
 // Fungsi Login
 async function login() {
@@ -69,16 +71,16 @@ async function login() {
       localStorage.setItem('authToken', token)
       
       // Tampilkan alert login berhasil
-      alert('Login berhasil!')
+      toast.success('Login berhasil!')
       
       // Redirect setelah login
       router.push('/cms/dashboard') 
     } else {
-      alert('Login gagal. Silakan periksa kredensial Anda.')
+      toast.error('Login gagal. Silakan periksa kredensial Anda.')
     }
   } catch (error) {
     console.error('Error during login:', error)
-    alert('Kesalahan login! Silakan coba lagi.')
+    toast.error('Kesalahan login! Silakan coba lagi.')
   }
 }
 </script>
