@@ -237,6 +237,13 @@ const router = createRouter({
       meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
     },
     {
+      path: '/cms/roles/:id/setting',
+      name: 'SettingRole',
+      component: () => import('../views/cms/Roles/settingRole.vue'),
+      props: true,
+      eta: { requiresAuth: true, showNavbar: false, showFooter: false, },
+    },
+    {
       path: '/cms/menu',
       name:'Menu',
       component: () => import ('@/views/cms/Menu/index.vue'),

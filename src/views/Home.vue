@@ -24,8 +24,7 @@
      <div class="bg-white lg:mr-16">
     <div class="tracking-wider mt-10 text-center lg:text-left mb-10 lg:mb-5 lg:ml-12">
       <h1 class="text-slate-800 text-3xl mt-10 pt-10">
-        ABOUT OUR 
-        <span class="underline underline-offset-[15px] font-bold bg-slate-200 rounded-lg px-3">ARTICLE</span> 
+               <span class="underline underline-offset-[15px] font-semibold">ARTICLE</span> 
       </h1>
     </div>
 
@@ -46,8 +45,8 @@
     <!-- News and Events Section -->
     <div class="lg:mx-10 py-5 pb-5">
       <div class="tracking-wider text-center lg:text-left  mt-5 pt-5">
-        <h1 class="text-accent1 lg:px-5 text-xl mt-12">ABOUT OUR </h1>
-        <h2 class="text-3xl bg-white p-1 rounded-lg lg:px-3 underline underline-offset-[15px] inline-block">NEWS AND EVENT</h2>
+        <!-- <h1 class="text-accent1 lg:px-5 text-xl mt-12"> </h1> -->
+        <h2 class="text-3xl bg-white p-1 rounded-lg lg:px-3 underline underline-offset-[15px] inline-block font-semibold">NEWS AND EVENT</h2>
       </div>
 
       <div class="mx-8 mb-10 pt-5">
@@ -65,6 +64,48 @@
       </div>
     </div>
   </div>
+
+  <div class="my-8 border-t border-gray-300"></div>
+
+<!-- Tampilkan Video YouTube -->
+<h1 class="text-accent1 bg-white w-1/2 lg:w-1/4 p-2 font-semibold text-2xl mb-5">Our Content on <span class="text-red-500 uppercase">Youtube</span></h1>
+<div class="flex flex-wrap justify-around gap-3 pb-8">
+  <iframe
+    width="560"
+    class="rounded border-[10px] border-white"
+    height="315"
+    src="https://www.youtube.com/embed/heZ_f6_9FV0?si=CVDe05g0tGr20HK3"
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen
+  ></iframe>
+  <iframe
+    width="560"
+    class="rounded border-[10px] border-white"
+    height="315"
+    src="https://www.youtube.com/embed/mZj37lmOhZQ?si=AKhni1IIMvfV9EzE"
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen
+  ></iframe>
+
+  <iframe
+    width="560"
+    class="rounded border-[10px] border-white"
+    height="315"
+    src="https://www.youtube.com/embed/Cq9IRCKqPnA?si=YDT-u22PXhXZ90Hw"
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen
+  ></iframe>
+</div>
+
   </div>
 </template>
 

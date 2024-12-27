@@ -5,9 +5,9 @@
     </div>
     
     <div class="pt-5">
-      <h1 class="text-3xl text-primary bg-white pb-2 mx-2 lg:mx-20 rounded-full text-center p-2">ARTICLE</h1>
+      <h1 class="text-3xl text-white underline underline-offset-[10px] tracking-widest mt-10 pb-2 mx-2 lg:mx-20 rounded-full text-center p-2">ARTICLE</h1>
     </div>
-    <div class="bg-white pb-5 mx-4 mt-8 rounded">
+    <div class="bg-white pb-10 mx-4 mt-8 rounded">
 
     <!-- Input Pencarian dan filter category -->
     <div class="pb-5 flex flex-wrap lg:justify-between justify-end mx-8 lg:mx-20 mb-5 lg:p-5 items-center">
