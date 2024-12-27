@@ -102,7 +102,7 @@ const updateUser = async () => {
       fullName: content.value.fullName,
       userName: content.value.userName,
       email: content.value.email,
-      roleId: content.value.role?.id, // Ambil ID dari role yang dipilih
+      roleId: content.value.role?.id,
       isActive: content.value.isActive,
     };
 
