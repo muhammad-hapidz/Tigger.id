@@ -67,7 +67,7 @@
     <div class="my-8 border-t border-gray-300"></div>
 
     <!-- Tampilkan Video YouTube -->
-    <div class="m-32 flex flex-wrap justify-center gap-5 pb-8">
+    <div class="flex flex-wrap justify-around gap-3 pb-8">
       <iframe
         width="560"
         class="rounded-md"
