@@ -1,9 +1,9 @@
 <template>
   <div class="bg-primary mt-16 pb-12">
-   <div class="text-secondary bg-white text-center lg:mx-14 pt-10">
+   <div class="text-white underline underline-offset-[10px] tracking-widest text-center lg:mx-14 pt-10">
      <h1 class="text-2xl font-semibold ml-5 pb-2"> NEWS & EVENT </h1> 
     </div>
-  <div class="mt-2 bg-white lg:mx-14">
+  <div class="mt-2 bg-white lg:mx-14 p-2">
     <!-- Input Pencarian dan Dropdown Filter Category -->
     <div class="flex flex-wrap justify-between lg:mx-10 mb-5 p-5 items-center">
       <!-- Input Pencarian -->

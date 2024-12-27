@@ -24,8 +24,7 @@
      <div class="bg-white lg:mr-16">
     <div class="tracking-wider mt-10 text-center lg:text-left mb-10 lg:mb-5 lg:ml-12">
       <h1 class="text-slate-800 text-3xl mt-10 pt-10">
-        ABOUT OUR 
-        <span class="underline underline-offset-[15px] font-bold bg-slate-200 rounded-lg px-3">ARTICLE</span> 
+               <span class="underline underline-offset-[15px] font-semibold">ARTICLE</span> 
       </h1>
     </div>
 
@@ -46,8 +45,8 @@
     <!-- News and Events Section -->
     <div class="lg:mx-10 py-5 pb-5">
       <div class="tracking-wider text-center lg:text-left  mt-5 pt-5">
-        <h1 class="text-accent1 lg:px-5 text-xl mt-12">ABOUT OUR </h1>
-        <h2 class="text-3xl bg-white p-1 rounded-lg lg:px-3 underline underline-offset-[15px] inline-block">NEWS AND EVENT</h2>
+        <!-- <h1 class="text-accent1 lg:px-5 text-xl mt-12"> </h1> -->
+        <h2 class="text-3xl bg-white p-1 rounded-lg lg:px-3 underline underline-offset-[15px] inline-block font-semibold">NEWS AND EVENT</h2>
       </div>
 
       <div class="mx-8 mb-10 pt-5">

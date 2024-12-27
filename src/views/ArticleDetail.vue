@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto bg-gray-200 mt-16 text-white min-h-screen py-10">
+  <div class="mx-auto bg-primary mt-16 text-white min-h-screen py-10">
     <!-- Jika sedang memuat data -->
     <div v-if="isLoading" class="flex justify-center items-center h-screen">
       <p class="text-blue-500 text-2xl font-semibold animate-pulse">
