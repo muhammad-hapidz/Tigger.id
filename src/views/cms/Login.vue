@@ -66,9 +66,11 @@ async function login() {
     )
 
     const token = response.data.token
+    const userRoleId = response.data.user.role.id
     if (token) {
       // Simpan token ke Local Storage
       localStorage.setItem('authToken', token)
+      localStorage.setItem('userRoleId', userRoleId)
       
       // Tampilkan alert login berhasil
       toast.success('Login berhasil!')
