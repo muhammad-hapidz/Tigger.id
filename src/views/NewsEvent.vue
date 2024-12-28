@@ -64,10 +64,10 @@
       <p>No News and Events found.</p>
     </div>
 
-    <div class="my-8 border-t border-gray-300"></div>
+    <!-- <div class="my-8 border-t border-gray-300"></div>
 
-    <!-- Tampilkan Video YouTube -->
-    <div class="m-32 flex flex-wrap justify-center gap-5 pb-8">
+    
+    <div class="flex flex-wrap justify-around gap-3 pb-8">
       <iframe
         width="560"
         class="rounded-md"
@@ -102,7 +102,7 @@
         referrerpolicy="strict-origin-when-cross-origin"
         allowfullscreen
       ></iframe>
-    </div>
+    </div> -->
 
     <div v-if="loadingInstagram" class="flex justify-center items-center py-10">
       <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-blue-500"></div>

@@ -12,10 +12,10 @@
         <h1 class="text-2xl text-slate-700 font-semibold mb-4">CHERY COMMUNITY INDONESIA</h1>
         <p class="mt-1 text-justify">
           <span class="text-slate-800 font-semibold text-2xl">Tigger.id</span> adalah Komunitas Eksklusif khusus pengguna dan pemilik Chery Tiggo Series di Indonesia. Berdiri pada tanggal 19 Juli 2024 dengan dukungan dari pihak Chery Sales Indonesia (CSI).
-          <p>Berdiri pada tanggal 19 Juli 2024 oleh beberapa pengguna Chery Tiggo dengan dukungan dari pihak Chery Sales Indonesia (CSI).      
-          Komunitas Tigger.id berbentuk non-profit yang bertujuan sebagai wadah berkumpul, tukar pikiran, diskusi, dan
-          having fun bagi seluruh Tiggo owners di Indonesia.</p>
         </p>
+        <p>Berdiri pada tanggal 19 Juli 2024 oleh beberapa pengguna Chery Tiggo dengan dukungan dari pihak Chery Sales Indonesia (CSI).      
+        Komunitas Tigger.id berbentuk non-profit yang bertujuan sebagai wadah berkumpul, tukar pikiran, diskusi, dan
+        having fun bagi seluruh Tiggo owners di Indonesia.</p>
         <div v-if="showFullText" class="mt-1 text-justify">
     
           <p>Keanggotaan Tigger dibatasi hanya kepada pemilik kendaraan Chery Tiggo (Tiggo 5, Tiggo 7, Tiggo 8, Tiggo 9, dll), dan nomor rangka/VIN akan dicatat dalam database.
@@ -45,7 +45,7 @@ Kegiatan Tigger akan mengarah pada sharing, diskusi, touring, aksi sosial dengan
           <p class="text-sm text-gray-600">Acara pertemuan antar anggota untuk saling berkenalan dan berbagi pengalaman berkendara dengan mobil Chery Tiggo.</p>
         </div>
         <div class="p-4 bg-white shadow rounded-lg hover:shadow-md transition">
-          <h2 class="font-semibold text-lg mb-2">Road Trips</h2>
+          <h2 class="font-semibold text-lg mb-2">Road Trip</h2>
           <p class="text-sm text-gray-600">Perjalanan berkendara bersama untuk mengunjungi lokasi menarik dan mengadakan kegiatan sosial.</p>
         </div>
         <div class="p-4 bg-white shadow rounded-lg hover:shadow-md transition">
