@@ -1,21 +1,37 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 import axios from 'axios';
 import { useToast } from 'vue-toastification';
 import api from '@/Services/api';
+import debounce from 'lodash/debounce';
 
-// Ambil parameter ID dari route
 const route = useRoute();
-const router = useRouter();
 const id = route.params.id;
 
 // State
 const role = ref(null);
-const roleMenus = ref([]); // Menyimpan data role-menu
-const menus = ref([]); // Menyimpan data menu
+const menus = ref([]);
+const roleMenus = ref([]);
 const isLoading = ref(true);
 const toast = useToast();
+
+// Fungsi untuk mengambil data dari cache atau API
+const fetchWithCache = async (key, fetchFunction, expiryInMs = 60000) => {
+  const cachedData = localStorage.getItem(key);
+  const cachedTime = localStorage.getItem(`${key}_time`);
+
+  if (cachedData && cachedTime && Date.now() - cachedTime < expiryInMs) {
+    return JSON.parse(cachedData); // Gunakan data dari cache jika masih valid
+  }
+
+  // Jika cache tidak valid, ambil data dari API
+  const data = await fetchFunction();
+  localStorage.setItem(key, JSON.stringify(data));
+  localStorage.setItem(`${key}_time`, Date.now().toString());
+  return data;
+};
+
 
 // Fungsi untuk mengambil detail role
 const fetchRole = async () => {
@@ -28,23 +44,22 @@ const fetchRole = async () => {
   }
 };
 
+// Fungsi untuk mengambil data menu
 const fetchMenus = async () => {
   try {
-    const response = await api.get('/Menu/Getall/cms');
-
-    // Filter hanya menu yang aktif (isActive: true)
-    menus.value = response.data
-      .filter((menu) => menu.isActive) // Hanya pilih menu dengan isActive: true
-      .map((menu) => ({
+    const fetchMenusAPI = async () => {
+      const response = await api.get('/Menu/Getall/cms');
+      return response.data.map((menu) => ({
         ...menu,
-        isActive: true, // Tetap tambahkan properti isActive ke true
+        isActive: false, // Default
       }));
+    };
+    menus.value = await fetchWithCache('menus', fetchMenusAPI, 3600000); // Cache valid selama 1 jam
   } catch (error) {
     console.error('Error fetching menus:', error);
     menus.value = [];
   }
 };
-
 
 // Fungsi untuk mengambil data role-menu
 const fetchRoleMenus = async () => {
@@ -55,20 +70,20 @@ const fetchRoleMenus = async () => {
   }
 
   try {
-    const response = await axios.get(
-      'https://apitiggerid.tri3a.com/api/RoleMenu/Getall/cms',
-      {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      }
-    );
-    roleMenus.value = response.data;
+    const fetchRoleMenusAPI = async () => {
+      const response = await axios.get(
+        'https://apitiggerid.tri3a.com/api/RoleMenu/Getall/cms',
+        { headers: { Authorization: `Bearer ${authToken}` } }
+      );
+      return response.data;
+    };
+    roleMenus.value = await fetchWithCache('roleMenus', fetchRoleMenusAPI, 60000); // Cache valid selama 1 menit
   } catch (error) {
     console.error('Error fetching role menus:', error);
     roleMenus.value = [];
   }
 };
+
 
 // Sinkronisasi menu dengan role-menu
 const synchronizeMenusWithRoleMenus = () => {
@@ -76,52 +91,56 @@ const synchronizeMenusWithRoleMenus = () => {
     const isLinked = roleMenus.value.some(
       (roleMenu) => roleMenu.menu.menuId === menu.id && roleMenu.role.roleId === role.value.id
     );
-    return {
-      ...menu,
-      isActive: isLinked, // Tandai isActive jika menu terhubung ke role
-    };
+    return { ...menu, isActive: isLinked };
   });
 };
 
-// Fungsi untuk menyimpan role-menu
-const saveRoleMenus = async () => {
+const invalidateCache = (key) => {
+  localStorage.removeItem(key);
+  localStorage.removeItem(`${key}_time`);
+};
+
+const updateRoleMenu = debounce(async (menu) => {
+  const authToken = localStorage.getItem('authToken');
+  if (!authToken) {
+    toast.error('Token autentikasi tidak ditemukan. Silakan login ulang.');
+    return;
+  }
+
   try {
-    const authToken = localStorage.getItem('authToken');
-    if (!authToken) {
-      toast.error('Token autentikasi tidak ditemukan. Silakan login ulang.');
-      return;
-    }
-
-    const selectedMenus = menus.value.filter((menu) => menu.isActive);
-    const payload = selectedMenus.map((menu) => ({
-      roleId: role.value.id,
-      menuId: menu.id,
-    }));
-
-    for (const data of payload) {
+    if (menu.isActive) {
       await axios.post(
         'https://apitiggerid.tri3a.com/api/RoleMenu/POST/cms',
-        data,
-        {
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-          },
-        }
+        { roleId: role.value.id, menuId: menu.id },
+        { headers: { Authorization: `Bearer ${authToken}` } }
       );
+      toast.success(`Menu "${menu.menuName}" berhasil ditambahkan.`);
+    } else {
+      const roleMenu = roleMenus.value.find(
+        (rm) => rm.menu.menuId === menu.id && rm.role.roleId === role.value.id
+      );
+      if (roleMenu) {
+        await axios.delete(
+          `https://apitiggerid.tri3a.com/api/RoleMenu/cms/${roleMenu.roleMenuId}`,
+          { headers: { Authorization: `Bearer ${authToken}` } }
+        );
+        toast.warning(`Menu "${menu.menuName}" berhasil dihapus.`);
+      } else {
+        console.warn('Role menu tidak ditemukan untuk penghapusan.');
+      }
     }
 
-    toast.success('Role Menu berhasil disimpan!');
-    router.push('/cms/roles');
+    // Invalidate cache dan refresh data
+    invalidateCache('roleMenus');
+    await fetchRoleMenus(); // Sinkronkan ulang data
+    synchronizeMenusWithRoleMenus();
   } catch (error) {
-    console.error('Error saving role menus:', error);
-    toast.error('Gagal menyimpan Role Menu. Silakan coba lagi.');
+    console.error('Error updating role menu:', error);
+    toast.error(`Gagal memperbarui menu "${menu.menuName}".`);
+    menu.isActive = !menu.isActive; // Revert checkbox jika gagal
   }
-};
+}, 300);
 
-// Fungsi untuk kembali ke halaman sebelumnya
-const goBack = () => {
-  window.history.back();
-};
 
 // Ambil data saat komponen di-mount
 onMounted(async () => {
@@ -131,6 +150,9 @@ onMounted(async () => {
   isLoading.value = false;
 });
 </script>
+
+
+
 
 <template>
   <div class="container mx-auto p-6">
@@ -162,7 +184,7 @@ onMounted(async () => {
                 Menu Name
               </th>
               <th class="px-5 py-3 text-xs font-semibold text-center text-gray-600 uppercase bg-gray-100 border-b">
-                Hak Akses
+                Access Rights
               </th>
             </tr>
           </thead>
@@ -174,6 +196,7 @@ onMounted(async () => {
                 <input
                   type="checkbox"
                   v-model="menu.isActive"
+                  @change="updateRoleMenu(menu)"
                   class="w-5 h-5 text-indigo-600 rounded-md focus:ring-indigo-500"
                 />
               </td>
@@ -181,29 +204,16 @@ onMounted(async () => {
           </tbody>
         </table>
       </div>
-
-      <div class="pt-6 flex justify-end gap-2">
-        <button
-          type="button"
-          @click="goBack"
-          class="px-4 py-2 border border-slate-800 rounded-md hover:bg-slate-800 hover:text-white duration-200"
-        >
-          Back
-        </button>
-        <button
-          type="button"
-          @click="saveRoleMenus"
-          class="px-4 py-2 text-sm font-semibold text-white bg-green-500 rounded hover:bg-green-600"
-        >
-          Save
-        </button>
-      </div>
-    </div>
-
-    <div v-else class="flex justify-center items-center min-h-screen">
-      <p class="text-center text-red-500 text-xl font-semibold">
-        Gagal memuat data. Silakan coba lagi nanti.
-      </p>
+      <div class="flex justify-end gap-2">
+          <router-link
+            to="/cms/roles"
+            class="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex items-center"
+          >
+            <span>Back</span>
+          </router-link>
+        </div>
     </div>
   </div>
 </template>
+
+
