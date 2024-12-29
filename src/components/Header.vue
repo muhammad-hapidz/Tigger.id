@@ -6,10 +6,17 @@ import { useSidebar } from '../composables/useSidebar'
 const dropdownOpen = ref(false)
 const { isOpen } = useSidebar()
 const router = useRouter()
+const fullName = localStorage.getItem('fullName');
+const userId = localStorage.getItem('userId');
 
 function logout() {
   localStorage.removeItem('authToken') // Hapus token
+  localStorage.removeItem('fullName') // Hapus Nama
   router.push('/cms/login') // Redirect ke halaman login
+}
+
+function changePassword() {
+  router.push({ name: 'changePassword', params: { id: userId } }) // Redirect ke halaman Change Password
 }
 </script>
 
@@ -46,7 +53,7 @@ function logout() {
           hover:bg-blue-600 hover:text-white transition-colors duration-200"
           @click="dropdownOpen = !dropdownOpen"
         >
-          Hello! Admin
+          Hello! {{ fullName }}
         </button>
 
         <div
@@ -67,8 +74,19 @@ function logout() {
             v-show="dropdownOpen"
             class="absolute right-0 z-20 w-48 py-2 mt-2 bg-white rounded-md shadow-xl"
           >
+=
+            
+            <!-- Change Password -->
             <button
-              class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
+              class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-600 hover:text-white transition-colors duration-200"
+              @click="changePassword"
+            >
+              Change Password
+            </button>
+            
+            <!-- Logout -->
+            <button
+              class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-600 hover:text-white transition-colors duration-200"
               @click="logout"
             >
               Log out

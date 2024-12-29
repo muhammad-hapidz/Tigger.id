@@ -15,42 +15,89 @@
       <div class="flex items-center justify-center mt-8">
         <div class="flex items-center">
           <img
-          src="@/assets/img/logotigger.png"
-          alt="Logo Tigger ID"
-          class="w-16 h-16 bg-white"
-        />
+            src="@/assets/img/logotigger.png"
+            alt="Logo Tigger ID"
+            class="w-16 h-16 bg-white"
+          />
           <span class="mx-2 text-2xl font-semibold text-white">TIGGER.ID</span>
         </div>
       </div>
 
       <nav class="mt-10">
         <router-link
-  v-for="menuItem in menu"
-  :key="menuItem.id"
-  class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
-  :class="[
-    $route.path.startsWith(menuItem.menu.menuUrl) ? activeClass : inactiveClass,
-  ]"
-  :to="menuItem.menu.menuUrl"
->
-  <svg
-    class="w-5 h-5"
-    viewBox="0 0 20 20"
-    fill="currentColor"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <!-- Placeholder SVG -->
-    <path
-      d="M2 10C2 5.58172 5.58172 2 10 2V10H18C18 14.4183 14.4183 18 10 18C5.58172 18 2 14.4183 2 10Z"
-      fill="currentColor"
-    />
-  </svg>
-  <span class="mx-4">{{ menuItem.menu.menuName }}</span>
-</router-link>
- </nav>
+          v-for="menuItem in menu"
+          :key="menuItem.id"
+          class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
+          :class="[ $route.path.startsWith(menuItem.menu.menuUrl) ? activeClass : inactiveClass ]"
+          :to="menuItem.menu.menuUrl"
+        >
+          <!-- SVG Icon based on menuItem.menu.menuUrl -->
+          <div>
+            <template v-if="menuItem.menu.menuUrl === '/cms/Users'">
+              <svg
+                class="h-6 w-6 text-gray-500"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
+            </template>
+            <template v-else-if="menuItem.menu.menuUrl === '/cms/dashboard'">
+              <svg
+                class="h-6 w-6 text-gray-500"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" />
+                <circle cx="12" cy="13" r="2" />
+                <line x1="13.45" y1="11.55" x2="15.5" y2="9.5" />
+                <path d="M6.4 20a9 9 0 1 1 11.2 0Z" />
+              </svg>
+            </template>
+            
+            <template v-else-if="menuItem.menu.menuUrl === '/cms/Contens'">
+              <svg
+                class="h-6 w-6 text-gray-500"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" />
+                <circle cx="12" cy="13" r="2" />
+                <line x1="13.45" y1="11.55" x2="15.5" y2="9.5" />
+                <path d="M6.4 20a9 9 0 1 1 11.2 0Z" />
+              </svg>
+            </template>
+            <template v-else>
+              <!-- Default SVG -->
+              <svg class="h-6 w-6 text-gray-500"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <line x1="12" y1="2" x2="12" y2="6" />  <line x1="12" y1="18" x2="12" y2="22" />  <line x1="4.93" y1="4.93" x2="7.76" y2="7.76" />  <line x1="16.24" y1="16.24" x2="19.07" y2="19.07" />  <line x1="2" y1="12" x2="6" y2="12" />  <line x1="18" y1="12" x2="22" y2="12" />  <line x1="4.93" y1="19.07" x2="7.76" y2="16.24" />  <line x1="16.24" y1="7.76" x2="19.07" y2="4.93" /></svg>
+            </template>
+          </div>
+          <span class="mx-4">{{ menuItem.menu.menuName }}</span>
+        </router-link>
+      </nav>
     </div>
   </div>
 </template>
+
 
 <script setup>
 import { ref,onMounted  } from 'vue'

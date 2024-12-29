@@ -136,6 +136,13 @@ const router = createRouter({
       eta: { requiresAuth: true, showNavbar: false, showFooter: false, },
     },
     {
+      path: '/cms/Users/changePassword/:id',
+      name: 'changePassword',
+      component: () => import('../views/cms/Users/changePassword.vue'),
+      props: true,
+      eta: { requiresAuth: true, showNavbar: false, showFooter: false, },
+    },
+    {
       path: '/cms/Contents',
       name: 'Contents',
       component: () => import('../views/cms/Contents/index.vue'),
