@@ -13,6 +13,7 @@
     "core-js": "^3.39.0",
     "filepond": "^4.32.5",
     "filepond-plugin-image-preview": "^4.6.12",
+    "lodash": "^4.17.21",
     "pinia": "^2.3.0",
     "quill": "^2.0.3",
     "vue": "^3.5.13",
