@@ -74,7 +74,6 @@ function changePassword() {
             v-show="dropdownOpen"
             class="absolute right-0 z-20 w-48 py-2 mt-2 bg-white rounded-md shadow-xl"
           >
-=
             
             <!-- Change Password -->
             <button

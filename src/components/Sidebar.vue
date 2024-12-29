@@ -1,3 +1,38 @@
+<script setup>
+import { ref,onMounted  } from 'vue'
+import { useSidebar } from '../composables/useSidebar'
+import api from '@/Services/api';
+const { isOpen } = useSidebar()
+const menu = ref([]);
+
+// Fungsi untuk mengambil data menu
+const fetchMenu = async () => {
+  try {
+    const token = localStorage.getItem('authToken');
+    const roleId = localStorage.getItem('userRoleId'); // Ambil roleId dari localStorage
+    console.log(roleId);
+    if (!token) {
+      
+      return;
+    }
+    const response = await api.get(`/RoleMenu/role/${roleId}`, {
+      headers: { Authorization: `Bearer ${token}` }, // Tambahkan token ke header
+    });
+    menu.value = response.data || [];
+  } catch (error) {
+    console.error('Error fetching menu:', error);
+    alert('Gagal mengambil data Menu. Silakan coba lagi.');
+  }
+};
+
+// Kelas aktif dan tidak aktif
+const activeClass = 'bg-gray-600 bg-opacity-25 text-gray-100 border-gray-100';
+const inactiveClass = 'border-gray-900 text-gray-500 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100';
+
+// Ambil data menu saat komponen dimuat
+onMounted(fetchMenu);
+</script>
+
 <template>
   <div class="flex">
     <!-- Backdrop -->
@@ -99,38 +134,3 @@
 </template>
 
 
-<script setup>
-import { ref,onMounted  } from 'vue'
-import { useSidebar } from '../composables/useSidebar'
-import api from '@/Services/api';
-const { isOpen } = useSidebar()
-const menu = ref([]);
-
-// Fungsi untuk mengambil data menu
-const fetchMenu = async () => {
-  try {
-    const token = localStorage.getItem('authToken');
-    const roleId = localStorage.getItem('userRoleId'); // Ambil roleId dari localStorage
-    console.log(roleId);
-    if (!token) {
-      alert('Token tidak ditemukan. Silakan login.');
-      window.location.href = '/cms/login';
-      return;
-    }
-    const response = await api.get(`/RoleMenu/role/${roleId}`, {
-      headers: { Authorization: `Bearer ${token}` }, // Tambahkan token ke header
-    });
-    menu.value = response.data || [];
-  } catch (error) {
-    console.error('Error fetching menu:', error);
-    alert('Gagal mengambil data Menu. Silakan coba lagi.');
-  }
-};
-
-// Kelas aktif dan tidak aktif
-const activeClass = 'bg-gray-600 bg-opacity-25 text-gray-100 border-gray-100';
-const inactiveClass = 'border-gray-900 text-gray-500 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100';
-
-// Ambil data menu saat komponen dimuat
-onMounted(fetchMenu);
-</script>

@@ -22,12 +22,7 @@ const content = ref({
 });
 
 const roles = ref([]); // Menyimpan semua role dari API
-const filteredRoles = computed(() =>
-  roles.value.map(role => ({
-    id: role.id,
-    name: role.roleName,
-  }))
-);
+
 
 // Password Visibility Toggle
 const showPassword = ref(false);
@@ -72,7 +67,7 @@ const fetchUserData = async () => {
     const userData = response.data;
 
     // Cari role berdasarkan ID dari userData.roleId
-    const userRole = roles.value.find(role => role.id === userData.roleId) || null;
+    const userRole = roles.value.find(role => role.id === userData.role.id) || null;
 
     content.value = {
       fullName: userData.fullName,
@@ -82,6 +77,7 @@ const fetchUserData = async () => {
       role: userRole, // Set default role
       isActive: userData.isActive,
     };
+    console.log('Content value set:', content.value);
   } catch (error) {
     console.error('Error fetching user data:', error);
     toast.error('Gagal mengambil data pengguna.');
@@ -137,11 +133,20 @@ const updateUser = async () => {
   }
 };
 
+const filteredRoles = computed(() =>
+  roles.value.map(role => ({
+    id: role.id,
+    name: role.roleName,
+  }))
+);
+
 // On Mounted
 onMounted(async () => {
   await fetchRoles(); // Pastikan roles sudah dimuat
   await fetchUserData(); // Setelah roles selesai, baru ambil data user
 });
+
+console.log('Content Role:', content.value.role);
 </script>
 
 <template>
@@ -197,6 +202,7 @@ onMounted(async () => {
             <div class="sm:col-span-2">
               <label class="text-gray-700" for="role">Role</label>
               <Multiselect
+              
                 class="border border-gray-300 rounded-md"
                 v-model="content.role"
                 :options="filteredRoles"
