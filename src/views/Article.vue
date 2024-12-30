@@ -10,7 +10,7 @@
     <div class="bg-white pb-10 mx-4 mt-8 rounded">
 
     <!-- Input Pencarian dan filter category -->
-    <div class="pb-5 flex flex-wrap lg:justify-between justify-end mx-8 lg:mx-20 mb-5 lg:p-5 items-center">
+    <div class="pb-5 flex flex-wrap lg:justify-between mx-8 lg:mx-20 mb-5 lg:p-5 items-center pt-5 ">
       <div class="mb-5">
         <input
           v-model="searchQuery"
