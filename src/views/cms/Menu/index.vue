@@ -1,6 +1,14 @@
 <template>
+   <div class="mt-6 p-4 bg-white shadow rounded-lg">
     <h3 class="text-gray-700 text-3xl font-medium">Menu</h3>
-  
+    <div class="mt-6">
+      <RouterLink
+        to="/cms/menu/create"
+        class="bg-blue-500 hover:bg-blue-600 duration-300 px-4 py-2 text-white rounded"
+      >
+        + Create New
+      </RouterLink>
+    </div>
     <!-- Input Pencarian -->
     <div class="my-4">
       <input
@@ -10,14 +18,7 @@
         class="px-4 py-2 border rounded-md lg:w-1/4"
       />
     </div>
-    <div class="mt-3">
-      <RouterLink
-        to="/cms/menu/create"
-        class="bg-blue-500 hover:bg-blue-600 duration-300 px-3 py-2 text-white rounded-md"
-      >
-        + Create New
-      </RouterLink>
-    </div>
+    
   
     <div class="mt-6">
       <div class="px-4 py-4 -mx-4 overflow-x-auto sm:-mx-8 sm:px-8">
@@ -76,33 +77,19 @@
               </tr>
             </tbody>
           </table>
-  
-          <!-- Pagination -->
-          <div v-if="totalPages > 1" class="flex justify-center items-center py-4">
-            <button @click="goToPage(1)" :disabled="currentPage.value === 1" class="px-4 py-2 text-sm font-semibold text-gray-800 bg-gray-300 rounded-l hover:bg-gray-400 disabled:opacity-50 disabled:cursor-not-allowed">«</button>
-            <button @click="prevPage" :disabled="currentPage.value === 1" class="px-4 py-2 text-sm font-semibold text-gray-800 bg-gray-300 hover:bg-gray-400 disabled:opacity-50 disabled:cursor-not-allowed">‹</button>
-  
-            <!-- Page Numbers -->
-            <button
-              v-for="page in totalPages"
-              :key="page"
-              @click="goToPage(page)"
-              :class="{'bg-blue-500 text-white': page === currentPage.value, 'text-gray-800': page !== currentPage.value}"
-              class="px-4 py-2 text-sm font-semibold mx-1 rounded hover:bg-gray-300"
-            >
-              {{ page }}
-            </button>
-  
-            <button @click="nextPage" :disabled="currentPage.value >= totalPages.value" class="px-4 py-2 text-sm font-semibold text-gray-800 bg-gray-300 hover:bg-gray-400 disabled:opacity-50 disabled:cursor-not-allowed">›</button>
-            <button
-              @click="goToPage(totalPages.value)"
-              :disabled="currentPage.value >= totalPages.value"
-              class="px-4 py-2 text-sm font-semibold text-gray-800 bg-gray-300 rounded-r hover:bg-gray-400 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              »
-            </button>
+        </div>
+        <!-- Pagination -->
+        <div class="flex items-center justify-between px-5 py-5 bg-white border-t">
+          <span class="text-xs text-gray-900 xs:text-sm">Showing {{ (currentPage - 1) * pageSize + 1 }} to {{ Math.min(currentPage * pageSize, filteredMenu.length) }} of {{ filteredMenu.length }} Entries</span>
+          <div class="inline-flex mt-2 xs:mt-0 gap-1">
+            <button @click="prevPage" class="px-4 py-2 text-sm font-semibold text-gray-800 bg-gray-300 rounded-l hover:bg-gray-400" :disabled="currentPage === 1">Prev</button>
+            <button @click="nextPage" class="px-4 py-2 text-sm font-semibold text-gray-800 bg-gray-300 rounded-r hover:bg-gray-400" :disabled="currentPage === totalPages">Next</button>
           </div>
         </div>
+
+
+
+      </div>  
       </div>
     </div>
   </template>
@@ -155,32 +142,27 @@ const filteredMenu = computed(() => {
   );
 });
 
+
+// Paginasi data
 const paginatedMenu = computed(() => {
-  const start = (currentPage.value - 1) * pageSize;
-  const end = start + pageSize;
-  return filteredMenu.value.slice(start, end);
-});
+  const start = (currentPage.value - 1) * pageSize
+  const end = start + pageSize
+  return filteredMenu.value.slice(start, end)
+})
 
-const totalPages = computed(() =>
+// Total halaman
+const totalPages = computed(() => 
   Math.ceil(filteredMenu.value.length / pageSize)
-);
+)
 
-// Navigasi halaman sebelumnya
+// Navigasi halaman
 const prevPage = () => {
-  if (currentPage.value > 1) currentPage.value--;
-};
+  if (currentPage.value > 1) currentPage.value--
+}
 
-// Navigasi halaman berikutnya
 const nextPage = () => {
-  if (currentPage.value < totalPages.value) currentPage.value++;
-};
-
-// Navigasi ke halaman tertentu
-const goToPage = (page) => {
-  if (page >= 1 && page <= totalPages.value) {
-    currentPage.value = page;
-  }
-};
+  if (currentPage.value < totalPages.value) currentPage.value++
+}
 
 const formatDate = (dateString) => {
   if (!dateString) return '-';
