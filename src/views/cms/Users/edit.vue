@@ -151,7 +151,7 @@ console.log('Content Role:', content.value.role);
 
 <template>
   <div class="mt-6 p-4 bg-white shadow rounded-lg">
-    <h3 class="text-3xl font-semibold text-gray-700 text-center underline">Edit User</h3>
+    <h3 class="text-3xl font-semibold text-gray-700 text-center border-b pb-2">Edit User</h3>
 
     <form @submit.prevent="updateUser">
       <div class="mt-4">

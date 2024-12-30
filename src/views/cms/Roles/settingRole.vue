@@ -16,23 +16,6 @@ const roleMenus = ref([]);
 const isLoading = ref(true);
 const toast = useToast();
 
-// Fungsi untuk mengambil data dari cache atau API
-const fetchWithCache = async (key, fetchFunction, expiryInMs = 60000) => {
-  const cachedData = localStorage.getItem(key);
-  const cachedTime = localStorage.getItem(`${key}_time`);
-
-  if (cachedData && cachedTime && Date.now() - cachedTime < expiryInMs) {
-    return JSON.parse(cachedData); // Gunakan data dari cache jika masih valid
-  }
-
-  // Jika cache tidak valid, ambil data dari API
-  const data = await fetchFunction();
-  localStorage.setItem(key, JSON.stringify(data));
-  localStorage.setItem(`${key}_time`, Date.now().toString());
-  return data;
-};
-
-
 // Fungsi untuk mengambil detail role
 const fetchRole = async () => {
   try {
@@ -47,14 +30,11 @@ const fetchRole = async () => {
 // Fungsi untuk mengambil data menu
 const fetchMenus = async () => {
   try {
-    const fetchMenusAPI = async () => {
-      const response = await api.get('/Menu/Getall/cms');
-      return response.data.map((menu) => ({
-        ...menu,
-        isActive: false, // Default
-      }));
-    };
-    menus.value = await fetchWithCache('menus', fetchMenusAPI, 3600000); // Cache valid selama 1 jam
+    const response = await api.get('/Menu/Getall/cms');
+    menus.value = response.data.map((menu) => ({
+      ...menu,
+      isActive: false, // Default
+    }));
   } catch (error) {
     console.error('Error fetching menus:', error);
     menus.value = [];
@@ -70,14 +50,16 @@ const fetchRoleMenus = async () => {
   }
 
   try {
-    const fetchRoleMenusAPI = async () => {
-      const response = await axios.get(
-        'https://apitiggerid.tri3a.com/api/RoleMenu/Getall/cms',
-        { headers: { Authorization: `Bearer ${authToken}` } }
-      );
-      return response.data;
-    };
-    roleMenus.value = await fetchWithCache('roleMenus', fetchRoleMenusAPI, 60000); // Cache valid selama 1 menit
+    const response = await axios.get(
+      'https://apitiggerid.tri3a.com/api/RoleMenu/Getall/cms',
+      { headers: { Authorization: `Bearer ${authToken}` } }
+    );
+
+    roleMenus.value = response.data.map((item) => ({
+      roleMenuId: item.roleMenuId,
+      roleId: item.role?.roleId, // Pastikan data sesuai
+      menuId: item.menu?.id,     // Ambil ID menu
+    }));
   } catch (error) {
     console.error('Error fetching role menus:', error);
     roleMenus.value = [];
@@ -85,21 +67,24 @@ const fetchRoleMenus = async () => {
 };
 
 
+
 // Sinkronisasi menu dengan role-menu
 const synchronizeMenusWithRoleMenus = () => {
+  if (!role.value || !roleMenus.value || !menus.value) return;
+
   menus.value = menus.value.map((menu) => {
     const isLinked = roleMenus.value.some(
-      (roleMenu) => roleMenu.menu.menuId === menu.id && roleMenu.role.roleId === role.value.id
+      (roleMenu) =>
+        roleMenu.menuId === menu.id && roleMenu.roleId === role.value.id
     );
     return { ...menu, isActive: isLinked };
   });
+
+  console.log('Menus:', menus.value);
+  console.log('RoleMenus:', roleMenus.value);
 };
 
-const invalidateCache = (key) => {
-  localStorage.removeItem(key);
-  localStorage.removeItem(`${key}_time`);
-};
-
+// Update hak akses role-menu
 const updateRoleMenu = debounce(async (menu) => {
   const authToken = localStorage.getItem('authToken');
   if (!authToken) {
@@ -109,6 +94,7 @@ const updateRoleMenu = debounce(async (menu) => {
 
   try {
     if (menu.isActive) {
+      // Tambahkan akses
       await axios.post(
         'https://apitiggerid.tri3a.com/api/RoleMenu/POST/cms',
         { roleId: role.value.id, menuId: menu.id },
@@ -116,8 +102,9 @@ const updateRoleMenu = debounce(async (menu) => {
       );
       toast.success(`Menu "${menu.menuName}" berhasil ditambahkan.`);
     } else {
+      // Hapus akses
       const roleMenu = roleMenus.value.find(
-        (rm) => rm.menu.menuId === menu.id && rm.role.roleId === role.value.id
+        (rm) => rm.menuId === menu.id && rm.roleId === role.value.id
       );
       if (roleMenu) {
         await axios.delete(
@@ -130,9 +117,8 @@ const updateRoleMenu = debounce(async (menu) => {
       }
     }
 
-    // Invalidate cache dan refresh data
-    invalidateCache('roleMenus');
-    await fetchRoleMenus(); // Sinkronkan ulang data
+    // Refresh data role-menu dan sinkronkan ulang
+    await fetchRoleMenus();
     synchronizeMenusWithRoleMenus();
   } catch (error) {
     console.error('Error updating role menu:', error);
@@ -150,9 +136,6 @@ onMounted(async () => {
   isLoading.value = false;
 });
 </script>
-
-
-
 
 <template>
   <div class="container mx-auto p-6">
@@ -205,15 +188,13 @@ onMounted(async () => {
         </table>
       </div>
       <div class="flex justify-end gap-2">
-          <router-link
-            to="/cms/roles"
-            class="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex items-center"
-          >
-            <span>Back</span>
-          </router-link>
-        </div>
+        <router-link
+          to="/cms/roles"
+          class="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex items-center"
+        >
+          <span>Back</span>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
-
-
