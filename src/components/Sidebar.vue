@@ -1,3 +1,72 @@
+<script setup>
+import { ref, onMounted } from 'vue';
+import { useSidebar } from '../composables/useSidebar';
+import api from '@/Services/api';
+
+const { isOpen } = useSidebar();
+const menu = ref([]);
+const icons = ref([]); // Penyimpanan ikon dari API
+
+// Default icon SVG as a string
+const defaultIcon = `
+<svg class="h-6 w-6 text-stone-500" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <path d="M8 13.5v-4a1.5 1.5 0 0 1 3 0v2.5m0 -2.5v-6a1.5 1.5 0 0 1 3 0v8.5m0 -2.5a1.5 1.5 0 0 1 3 0v2.5m0 -1.5a1.5 1.5 0 0 1 3 0v5.5a6 6 0 0 1 -6 6h-2a7 6 0 0 1 -5 -3l-2.7 -5.25a1.4 1.4 0 0 1 2.75 -2l.9 1.75" />
+</svg>
+`;
+
+// Fungsi untuk mengambil ikon
+const fetchIcons = async () => {
+  try {
+    const response = await api.get('/Icon/GetAll/cms');
+    icons.value = response.data || [];
+  } catch (error) {
+    console.error('Error fetching icons:', error);
+  }
+};
+
+// Fungsi untuk mengambil data menu
+const fetchMenu = async () => {
+  try {
+    const token = localStorage.getItem('authToken');
+    const roleId = localStorage.getItem('userRoleId'); // Ambil roleId dari localStorage
+    if (!token) {
+      return;
+    }
+    const response = await api.get(`/RoleMenu/role/${roleId}`, {
+      headers: { Authorization: `Bearer ${token}` }, // Tambahkan token ke header
+    });
+
+    // Gabungkan ikon dengan menu
+    menu.value = (response.data || []).map((menuItem) => {
+      const matchedIcon = icons.value.find(
+        (icon) => icon.iconName === menuItem.menu.menuName
+      );
+      return {
+        ...menuItem,
+        menu: {
+          ...menuItem.menu,
+          icon: matchedIcon ? matchedIcon.descSvg : defaultIcon, // Gunakan ikon dari API atau default
+        },
+      };
+    });
+  } catch (error) {
+    console.error('Error fetching menu:', error);
+    alert('Gagal mengambil data Menu. Silakan coba lagi.');
+  }
+};
+
+// Kelas aktif dan tidak aktif
+const activeClass = 'bg-gray-600 bg-opacity-25 text-gray-100 border-gray-100';
+const inactiveClass = 'border-gray-900 text-gray-500 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100';
+
+// Ambil data ikon dan menu saat komponen dimuat
+onMounted(async () => {
+  await fetchIcons(); // Ambil ikon terlebih dahulu
+  await fetchMenu(); // Kemudian ambil menu
+});
+</script>
+
 <template>
   <div class="flex">
     <!-- Backdrop -->
@@ -31,53 +100,11 @@
           :class="[ $route.path.startsWith(menuItem.menu.menuUrl) ? activeClass : inactiveClass ]"
           :to="menuItem.menu.menuUrl"
         >
-          <!-- SVG Icon based on menuItem.menu.icon or default -->
-          <div v-html="menuItem.menu.icon || defaultIcon" class="h-6 w-6 text-gray-500 flex items-center justify-center"></div>
+          <!-- SVG Icon -->
+          <div v-html="menuItem.menu.icon" class="h-6 w-6 text-gray-500 flex items-center justify-center"></div>
           <span class="mx-4">{{ menuItem.menu.menuName }}</span>
         </router-link>
       </nav>
     </div>
   </div>
 </template>
-
-<script setup>
-import { ref, onMounted } from 'vue';
-import { useSidebar } from '../composables/useSidebar';
-import api from '@/Services/api';
-
-const { isOpen } = useSidebar();
-const menu = ref([]);
-
-// Default icon SVG as a string
-const defaultIcon = `
-<svg class="h-6 w-6 text-red-500" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" />
-  <path d="M8 13.5v-4a1.5 1.5 0 0 1 3 0v2.5m0 -2.5v-6a1.5 1.5 0 0 1 3 0v8.5m0 -2.5a1.5 1.5 0 0 1 3 0v2.5m0 -1.5a1.5 1.5 0 0 1 3 0v5.5a6 6 0 0 1 -6 6h-2a7 6 0 0 1 -5 -3l-2.7 -5.25a1.4 1.4 0 0 1 2.75 -2l.9 1.75" />
-</svg>
-`;
-
-// Fungsi untuk mengambil data menu
-const fetchMenu = async () => {
-  try {
-    const token = localStorage.getItem('authToken');
-    const roleId = localStorage.getItem('userRoleId'); // Ambil roleId dari localStorage
-    if (!token) {
-      return;
-    }
-    const response = await api.get(`/RoleMenu/role/${roleId}`, {
-      headers: { Authorization: `Bearer ${token}` }, // Tambahkan token ke header
-    });
-    menu.value = response.data || [];
-  } catch (error) {
-    console.error('Error fetching menu:', error);
-    alert('Gagal mengambil data Menu. Silakan coba lagi.');
-  }
-};
-
-// Kelas aktif dan tidak aktif
-const activeClass = 'bg-gray-600 bg-opacity-25 text-gray-100 border-gray-100';
-const inactiveClass = 'border-gray-900 text-gray-500 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100';
-
-// Ambil data menu saat komponen dimuat
-onMounted(fetchMenu);
-</script>
