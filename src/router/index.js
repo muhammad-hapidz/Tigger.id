@@ -7,7 +7,7 @@ import Article from '@/views/Article.vue'
 import ArticleDetail from '@/views/ArticleDetail.vue'
 import TipsTrick from '@/views/TipsTrick.vue'
 import JoinUs from '@/views/JoinUs.vue'
-
+import Forbidden from '@/views/Forbidden.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -86,6 +86,15 @@ const router = createRouter({
       component: JoinUs,
       meta:{
         title:'TIGGER ID | Join Us'
+      },
+      meta: { showNavbar: true, showFooter: true, layout: 'MainLayout' },
+    },
+    {
+      path:'/notfound',
+      name:'forbidden',
+      component: Forbidden,
+      meta:{
+        title:'TIGGER ID | Not Found'
       },
       meta: { showNavbar: true, showFooter: true, layout: 'MainLayout' },
     },
@@ -275,6 +284,7 @@ const router = createRouter({
       component: () => import ('@/views/cms/Menu/EditMenu.vue'),
       meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
     },
+
   ],
 
   
