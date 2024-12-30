@@ -85,7 +85,7 @@ onMounted(fetchRoles);
 
 <template>
   <div class="mt-6 p-4 bg-white shadow rounded-lg">
-    <h3 class="text-gray-700 text-3xl font-medium">Roles</h3>
+    <h3 class="text-gray-700 text-3xl font-medium border-b pb-2">Roles</h3>
 
     <div class="mt-6">
       <router-link to="/cms/roles/create">
@@ -128,7 +128,7 @@ onMounted(fetchRoles);
                 <td class="px-5 py-5 text-sm bg-white border-b">{{ role.roleName }}</td>
                 <td class="px-5 py-5 text-sm bg-white border-b">{{ role.description }}</td>
                 <td class="px-5 py-5 text-sm bg-white border-b">{{ formatDate(role.createdDate) }}</td>
-                <td class="px-5 py-5 text-sm bg-white border-b text-center">
+                <td class="px-5 py-5 text-sm bg-white border-b border-gray-200 flex flex-wrap justify-center gap-2">
                   <router-link
                     :to="{ name: 'DetailRole', params: { id: role.id } }"
                   >
@@ -141,7 +141,6 @@ onMounted(fetchRoles);
                   </span>
                 </button>
               </router-link>
-                <span class="text-center"> | </span>
                 <router-link
                     :to="{ name: 'EditRole', params: { id: role.id } }"
                   >
@@ -154,7 +153,6 @@ onMounted(fetchRoles);
                 </span>
                 </button>
                   </router-link>
-                  <span class="text-center"> | </span>
                   <router-link :to="{ name: 'SettingRole', params: { id: role.id } }">
                   <button 
                     class="px-4 py-2 text-sm font-semibold text-white bg-yellow-500 rounded hover:bg-yellow-600"

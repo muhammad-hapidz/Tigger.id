@@ -88,7 +88,7 @@ onMounted(fetchUsers)
 
 <template>
   <div class="mt-6 p-4 bg-white shadow rounded-lg">
-    <h3 class="text-gray-700 text-3xl font-medium">Users</h3>
+    <h3 class="text-gray-700 text-3xl font-medium border-b pb-2">Users</h3>
 
 
   <div class="mt-6">
@@ -132,14 +132,14 @@ onMounted(fetchUsers)
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">{{ user.userName }}</td>
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">{{ user.email }}</td>
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200 text-center">{{ user.role?.roleName }}</td>
-              <td class="px-10 py-5 text-sm bg-white border-b border-gray-200 text-center">
+              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200 text-center">
                   <span
                     :class="user.isActive ? 'text-blue-500' : 'text-red-500'"
                     class=" font-bold py-[0.6px] px-[0.6px] rounded-l rounded-r appearance-none sm:rounded-l-r">
                     {{ user.isActive ? 'Active' : 'Non Active' }}
                   </span>
                 </td>
-              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200 text-center">
+              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200 flex flex-wrap justify-center gap-2">
                 <router-link
                     :to="{ name: 'userDetail', params: { id: user.id } }"
                   >
@@ -152,7 +152,6 @@ onMounted(fetchUsers)
                   </span>
                 </button>
               </router-link>
-                <span class="text-center"> | </span>
                 <router-link
                     :to="{ name: 'userEdit', params: { id: user.id } }"
                   >

@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import axios from 'axios'
+import api from '@/Services/api';
 
 // State
 const contents = ref([])
@@ -83,6 +84,20 @@ const formatDate = (dateString) => {
   return `${day}/${month}/${year}`
 }
 
+//Delete Content
+const deleteContent = async (id) => {
+  if (!confirm('Are you sure want to delete this Content?')) return;
+
+  try {
+    await api.delete(`/Contents/cms/${id}`);
+    alert('Content Deleted Successfully');
+    fetchContents();
+  } catch (error) {
+    console.error('Error Deleting Menu:', error);
+    alert('Gagal Menghapus Content. Silakan coba lagi.');
+  }
+};
+
 onMounted(fetchContents)
 </script>
 
@@ -90,7 +105,7 @@ onMounted(fetchContents)
 
 <template>
   <div class="mt-6 p-4 bg-white shadow rounded-lg">
-    <h3 class="text-gray-700 text-3xl font-medium">Contents</h3>
+    <h3 class="text-gray-700 text-3xl font-medium border-b pb-2">Contents</h3>
 
   
 
@@ -134,13 +149,13 @@ onMounted(fetchContents)
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">{{ index + 1 + (currentPage - 1) * itemsPerPage }}</td>
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">{{ truncateText(content.title, 30) }}</td>
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200"> <p class="text-gray-900 whitespace-nowrap"
-                v-html=" truncateText(content.description, 50)">
+                v-html=" truncateText(content.description, 30)">
                     </p></td>
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">{{ content.segments?.segmentName }}</td>
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">{{ content.category?.categoryName }}</td>
               <!-- <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">{{ content.createdBy }}</td> -->
               <!-- <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">{{ formatDate(content.createdDate) }}</td> -->
-              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200 text-center">
+              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200 flex flex-wrap justify-center gap-2">
                 <router-link
                     :to="{ name: 'contentDetail', params: { id: content.id } }"
                   >
@@ -153,7 +168,6 @@ onMounted(fetchContents)
                   </span>
                 </button>
               </router-link>
-                <span class="text-center"> | </span>
                 <router-link
                     :to="{ name: 'contentEdit', params: { id: content.id } }"
                   >
@@ -166,6 +180,12 @@ onMounted(fetchContents)
                 </span>
                 </button>
                 </router-link>
+                <RouterLink 
+                to=""
+                @click.prevent="deleteContent(content.id)"
+                class="px-4 py-2 text-sm font-semibold text-white bg-red-500 rounded hover:bg-red-600">
+                  <svg class="size-3 text-white"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <polyline points="3 6 5 6 21 6" />  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />  <line x1="10" y1="11" x2="10" y2="17" />  <line x1="14" y1="11" x2="14" y2="17" /></svg>
+                </RouterLink>
               </td>
             </tr>
           </tbody>
