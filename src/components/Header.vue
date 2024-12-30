@@ -10,9 +10,11 @@ const fullName = localStorage.getItem('fullName');
 const userId = localStorage.getItem('userId');
 
 function logout() {
-  localStorage.removeItem('authToken') // Hapus token
-  localStorage.removeItem('fullName') // Hapus Nama
-  router.push('/cms/login') // Redirect ke halaman login
+  localStorage.removeItem('authToken')
+  localStorage.removeItem('fullName')
+  localStorage.removeItem('userRoleId')
+  localStorage.removeItem('userId')
+  router.push('/cms/login')
 }
 
 function changePassword() {

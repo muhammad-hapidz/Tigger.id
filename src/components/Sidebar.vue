@@ -12,7 +12,6 @@ const fetchMenu = async () => {
     const roleId = localStorage.getItem('userRoleId'); // Ambil roleId dari localStorage
     console.log(roleId);
     if (!token) {
-      
       return;
     }
     const response = await api.get(`/RoleMenu/role/${roleId}`, {
