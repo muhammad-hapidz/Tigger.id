@@ -1,3 +1,37 @@
+<script setup>
+import { ref,onMounted  } from 'vue'
+import { useSidebar } from '../composables/useSidebar'
+import api from '@/Services/api';
+const { isOpen } = useSidebar()
+const menu = ref([]);
+
+// Fungsi untuk mengambil data menu
+const fetchMenu = async () => {
+  try {
+    const token = localStorage.getItem('authToken');
+    const roleId = localStorage.getItem('userRoleId'); // Ambil roleId dari localStorage
+    console.log(roleId);
+    if (!token) {
+      return;
+    }
+    const response = await api.get(`/RoleMenu/role/${roleId}`, {
+      headers: { Authorization: `Bearer ${token}` }, // Tambahkan token ke header
+    });
+    menu.value = response.data || [];
+  } catch (error) {
+    console.error('Error fetching menu:', error);
+    alert('Gagal mengambil data Menu. Silakan coba lagi.');
+  }
+};
+
+// Kelas aktif dan tidak aktif
+const activeClass = 'bg-gray-600 bg-opacity-25 text-gray-100 border-gray-100';
+const inactiveClass = 'border-gray-900 text-gray-500 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100';
+
+// Ambil data menu saat komponen dimuat
+onMounted(fetchMenu);
+</script>
+
 <template>
   <div class="flex">
     <!-- Backdrop -->
@@ -99,57 +133,3 @@
 </template>
 
 
-<script setup>
-import { ref, onMounted } from 'vue';
-import { useSidebar } from '../composables/useSidebar';
-import api from '@/Services/api';
-
-const { isOpen } = useSidebar();
-const menu = ref([]);
-
-// Fungsi untuk mengambil data menu
-const fetchMenu = async () => {
-  try {
-    const token = localStorage.getItem('authToken');
-    const roleId = localStorage.getItem('userRoleId'); // Ambil roleId dari localStorage
-
-    if (!token) {
-      console.warn("Token tidak ditemukan. Menggunakan menu default.");
-      menu.value = [
-        { id: 1, name: "Home", path: "/" },
-        { id: 2, name: "About Us", path: "/about" },
-        { id: 3, name: "News & Event", path: "/news-and-event" },
-        { id: 4, name: "Article", path: "/article" },
-        { id: 5, name: "Tips & Trick", path: "/tips-and-trick" },
-        { id: 6, name: "Join Us", path: "/join-us" },
-      ];
-      return;
-    }
-
-    const response = await api.get(`/RoleMenu/role/${roleId}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-
-    // Periksa apakah data ada dan valid
-    if (!response.data || response.data.length === 0) {
-      console.warn("Tidak ada menu ditemukan.");
-      return;
-    }
-
-    // Urutkan menu berdasarkan 'no' dan pastikan setiap item memiliki menuUrl
-    menu.value = response.data
-      .filter(item => item.menu && item.menu.menuUrl)  // Hanya ambil yang memiliki menuUrl
-      .sort((a, b) => a.menu.no - b.menu.no);  // Urutkan berdasarkan 'no'
-  } catch (error) {
-    console.error('Error fetching menu:', error);
-    alert('Gagal mengambil data Menu. Silakan coba lagi.');
-  }
-};
-
-// Kelas aktif dan tidak aktif
-const activeClass = 'bg-gray-600 bg-opacity-25 text-gray-100 border-gray-100';
-const inactiveClass = 'border-gray-900 text-gray-500 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100';
-
-// Ambil data menu saat komponen dimuat
-onMounted(fetchMenu);
-</script>

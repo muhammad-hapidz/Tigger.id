@@ -287,22 +287,6 @@ router.beforeEach((to, from, next) => {
 
 
 // // Middleware untuk proteksi route
-// router.beforeEach((to, from, next) => {
-//   const token = localStorage.getItem('authToken')
-
-//   if (to.matched.some(record => record.meta.requiresAuth)) {
-//     // Cek jika ada token
-//     if (!token) {
-//       // Redirect ke halaman login jika tidak ada token
-//       next('/cms/login')
-//     } else {
-//       next('/cms/dashboard') // Lanjutkan jika ada token
-//     }
-//   } else {
-//     next() // Lanjutkan jika route tidak perlu autentikasi
-//   }
-// })
-
 // Navigation Guard
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('authToken')
