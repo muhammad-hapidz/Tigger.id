@@ -1,6 +1,6 @@
 <template>
   <div class="mt-6 p-4 bg-white shadow rounded-lg">
-  <h3 class="text-gray-700 text-3xl font-medium">Category</h3>
+  <h3 class="text-gray-700 text-3xl font-medium border-b-2 pb-2">Category</h3>
 
   <div class="mt-6">
     <RouterLink
@@ -96,6 +96,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import api from '@/Services/api';
+import { useToast } from 'vue-toastification';
 
 const category = ref([]);
 const currentPage = ref(1); // Halaman saat ini, default adalah 1
@@ -103,13 +104,16 @@ const pageSize = 10; // Jumlah item per halaman
 const searchQuery = ref('');
 const isLoading = ref(true);
 
+// Initialize the toast instance
+const toast = useToast();
+
 // Fungsi untuk mengambil data kategori
 const fetchCategory = async () => {
   isLoading.value = true; // Mulai loading
   try {
     const token = localStorage.getItem('authToken');
     if (!token) {
-      alert('Token tidak ditemukan. Silakan login.');
+      toast.error('Token tidak ditemukan. Silakan login.');  // Replaced alert with toast.error
       window.location.href = '/cms/login';
       return;
     }
@@ -117,7 +121,7 @@ const fetchCategory = async () => {
     category.value = response.data || [];
   } catch (error) {
     console.error('Error fetching category:', error);
-    alert('Gagal mengambil data kategori. Silakan coba lagi.');
+    toast.error('Gagal mengambil data kategori. Silakan coba lagi.');  // Replaced alert with toast.error
   } finally {
     isLoading.value = false; // Selesai loading
   }
@@ -128,50 +132,50 @@ const deleteCategory = async (id) => {
 
   try {
     await api.delete(`/Category/cms/${id}`);
-    alert('Category Deleted Successfully');
+    toast.success('Category Deleted Successfully');  // Replaced alert with toast.success
     fetchCategory();
   } catch (error) {
     console.error('Error Deleting Category:', error);
-    alert('Gagal Menghapus Category. Silakan coba lagi.');
+    toast.error('Gagal Menghapus Category. Silakan coba lagi.');  // Replaced alert with toast.error
   }
 };
 
 onMounted(fetchCategory);
 
 const filteredCategory = computed(() => {
-  if (!searchQuery.value) return category.value
+  if (!searchQuery.value) return category.value;
 
-  const query = searchQuery.value.toLowerCase()
+  const query = searchQuery.value.toLowerCase();
 
   return category.value.filter(content => {
-    const titleMatch = content.title?.toLowerCase().includes(query)
-    const segmentMatch = content.segments?.segmentName?.toLowerCase().includes(query)
-    const categoryMatch = content.category?.categoryName?.toLowerCase().includes(query)
+    const titleMatch = content.title?.toLowerCase().includes(query);
+    const segmentMatch = content.segments?.segmentName?.toLowerCase().includes(query);
+    const categoryMatch = content.category?.categoryName?.toLowerCase().includes(query);
 
-    return titleMatch || segmentMatch || categoryMatch
-  })
-})
+    return titleMatch || segmentMatch || categoryMatch;
+  });
+});
 
 // Paginasi data
 const paginatedCategory = computed(() => {
-  const start = (currentPage.value - 1) * pageSize
-  const end = start + pageSize
-  return filteredCategory.value.slice(start, end)
-})
+  const start = (currentPage.value - 1) * pageSize;
+  const end = start + pageSize;
+  return filteredCategory.value.slice(start, end);
+});
 
 // Total halaman
-const totalPages = computed(() => 
+const totalPages = computed(() =>
   Math.ceil(filteredCategory.value.length / pageSize)
-)
+);
 
 // Navigasi halaman
 const prevPage = () => {
-  if (currentPage.value > 1) currentPage.value--
-}
+  if (currentPage.value > 1) currentPage.value--;
+};
 
 const nextPage = () => {
-  if (currentPage.value < totalPages.value) currentPage.value++
-}
+  if (currentPage.value < totalPages.value) currentPage.value++;
+};
 
 const formatDate = (dateString) => {
   if (!dateString) return '-';
@@ -180,6 +184,14 @@ const formatDate = (dateString) => {
   return date.toLocaleDateString('id-ID');
 };
 </script>
+
+<style scoped>
+.loader {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left-color: #1d4ed8; /* Tailwind blue-500 */
+}
+</style>
+
 
 <style scoped>
 .loader {

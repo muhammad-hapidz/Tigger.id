@@ -1,6 +1,6 @@
 <template>
   <div class="mt-6 p-4 bg-white shadow rounded-lg">
-    <h3 class="text-gray-700 text-3xl font-medium mb-5">Segment / Menu</h3>
+    <h3 class="text-gray-700 text-3xl font-medium mb-5 border-b-2 pb-2">Segment / Menu</h3>
     <div class="mt-3">
       <!-- <RouterLink
         to="/cms/segment/create"
@@ -83,6 +83,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import api from '@/Services/api';
+import { useToast } from 'vue-toastification';
 
 const segment = ref([]);
 const currentPage = ref(1); // Halaman saat ini, default adalah 1
@@ -95,7 +96,7 @@ const fetchSegment = async () => {
   try {
     const token = localStorage.getItem('authToken');
     if (!token) {
-      alert('Token tidak ditemukan. Silakan login.');
+      toast.error('Token tidak ditemukan. Silakan login.');
       window.location.href = '/cms/login';
       return;
     }

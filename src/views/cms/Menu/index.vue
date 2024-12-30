@@ -1,6 +1,6 @@
 <template>
    <div class="mt-6 p-4 bg-white shadow rounded-lg">
-    <h3 class="text-gray-700 text-3xl font-medium">Menu</h3>
+    <h3 class="text-gray-700 text-3xl font-medium border-b-2 pb-2">Menu</h3>
     <div class="mt-6">
       <RouterLink
         to="/cms/menu/create"
@@ -27,6 +27,7 @@
             <thead>
               <tr>
                 <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2">No</th>
+                <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2">Icon</th>
                 <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2">Menu Name</th>
                 <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2">Description</th>
                 <th class="px-5 py-3 text-xs font-semibold text-left text-gray-600 uppercase bg-gray-100 border-b-2">Menu URL</th>
@@ -41,6 +42,7 @@
                 <td class="px-5 py-5 text-sm bg-white border-b">
                   {{ index + 1 + ((currentPage || 1) - 1) * pageSize }}
                 </td>
+                <div class="menu-icon" v-html="menu.icon || '-'"></div>
                 <td class="px-5 py-5 text-sm bg-white border-b">{{ menu.menuName }}</td>
                 <td class="px-5 py-5 text-sm bg-white border-b">{{ menu.caption }}</td>
                 <td class="px-5 py-5 text-sm bg-white border-b">{{ menu.menuUrl }}</td>
@@ -60,12 +62,12 @@
                         <path fill-rule="evenodd" d="M1.38 8.28a.87.87 0 0 1 0-.566 7.003 7.003 0 0 1 13.238.006.87.87 0 0 1 0 .566A7.003 7.003 0 0 1 1.379 8.28ZM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" clip-rule="evenodd" />
                       </svg>
                   </RouterLink>
-                  <RouterLink
+                  <!-- <RouterLink
                     :to="`/cms/menu/${menu.id}/edit`"
                     class="px-4 py-2 bg-green-500 hover:bg-green-600 duration-200 rounded-md"
                   >
                   <svg class="h-4 w-4 text-white"  viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" />  <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />  <line x1="16" y1="5" x2="19" y2="8" /></svg>
-                  </RouterLink>
+                  </RouterLink> -->
 
                   <RouterLink 
                 to=""
@@ -97,18 +99,20 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import api from '@/Services/api';
+import { useToast } from 'vue-toastification';
 
 const menu = ref([]);
 const currentPage = ref(1); // Halaman saat ini, default adalah 1
 const pageSize = 10; // Jumlah item per halaman
 const searchQuery = ref('');
+const toast = useToast(); // Inisialisasi toast
 
 // Fungsi untuk mengambil data kategori
 const fetchMenu = async () => {
   try {
     const token = localStorage.getItem('authToken');
     if (!token) {
-      alert('Token tidak ditemukan. Silakan login.');
+      toast.error('Token tidak ditemukan. Silakan login.'); // Mengganti alert dengan toast error
       window.location.href = '/cms/login';
       return;
     }
@@ -116,7 +120,7 @@ const fetchMenu = async () => {
     menu.value = response.data || [];
   } catch (error) {
     console.error('Error fetching menu :', error);
-    alert('Gagal mengambil data Menu. Silakan coba lagi.');
+    toast.error('Gagal mengambil data Menu. Silakan coba lagi.'); // Mengganti alert dengan toast error
   }
 };
 
@@ -125,11 +129,11 @@ const deleteMenu = async (id) => {
 
   try {
     await api.delete(`/Menu/cms/${id}`);
-    alert('Menu Deleted Successfully');
+    toast.success('Menu Deleted Successfully'); // Mengganti alert dengan toast success
     fetchMenu();
   } catch (error) {
     console.error('Error Deleting Menu:', error);
-    alert('Gagal Menghapus Menu. Silakan coba lagi.');
+    toast.error('Gagal Menghapus Menu. Silakan coba lagi.'); // Mengganti alert dengan toast error
   }
 };
 
@@ -142,27 +146,26 @@ const filteredMenu = computed(() => {
   );
 });
 
-
 // Paginasi data
 const paginatedMenu = computed(() => {
-  const start = (currentPage.value - 1) * pageSize
-  const end = start + pageSize
-  return filteredMenu.value.slice(start, end)
-})
+  const start = (currentPage.value - 1) * pageSize;
+  const end = start + pageSize;
+  return filteredMenu.value.slice(start, end);
+});
 
 // Total halaman
-const totalPages = computed(() => 
+const totalPages = computed(() =>
   Math.ceil(filteredMenu.value.length / pageSize)
-)
+);
 
 // Navigasi halaman
 const prevPage = () => {
-  if (currentPage.value > 1) currentPage.value--
-}
+  if (currentPage.value > 1) currentPage.value--;
+};
 
 const nextPage = () => {
-  if (currentPage.value < totalPages.value) currentPage.value++
-}
+  if (currentPage.value < totalPages.value) currentPage.value++;
+};
 
 const formatDate = (dateString) => {
   if (!dateString) return '-';
