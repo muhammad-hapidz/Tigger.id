@@ -120,7 +120,7 @@ const updateUser = async () => {
     router.push('/cms/Users');
   } catch (error) {
     console.error('Error updating user:', error);
-    toast.error('Gagal memperbarui user. Silakan coba lagi.');
+    toast.error(error.response.data.message);
   }
 };
 

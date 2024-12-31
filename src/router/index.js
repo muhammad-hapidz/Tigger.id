@@ -234,9 +234,10 @@ const router = createRouter({
       meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
     },
     {
-      path:'/cms/roles/create',
-      name:'CreateRole',
+      path: '/cms/roles/create',
+      name:'createRoles',
       component: () => import ('@/views/cms/Roles/Create.vue'),
+      props:true,
       meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
     },
     {
