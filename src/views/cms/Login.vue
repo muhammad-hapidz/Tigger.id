@@ -47,12 +47,31 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
-import { useToast } from 'vue-toastification'; // Import useToast from Vue Toast
+import { useToast } from 'vue-toastification' // Import useToast dari Vue Toast
 
 const router = useRouter()
 const username = ref('')
 const password = ref('')
-const toast = useToast(); // Initialize toast
+const toast = useToast() // Initialize toast
+
+// Fungsi untuk mengambil Role Menu dan menyimpan allowedUrls
+async function fetchRoleMenu(token, roleId) {
+  try {
+    const response = await axios.get(
+      `https://apitiggerid.tri3a.com/api/RoleMenu/role/${roleId}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    )
+
+    const allowedUrls = response.data.map((item) => item.menu.menuUrl) // Ambil URL dari menu
+    localStorage.setItem('allowedUrls', JSON.stringify(allowedUrls)) // Simpan allowedUrls ke localStorage
+    return allowedUrls
+  } catch (error) {
+    console.error('Error fetching RoleMenu:', error)
+    return [] // Kembalikan array kosong jika gagal
+  }
+}
 
 // Fungsi Login
 async function login() {
@@ -69,18 +88,23 @@ async function login() {
     const userRoleId = response.data.user.role.id
     const userId = response.data.user.id
     const fullName = response.data.user.fullName
+
     if (token) {
-      // Simpan token ke Local Storage
+      // Simpan token dan informasi pengguna ke Local Storage
       localStorage.setItem('authToken', token)
       localStorage.setItem('userRoleId', userRoleId)
       localStorage.setItem('userId', userId)
       localStorage.setItem('fullName', fullName)
-      
+
+      // Panggil fetchRoleMenu untuk mendapatkan allowedUrls
+      const allowedUrls = await fetchRoleMenu(token, userRoleId)
+      console.log('Allowed URLs:', allowedUrls) // Debug log untuk memastikan data
+
       // Tampilkan alert login berhasil
       toast.success('Login berhasil!')
-      
+
       // Redirect setelah login
-      router.push('/cms/dashboard') 
+      router.push('/cms/dashboard')
     } else {
       toast.error('Login gagal. Silakan periksa kredensial Anda.')
     }
@@ -90,6 +114,7 @@ async function login() {
   }
 }
 </script>
+
 
 <style scoped>
 /* Kelas untuk menambahkan gambar sebagai background */

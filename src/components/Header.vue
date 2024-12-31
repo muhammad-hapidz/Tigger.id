@@ -14,6 +14,8 @@ function logout() {
   localStorage.removeItem('fullName')
   localStorage.removeItem('userRoleId')
   localStorage.removeItem('userId')
+  localStorage.removeItem('allowedUrls')
+  
   router.push('/cms/login')
 }
 

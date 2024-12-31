@@ -290,22 +290,54 @@ const router = createRouter({
 
   
 })
-router.beforeEach((to, from, next) => {
-  document.title = to.meta.title || 'TIGGER ID'; // Default title
-  next();
-});
 
 
 
 // // Middleware untuk proteksi route
 // Navigation Guard
 router.beforeEach((to, from, next) => {
+    document.title = to.meta.title || 'TIGGER ID'; // Default title
+  next();
   const token = localStorage.getItem('authToken')
+  const allowedUrls = localStorage.getItem('allowedUrls')
+  const currentUrl = history.state.current
+
+  console.log('allowedUrls:',allowedUrls, 'currentUrl:',currentUrl)
+
+  
 
   // Halaman yang memerlukan autentikasi
   if (to.meta.requiresAuth && !token) {
-    next('/cms/login') // Redirect ke login jika belum login
-  } 
+    return router.push('/cms/login'); // Redirect ke login jika belum login
+    
+  } else if (to.meta.requiresAuth && allowedUrls.length > 0) {
+    const isAllowed = allowedUrls.includes(currentUrl);
+
+    console.log(isAllowed)
+    // const isAllowed = allowedUrls.some(url => currentUrl.startsWith(url));
+    if (!isAllowed) {
+      return router.push('/notfound');
+    }
+  }
+  //   } else if (to.meta.requiresAuth && allowedUrls.length > 0) {
+  //     // Konversi semua allowedUrls ke lowercase
+  //     const lowerCaseAllowedUrls = allowedUrls.map(url => url.toLowerCase());
+
+  //     // Konversi currentUrl ke lowercase
+  //     const currentUrl = to.path.toLowerCase();
+
+  //     // Periksa apakah currentUrl ada di dalam allowedUrls
+  //     const isAllowed = allowedUrls.includes(currentUrl);
+  //     // const isAllowed = lowerCaseAllowedUrls.some(url => currentUrl.startsWith(currentUrl));
+
+  //     console.log('Current URL:', currentUrl);
+  //     console.log('Allowed URLs:', lowerCaseAllowedUrls);
+  //     console.log('Is Allowed:', isAllowed);
+
+  //     if (!isAllowed) {
+  //       return router.push('/notfound'); // Redirect jika URL tidak diizinkan
+  //     }
+  // }
   // Halaman untuk tamu (tanpa token)
   else if (to.meta.guestOnly && token) {
     next('/cms/dashboard') // Redirect ke /cms jika sudah login

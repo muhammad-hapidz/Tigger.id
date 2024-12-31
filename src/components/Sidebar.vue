@@ -70,7 +70,7 @@ const fetchMenu = async () => {
     const response = await api.get(`/RoleMenu/role/${roleId}`, {
       headers: { Authorization: `Bearer ${token}` }, // Tambahkan token ke header
     });
-    console.log('Menu data:', response.data); // Log data menu
+    // console.log('Menu data:', response.data); // Log data menu
     menu.value = response.data || [];
   } catch (error) {
     console.error('Error fetching menu:', error);
