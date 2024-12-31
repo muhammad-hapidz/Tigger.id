@@ -16,7 +16,10 @@
       </div>
 
       <div class="flex mr-5 mt-10 lg:mr-16 lg:mt-32">
-        <RouterLink to="/about" class="ml-auto bg-white p-1 rounded-lg px-10">Lihat Selengkapnya</RouterLink>
+        <RouterLink
+        to="/about" 
+        class="ml-auto bg-white p-1 rounded-lg px-10"
+        @click="scrollToTop">Lihat Selengkapnya</RouterLink>
       </div>
     </div>
 
@@ -159,7 +162,17 @@ export default {
         this.loading = false; // Set loading to false after both data are fetched
       });
   },
+  methods: {
+    // Scroll to top of the page
+    scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    },
+  },
 };
+
 </script>
 
 <style scoped>

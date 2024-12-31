@@ -38,12 +38,12 @@
           >
             Back
           </button>
-          <RouterLink
+          <!-- <RouterLink
             :to="`/cms/segment/${detailSegment.id}/edit`"
             class="px-4 py-2 text-sm font-semibold text-white bg-green-500 rounded hover:bg-green-600"
           >
             Edit
-          </RouterLink>
+          </RouterLink> -->
         </div>
       </div>
   

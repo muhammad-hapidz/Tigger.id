@@ -63,6 +63,8 @@ const fetchMenu = async () => {
   try {
     const token = localStorage.getItem('authToken');
     const roleId = localStorage.getItem('userRoleId'); // Ambil roleId dari localStorage
+    // console.log('token:',  token)
+    // console.log('role id:', roleId)
     if (!token) {
       console.warn('Token tidak tersedia.');
       return;

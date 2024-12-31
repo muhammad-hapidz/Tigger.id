@@ -120,33 +120,39 @@ const fetchMenu = async () => {
       window.location.href = '/cms/login';
       return;
     }
+
     const response = await api.get('/Menu/Getall/cms');
     menu.value = response.data || [];
-    mergeIconsWithMenu(); // Gabungkan menu dengan ikon
+
+    // Gabungkan data menu dengan ikon
+    menu.value.forEach((item) => {
+      item.icon = item.icon ? item.icon.descSvg : defaultIcon;  // Mengambil descSvg dari data ikon
+    });
   } catch (error) {
     console.error('Error fetching menu:', error);
     toast.error('Gagal mengambil data Menu. Silakan coba lagi.');
   }
 };
 
-// Fungsi untuk mengambil data ikon
-const fetchIcons = async () => {
-  try {
-    const response = await api.get('/Icon/GetAll/cms');
-    icons.value = response.data || [];
-    mergeIconsWithMenu(); // Gabungkan menu dengan ikon
-  } catch (error) {
-    console.error('Error fetching icons:', error);
-  }
-};
+
+// // Fungsi untuk mengambil data ikon
+// const fetchIcons = async () => {
+//   try {
+//     const response = await api.get('/Icon/GetAll/cms');
+//     icons.value = response.data || [];
+//     mergeIconsWithMenu(); // Gabungkan menu dengan ikon
+//   } catch (error) {
+//     console.error('Error fetching icons:', error);
+//   }
+// };
 
 const mergeIconsWithMenu = () => {
   if (!menu.value.length || !icons.value.length) return;
 
   menu.value.forEach((item) => {
-    console.log('Menu Item:', item.menuName); // Debug menuName
+    // console.log('Menu Item:', item.menuName); // Debug menuName
     const icon = icons.value.find((iconItem) => iconItem.iconName === item.menuName);
-    console.log('Matched Icon:', icon); // Debug iconName yang cocok
+    // console.log('Matched Icon:', icon); // Debug iconName yang cocok
     item.icon = icon ? icon.descSvg : defaultIcon;
   });
 };
@@ -167,7 +173,7 @@ const deleteMenu = async (id) => {
 // Ambil data saat komponen dimuat
 onMounted(() => {
   fetchMenu();
-  fetchIcons();
+  // fetchIcons();
 });
 
 const filteredMenu = computed(() => {

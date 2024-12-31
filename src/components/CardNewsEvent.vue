@@ -29,6 +29,7 @@
           <p class="text-gray-500 text-sm">{{ formatDate(news.createdDate) }}</p>
           <RouterLink
             :to="'/news-and-event/' + news.id"
+            @click="scrollToTop"
             class="bg-primary text-white hover:text-primary hover:bg-white border border-slate-900 text-sm font-medium py-2 px-4 rounded-lg hover:opacity-75 transition-colors duration-300"
           >
             Read More
@@ -68,6 +69,14 @@ export default {
         day: "numeric",
       }).format(date);
     },
+    // Scroll to top of the page
+    scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    },
+  
   },
 };
 </script>
