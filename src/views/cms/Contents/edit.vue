@@ -23,59 +23,135 @@ const content = ref({
 
 const segments = ref([]);
 const categories = ref([]);
+const fCategories = ref([]);
 let quillEditor = null;
 
-const filteredSegments = computed(() =>
-  segments.value.map(segment => ({ id: segment.id, name: segment.segmentName }))
-);
+// const filteredSegments = computed(() =>
+//   segments.value.map(segment => ({ id: segment.id, name: segment.segmentName }))
+// );
 
-const filteredCategories = computed(() =>
-  categories.value.filter(item => item.segment.segmentId === content.value.segment?.id)
-);
+
+
+
+// const fetchSegments = async () => {
+//   const authToken = localStorage.getItem('authToken');
+//   try {
+//     const response = await axios.get('https://apitiggerid.tri3a.com/api/Segments/Getall/cms', {
+//       headers: { Authorization: `Bearer ${authToken}` },
+//     });
+//     segments.value = response.data;
+//   } catch (error) {
+//     console.error('Error fetching segments:', error);
+//   }
+// };
 
 const fetchSegments = async () => {
   const authToken = localStorage.getItem('authToken');
+  if (!authToken) {
+    toast.error('Auth token tidak ditemukan. Harap login terlebih dahulu.');
+    return;
+  }
+
   try {
     const response = await axios.get('https://apitiggerid.tri3a.com/api/Segments/Getall/cms', {
-      headers: { Authorization: `Bearer ${authToken}` },
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
     });
-    segments.value = response.data;
+
+    segments.value = response.data.map(segment => ({
+      id: segment.id,
+      name: segment.segmentName, // Pastikan name sesuai dengan label di Multiselect
+    }));
   } catch (error) {
     console.error('Error fetching segments:', error);
+    toast.error('Gagal mengambil data segments.');
   }
 };
+
+// const fetchCategories = async () => {
+//   const authToken = localStorage.getItem('authToken');
+//   try {
+//     const response = await axios.get('https://apitiggerid.tri3a.com/api/Category/Getall/cms', {
+//       headers: { Authorization: `Bearer ${authToken}` },
+//     });
+//     categories.value = response.data;
+//   } catch (error) {
+//     console.error('Error fetching categories:', error);
+//   }
+// };
 
 const fetchCategories = async () => {
   const authToken = localStorage.getItem('authToken');
+  if (!authToken) {
+    toast.error('Auth token tidak ditemukan. Harap login terlebih dahulu.');
+    return;
+  }
+
   try {
     const response = await axios.get('https://apitiggerid.tri3a.com/api/Category/Getall/cms', {
-      headers: { Authorization: `Bearer ${authToken}` },
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
     });
-    categories.value = response.data;
+
+    fCategories.value = response.data
+    
+
+    categories.value = response.data.map(category => ({
+      id: category.id,
+      categoryName: category.categoryName, // Pastikan name sesuai dengan label di Multiselect
+    }));
+
   } catch (error) {
-    console.error('Error fetching categories:', error);
+    console.error('Error fetching segments:', error);
+    toast.error('Gagal mengambil data segments.');
   }
 };
 
+
+const filteredCategories = computed(() =>
+fCategories.value.filter(item => item.segment.segmentId === content.value.segment?.id)
+);
+
+
 const fetchContent = async () => {
   const authToken = localStorage.getItem('authToken');
+  if (!authToken) {
+    console.error('Auth token tidak ditemukan. Harap login terlebih dahulu.');
+    return;
+  }
+
   try {
     const response = await axios.get(`https://apitiggerid.tri3a.com/api/Contents/cms/${contentId}`, {
       headers: { Authorization: `Bearer ${authToken}` },
     });
+
     const data = response.data;
+
+    // Validasi segments dan categories
+    const contentSegment = segments.value.find(segment => segment.id === data.segments.segmentId) || null;
+    const contentCategory = categories.value.find(category => category.id === data.category.categoryId) || null;
+
     content.value = {
       title: data.title,
       description: data.description,
       image: data.image,
-      segment: segments.value.find(segment => segment.id === data.segmentId) || null,
-      category: categories.value.find(category => category.id === data.categoryId) || null,
+      segment: contentSegment,
+      category: contentCategory,
     };
-    quillEditor.root.innerHTML = data.description;
+
+    // Pastikan quillEditor terdefinisi sebelum diakses
+    if (quillEditor && quillEditor.root) {
+      quillEditor.root.innerHTML = data.description;
+    } else {
+      console.warn('quillEditor belum diinisialisasi.');
+    }
   } catch (error) {
     console.error('Error fetching content:', error);
   }
 };
+
 
 const updateContent = async () => {
   const authToken = localStorage.getItem('authToken');
@@ -107,15 +183,11 @@ const updateContent = async () => {
     router.push('/cms/Contents');
   } catch (error) {
     console.error('Error updating content:', error);
-    toast.error('Gagal memperbarui content. Silakan coba lagi.');
+    toast.error('Gagal memperbarui content. Silakan coba lagi. Pastikan Category Sesuai Dengan Segment yang anda pilih');
   }
 };
 
-onMounted(() => {
-  fetchSegments();
-  fetchCategories();
-  fetchContent();
-
+const initializeQuillEditor = () => {
   const quillContainer = document.getElementById('editor');
   quillEditor = new Quill(quillContainer, {
     theme: 'snow',
@@ -124,10 +196,22 @@ onMounted(() => {
       toolbar: [
         [{ header: [1, 2, false] }],
         ['bold', 'italic', 'underline'],
-        // [{ list: 'ordered' }, { list: 'bullet' }],
+        [{ list: 'ordered' }, { list: 'bullet' }],
       ],
     },
   });
+
+  // Set nilai awal jika sudah ada data deskripsi
+  if (content.value.description) {
+    quillEditor.root.innerHTML = content.value.description;
+  }
+};
+
+onMounted(async () => {
+  await fetchSegments();
+  await fetchCategories();
+  await fetchContent();
+  initializeQuillEditor();
 });
 </script>
 
@@ -144,7 +228,7 @@ onMounted(() => {
               <Multiselect
                 class="border border-gray-300 rounded-md mt-2"
                 v-model="content.segment"
-                :options="filteredSegments"
+                :options="segments"
                 label="name"
                 track-by="id"
                 placeholder="Select a segment"

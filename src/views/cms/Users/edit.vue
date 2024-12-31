@@ -6,10 +6,9 @@ import 'vue-multiselect/dist/vue-multiselect.min.css';
 import axios from 'axios';
 import { useToast } from 'vue-toastification';
 
-// Router and Route instances
 const router = useRouter();
 const route = useRoute();
-const toast = useToast(); // Initialize toast
+const toast = useToast();
 
 // State Data
 const content = ref({
@@ -23,36 +22,36 @@ const content = ref({
 
 const roles = ref([]); // Menyimpan semua role dari API
 
-
-// Password Visibility Toggle
-const showPassword = ref(false);
-const togglePasswordVisibility = () => {
-  showPassword.value = !showPassword.value;
-};
-
 // Fetch Roles API
 const fetchRoles = async () => {
   const authToken = localStorage.getItem('authToken');
   if (!authToken) {
-    console.error('Auth token tidak ditemukan. Harap login terlebih dahulu.');
+    toast.error('Auth token tidak ditemukan. Harap login terlebih dahulu.');
     return;
   }
+
   try {
     const response = await axios.get('https://apitiggerid.tri3a.com/api/Roles/Getall/cms', {
       headers: {
         Authorization: `Bearer ${authToken}`,
       },
     });
-    roles.value = response.data; // Simpan hasil API ke roles
+
+    roles.value = response.data.map(role => ({
+      id: role.id,
+      name: role.roleName, // Pastikan name sesuai dengan label di Multiselect
+    }));
   } catch (error) {
     console.error('Error fetching roles:', error);
+    toast.error('Gagal mengambil data roles.');
   }
 };
 
+// Fetch User Data API
 const fetchUserData = async () => {
   const authToken = localStorage.getItem('authToken');
   if (!authToken) {
-    console.error('Auth token tidak ditemukan. Harap login terlebih dahulu.');
+    toast.error('Auth token tidak ditemukan. Harap login terlebih dahulu.');
     return;
   }
 
@@ -66,7 +65,7 @@ const fetchUserData = async () => {
 
     const userData = response.data;
 
-    // Cari role berdasarkan ID dari userData.roleId
+    // Temukan role berdasarkan ID dari userData
     const userRole = roles.value.find(role => role.id === userData.role.id) || null;
 
     content.value = {
@@ -74,10 +73,9 @@ const fetchUserData = async () => {
       userName: userData.userName,
       email: userData.email,
       password: '', // Tidak menyertakan password
-      role: userRole, // Set default role
+      role: userRole, // Tetapkan role default
       isActive: userData.isActive,
     };
-    console.log('Content value set:', content.value);
   } catch (error) {
     console.error('Error fetching user data:', error);
     toast.error('Gagal mengambil data pengguna.');
@@ -88,7 +86,7 @@ const fetchUserData = async () => {
 const updateUser = async () => {
   const authToken = localStorage.getItem('authToken');
   if (!authToken) {
-    console.error('Auth token tidak ditemukan. Harap login terlebih dahulu.');
+    toast.error('Auth token tidak ditemukan. Harap login terlebih dahulu.');
     return;
   }
 
@@ -112,132 +110,93 @@ const updateUser = async () => {
       return;
     }
 
-    const response = await axios.put(
-      `https://apitiggerid.tri3a.com/api/Users/cms/${userId}`,
-      payload,
-      {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      }
-    );
+    await axios.put(`https://apitiggerid.tri3a.com/api/Users/cms/${userId}`, payload, {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
 
-    console.log('User updated successfully:', response.data);
     toast.success('User berhasil diperbarui!');
-
-    // Redirect ke halaman sebelumnya atau halaman /cms/Users
     router.push('/cms/Users');
   } catch (error) {
     console.error('Error updating user:', error);
-    toast.error('Gagal memperbarui user. Silakan coba lagi.');
+    toast.error(error.response.data.message);
   }
 };
 
-const filteredRoles = computed(() =>
-  roles.value.map(role => ({
-    id: role.id,
-    name: role.roleName,
-  }))
-);
-
 // On Mounted
 onMounted(async () => {
-  await fetchRoles(); // Pastikan roles sudah dimuat
+  await fetchRoles(); // Pastikan roles sudah dimuat terlebih dahulu
   await fetchUserData(); // Setelah roles selesai, baru ambil data user
 });
-
-console.log('Content Role:', content.value.role);
 </script>
 
 <template>
   <div class="mt-6 p-4 bg-white shadow rounded-lg">
-    <h3 class="text-3xl font-semibold text-gray-700 text-center border-b pb-2">Edit User</h3>
+    <h3 class="text-3xl font-semibold text-gray-700 text-center underline">Edit User</h3>
 
     <form @submit.prevent="updateUser">
-      <div class="mt-4">
-        <div class="p-6 bg-white rounded-md shadow-md">
-          <h2 class="text-lg font-semibold text-gray-700 capitalize">
-            User Settings
-          </h2>
+      <div class="p-6 bg-white rounded-md shadow-md">
+        <div class="grid grid-cols-1 gap-6">
+          <!-- Full Name -->
+          <div>
+            <label for="fullName" class="text-gray-700">Full Name</label>
+            <input
+              v-model="content.fullName"
+              id="fullName"
+              type="text"
+              class="w-full p-2 border border-gray-300 rounded-md focus:outline-none"
+              required
+            />
+          </div>
 
-          <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-            <!-- Input Full Name -->
-            <div class="sm:col-span-2">
-              <label class="text-gray-700" for="fullName">Full Name</label>
-              <input
-                v-model="content.fullName"
-                id="fullName"
-                class="p-2 w-full mt-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-300 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                type="text"
-                required
-              />
-            </div>
+          <!-- Username -->
+          <div>
+            <label for="userName" class="text-gray-700">Username</label>
+            <input
+              v-model="content.userName"
+              id="userName"
+              type="text"
+              class="w-full p-2 border border-gray-300 rounded-md focus:outline-none"
+              required
+            />
+          </div>
 
-            <!-- Input Username -->
-            <div class="sm:col-span-2">
-              <label class="text-gray-700" for="userName">Username</label>
-              <input
-                v-model="content.userName"
-                id="userName"
-                autocomplete="new-username"
-                class="p-2 w-full mt-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-300 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                type="text"
-                required
-              />
-            </div>
+          <!-- Email -->
+          <div>
+            <label for="email" class="text-gray-700">Email</label>
+            <input
+              v-model="content.email"
+              id="email"
+              type="email"
+              class="w-full p-2 border border-gray-300 rounded-md focus:outline-none"
+              required
+            />
+          </div>
 
-            <!-- Input Email -->
-            <div class="sm:col-span-2">
-              <label class="text-gray-700" for="email">Email</label>
-              <input
-                v-model="content.email"
-                id="email"
-                class="p-2 w-full mt-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-300 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                type="email"
-                required
-              />
-            </div>
+          <!-- Role -->
+          <div>
+            <label for="role" class="text-gray-700">Role</label>
+            <Multiselect
+              v-model="content.role"
+              :options="roles"
+              label="name"
+              track-by="id"
+              placeholder="Select a role"
+              class="w-full p-2 border border-gray-300 rounded-md focus:outline-none"
+            />
+          </div>
 
-            <!-- Select Role -->
-            <div class="sm:col-span-2">
-              <label class="text-gray-700" for="role">Role</label>
-              <Multiselect
-              
-                class="border border-gray-300 rounded-md"
-                v-model="content.role"
-                :options="filteredRoles"
-                label="name"
-                track-by="id"
-                placeholder="Select a role"
-              />
-            </div>
-
-            <!-- Checkbox IsActive -->
-            <div class="sm:col-span-2 flex items-center">
-              <input
-                v-model="content.isActive"
-                id="isActive"
-                type="checkbox"
-                class="mr-2"
-              />
-              <label for="isActive" class="text-gray-700">Is Active</label>
-            </div>
+          <!-- Is Active -->
+          <div class="flex items-center">
+            <input type="checkbox" v-model="content.isActive" id="isActive" />
+            <label for="isActive" class="ml-2 text-gray-700">Is Active</label>
           </div>
         </div>
-        <!-- Submit Button -->
-        <div class="flex justify-end gap-2">
-          <router-link
-            to="/cms/Users"
-            class="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex items-center"
-          >
-            <span>Back</span>
-          </router-link>
-          <button
-            type="submit"
-            class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
-          >
-            Update User
-          </button>
+
+        <div class="flex justify-end mt-4">
+          <router-link to="/cms/Users" class="px-4 py-2 bg-red-500 text-white rounded">Back</router-link>
+          <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded ml-2">Update</button>
         </div>
       </div>
     </form>

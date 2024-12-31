@@ -1,98 +1,106 @@
+<script setup>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import axios from 'axios';
+import { useToast } from 'vue-toastification'; // Import useToast untuk notifikasi
+
+// Router instance
+const router = useRouter();
+const toast = useToast(); // Initialize toast
+
+// State Data
+const content = ref({
+  roleName: '',
+  description: '',
+});
+
+// Submit Function
+const createRole = async () => {
+  const authToken = localStorage.getItem('authToken');
+  if (!authToken) {
+    console.error('Auth token tidak ditemukan. Harap login terlebih dahulu.');
+    return;
+  }
+
+  try {
+    const payload = {
+      roleName: content.value.roleName,
+      description: content.value.description,
+    };
+
+    const response = await axios.post(
+      'https://apitiggerid.tri3a.com/api/Roles/POST/cms',
+      payload,
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      }
+    );
+
+    console.log('Role created successfully:', response.data);
+    toast.success('Role berhasil dibuat!');
+
+    // Redirect ke halaman sebelumnya atau halaman /cms/Roles
+    router.push('/cms/Roles');
+  } catch (error) {
+    console.error('Error creating role:', error);
+    toast.error('Gagal membuat role. Silakan coba lagi.');
+  }
+};
+</script>
+
 <template>
-    <div class="container mx-auto lg:p-6">
-      <!-- Form untuk menambahkan data -->
-      <div class="bg-white shadow-md rounded-lg p-6 lg:w-3/4">
-        <h1 class="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">
-          Tambah Role
-        </h1>
-        <form @submit.prevent="handleSubmit">
-          <div class="space-y-4">
-            <div>
-              <label for="roleName" class="block text-gray-600 font-semibold mb-2">
-                Role Name
-              </label>
+  <div class="mt-6 p-4 bg-white shadow rounded-lg">
+    <h3 class="text-3xl font-semibold text-gray-700 text-center underline">Create Role</h3>
+
+    <form @submit.prevent="createRole">
+      <div class="mt-4">
+        <div class="p-6 bg-white rounded-md shadow-md">
+          <h2 class="text-lg font-semibold text-gray-700 capitalize">Role Settings</h2>
+
+          <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+            <!-- Input Role Name -->
+            <div class="sm:col-span-2">
+              <label class="text-gray-700" for="roleName">Role Name</label>
               <input
-                type="text"
+                v-model="content.roleName"
                 id="roleName"
-                v-model="formData.roleName"
-                placeholder="Enter role name"
-                class="w-full lg:w-1/2 px-4 py-2 border rounded-md"
+                class="p-2 w-full mt-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-300 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
+                type="text"
                 required
               />
             </div>
-            <div>
-              <label for="description" class="block text-gray-600 font-semibold mb-2">
-                Description
-              </label>
+
+            <!-- Input Description -->
+            <div class="sm:col-span-2">
+              <label class="text-gray-700" for="description">Description</label>
               <textarea
+                v-model="content.description"
                 id="description"
-                v-model="formData.description"
-                placeholder="Enter description"
-                class="w-full lg:w-1/2 px-4 py-2 border rounded-md"
-                rows="6"
+                class="p-2 w-full mt-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-300 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
+                rows="4"
+                placeholder="Enter role description"
               ></textarea>
             </div>
           </div>
-          <div class="pt-16 flex justify-end gap-2">
-            <button 
-              type="button" 
-              @click="goBack" 
-              class="px-4 py-2 border border-slate-800 rounded-md hover:bg-slate-800 hover:text-white duration-200"
-            >
-              Back
-            </button>
-            <button 
-              type="submit" 
-              class="px-4 py-2 bg-blue-500 text-white rounded-md hover:opacity-80"
-            >
-              Save
-            </button>
-          </div>
-        </form>
+        </div>
+        <!-- Submit Button -->
+        <div class="flex justify-end gap-2">
+          <router-link
+            to="/cms/Roles"
+            class="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex items-center"
+          >
+            <span>Back</span>
+          </router-link>
+          <button
+            type="submit"
+            class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
+          >
+            Create Role
+          </button>
+        </div>
       </div>
-    </div>
-  </template>
-  
-  <script setup>
-  import { reactive } from 'vue';
-  import api from '@/Services/api';
-  import { useToast } from 'vue-toastification';
-  
-  const toast = useToast();
-  
-  const formData = reactive({
-    roleName: '',
-    description: '',
-  });
-  
-  const handleSubmit = async () => {
-    try {
-      // Kirim data ke API
-      const response = await api.post('/Roles/POST/cms', {
-        roleName: formData.roleName,
-        description: formData.description,
-      });
-      console.log('Data berhasil ditambahkan:', response.data);
-  
-      // Tampilkan toast sukses
-      toast.success('Data berhasil ditambahkan!');
-  
-      // Reset form
-      formData.roleName = '';
-      formData.description = '';
-  
-      // Kembali ke halaman sebelumnya
-      setTimeout(() => {
-        window.history.back();
-      }, 1500); // Memberi waktu untuk toast tampil
-    } catch (error) {
-      console.error('Error saat menambahkan data:', error);
-      toast.error('Terjadi kesalahan. Silakan coba lagi.');
-    }
-  };
-  
-  const goBack = () => {
-    window.history.back();
-  };
-  </script>
-  
+    </form>
+  </div>
+</template>
