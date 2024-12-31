@@ -62,12 +62,12 @@
                         <path fill-rule="evenodd" d="M1.38 8.28a.87.87 0 0 1 0-.566 7.003 7.003 0 0 1 13.238.006.87.87 0 0 1 0 .566A7.003 7.003 0 0 1 1.379 8.28ZM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" clip-rule="evenodd" />
                       </svg>
                   </RouterLink>
-                  <!-- <RouterLink
+                  <RouterLink
                     :to="`/cms/menu/${menu.id}/edit`"
                     class="px-4 py-2 bg-green-500 hover:bg-green-600 duration-200 rounded-md"
                   >
                   <svg class="h-4 w-4 text-white"  viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" />  <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />  <line x1="16" y1="5" x2="19" y2="8" /></svg>
-                  </RouterLink> -->
+                  </RouterLink>
 
                   <RouterLink 
                 to=""
@@ -102,26 +102,53 @@ import api from '@/Services/api';
 import { useToast } from 'vue-toastification';
 
 const menu = ref([]);
+const icons = ref([]);
 const currentPage = ref(1); // Halaman saat ini, default adalah 1
 const pageSize = 10; // Jumlah item per halaman
 const searchQuery = ref('');
 const toast = useToast(); // Inisialisasi toast
 
-// Fungsi untuk mengambil data kategori
+// Default icon
+const defaultIcon = `<svg class="h-6 w-6 text-stone-500" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24V0z"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="19" r="1"/></svg>`;
+
+// Fungsi untuk mengambil data menu
 const fetchMenu = async () => {
   try {
     const token = localStorage.getItem('authToken');
     if (!token) {
-      toast.error('Token tidak ditemukan. Silakan login.'); // Mengganti alert dengan toast error
+      toast.error('Token tidak ditemukan. Silakan login.');
       window.location.href = '/cms/login';
       return;
     }
     const response = await api.get('/Menu/Getall/cms');
     menu.value = response.data || [];
+    mergeIconsWithMenu(); // Gabungkan menu dengan ikon
   } catch (error) {
-    console.error('Error fetching menu :', error);
-    toast.error('Gagal mengambil data Menu. Silakan coba lagi.'); // Mengganti alert dengan toast error
+    console.error('Error fetching menu:', error);
+    toast.error('Gagal mengambil data Menu. Silakan coba lagi.');
   }
+};
+
+// Fungsi untuk mengambil data ikon
+const fetchIcons = async () => {
+  try {
+    const response = await api.get('/Icon/GetAll/cms');
+    icons.value = response.data || [];
+    mergeIconsWithMenu(); // Gabungkan menu dengan ikon
+  } catch (error) {
+    console.error('Error fetching icons:', error);
+  }
+};
+
+const mergeIconsWithMenu = () => {
+  if (!menu.value.length || !icons.value.length) return;
+
+  menu.value.forEach((item) => {
+    console.log('Menu Item:', item.menuName); // Debug menuName
+    const icon = icons.value.find((iconItem) => iconItem.iconName === item.menuName);
+    console.log('Matched Icon:', icon); // Debug iconName yang cocok
+    item.icon = icon ? icon.descSvg : defaultIcon;
+  });
 };
 
 const deleteMenu = async (id) => {
@@ -129,15 +156,19 @@ const deleteMenu = async (id) => {
 
   try {
     await api.delete(`/Menu/cms/${id}`);
-    toast.success('Menu Deleted Successfully'); // Mengganti alert dengan toast success
+    toast.success('Menu Deleted Successfully');
     fetchMenu();
   } catch (error) {
-    console.error('Error Deleting Menu:', error);
-    toast.error('Gagal Menghapus Menu. Silakan coba lagi.'); // Mengganti alert dengan toast error
+    console.error('Error deleting menu:', error);
+    toast.error('Gagal Menghapus Menu. Silakan coba lagi.');
   }
 };
 
-onMounted(fetchMenu);
+// Ambil data saat komponen dimuat
+onMounted(() => {
+  fetchMenu();
+  fetchIcons();
+});
 
 const filteredMenu = computed(() => {
   if (!searchQuery.value) return menu.value;
@@ -174,3 +205,9 @@ const formatDate = (dateString) => {
   return date.toLocaleDateString('id-ID');
 };
 </script>
+<!-- 
+<style scoped>
+.menu-icon{
+  background-color: black;
+}
+</style> -->

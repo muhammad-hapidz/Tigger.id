@@ -1,72 +1,3 @@
-<script setup>
-import { reactive } from 'vue';
-import api from '@/Services/api'; // Pastikan konfigurasi Axios benar
-import { useToast } from 'vue-toastification';
-
-const formData = reactive({
-  no: '',
-  menuName: '',
-  icon: '',
-  caption: '',
-  menuUrl: '',
-  isActive: true, // Default value set to "Active"
-});
-
-const toast = useToast();
-
-const handleSubmit = async () => {
-  // Validasi jika menuName kosong
-  if (!formData.menuName) {
-    toast.error('Please enter a menu name');
-    return;
-  }
-
-  // Menampilkan data yang akan dikirim
-  console.log('Data to be sent:', formData);
-
-  try {
-    // Kirim data ke API
-    const response = await api.post('https://apitiggerid.tri3a.com/api/Menu/POST/cms', {
-      no: Number(formData.no), // Pastikan no dikirim sebagai angka
-      menuName: formData.menuName,
-      icon: formData.icon,
-      caption: formData.caption,
-      menuUrl: formData.menuUrl,
-      isActive: formData.isActive, // Status sebagai boolean
-    });
-
-    console.log('Data berhasil ditambahkan:', response.data);
-
-    // Reset form
-    formData.no = '';
-    formData.menuName = '';
-    formData.icon = '';
-    formData.caption = '';
-    formData.menuUrl = '';
-    formData.isActive = true; // Reset ke default "Active"
-
-    // Tampilkan toast sukses
-    toast.success('Menu successfully added!');
-    // Kembali ke halaman sebelumnya
-    setTimeout(() => {
-      window.history.back();
-    }, 1500); // Memberi waktu untuk toast tampil
-  } catch (error) {
-    console.error('Error saat menambahkan data:', error);
-    // Periksa apakah error memiliki response dari server
-    if (error.response) {
-      toast.error(error.response.data.message || 'Terjadi kesalahan. Silakan coba lagi.');
-    } else {
-      toast.error('Terjadi kesalahan. Silakan coba lagi.');
-    }
-  }
-};
-
-const goBack = () => {
-  window.history.back();
-};
-</script>
-
 <template>
   <div class="container mx-auto lg:p-6">
     <div class="bg-white shadow-md rounded-lg p-6 lg:w-3/4">
@@ -105,13 +36,26 @@ const goBack = () => {
             <label for="icon" class="block text-gray-600 font-semibold mb-2">
               Icon
             </label>
-            <input
-              type="text"
+            <select
               id="icon"
               v-model="formData.icon"
-              placeholder="Paste icon SVG"
               class="w-full lg:w-1/2 px-4 py-2 border rounded-md"
-            />
+            >
+              <option value="" disabled>Select an Icon</option>
+              <option
+                v-for="icon in icons"
+                :key="icon.id"
+                :value="icon.descSvg"
+              >
+                <!-- Tampilkan hanya nama ikon di dropdown -->
+                {{ icon.iconName }}
+              </option>
+            </select>
+          </div>
+          <div v-if="formData.icon">
+            <label class="block text-gray-600 font-semibold mb-2">Selected Icon</label>
+            <!-- Tampilkan SVG ikon yang dipilih -->
+            <span v-html="formData.icon" class="h-6 w-6"></span>
           </div>
           <div>
             <label for="caption" class="block text-gray-600 font-semibold mb-2">
@@ -182,3 +126,82 @@ const goBack = () => {
     </div>
   </div>
 </template>
+<script setup>
+import { reactive, ref, onMounted } from 'vue';
+import api from '@/Services/api';
+import { useToast } from 'vue-toastification';
+
+const formData = reactive({
+  no: '',
+  menuName: '',
+  icon: '', // Menyimpan SVG dari ikon yang dipilih
+  caption: '',
+  menuUrl: '',
+  isActive: true, // Default value set to "Active"
+});
+
+const icons = ref([]); // Menyimpan daftar ikon dari API
+const toast = useToast();
+
+// Fetch data ikon dari API
+const fetchIcons = async () => {
+  try {
+    const response = await api.get('/Icon/GetAll/cms'); // Sesuaikan endpoint API
+    icons.value = response.data; // Simpan data ikon ke state
+  } catch (error) {
+    console.error('Error fetching icons:', error);
+    toast.error('Failed to load icons. Please try again later.');
+  }
+};
+
+// Kirim data ke API
+const handleSubmit = async () => {
+  if (!formData.menuName) {
+    toast.error('Please enter a menu name');
+    return;
+  }
+
+  console.log('Data to be sent:', formData);
+
+  try {
+    const response = await api.post('https://apitiggerid.tri3a.com/api/Menu/POST/cms', {
+      no: Number(formData.no),
+      menuName: formData.menuName,
+      icon: formData.icon, // Kirim SVG yang dipilih
+      caption: formData.caption,
+      menuUrl: formData.menuUrl,
+      isActive: formData.isActive,
+    });
+
+    console.log('Data berhasil ditambahkan:', response.data);
+
+    // Reset form
+    formData.no = '';
+    formData.menuName = '';
+    formData.icon = '';
+    formData.caption = '';
+    formData.menuUrl = '';
+    formData.isActive = true;
+
+    toast.success('Menu successfully added!');
+    setTimeout(() => {
+      window.history.back();
+    }, 1500);
+  } catch (error) {
+    console.error('Error saat menambahkan data:', error);
+    if (error.response) {
+      toast.error(error.response.data.message || 'Terjadi kesalahan. Silakan coba lagi.');
+    } else {
+      toast.error('Terjadi kesalahan. Silakan coba lagi.');
+    }
+  }
+};
+
+// Kembali ke halaman sebelumnya
+const goBack = () => {
+  window.history.back();
+};
+
+// Fetch data ikon saat halaman dimuat
+onMounted(fetchIcons);
+</script>
