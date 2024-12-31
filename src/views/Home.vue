@@ -33,7 +33,9 @@
 
     <div class="mx-8 mb-10">
       <div class="flex justify-end mb-5">
-        <RouterLink to="/article" class="text-cyan-800 text-lg tracking-wider underline underline-offset-8 lg:mr-10">All Article</RouterLink>
+        <RouterLink 
+        to="/article"  @click="scrollToTop"
+        class="text-cyan-800 text-lg tracking-wider underline underline-offset-8 lg:mr-10">All Article</RouterLink>
       </div>
 
       <!-- Loading Spinner for Articles -->
@@ -54,7 +56,9 @@
 
       <div class="mx-8 mb-10 pt-5">
         <div class="flex justify-end mb-5">
-          <RouterLink to="/news-and-event" class="text-cyan-800 text-lg tracking-wider underline underline-offset-8 lg:mr-10">See All</RouterLink>
+          <RouterLink to="/news-and-event"
+          @click="scrollToTop"
+          class="text-cyan-800 text-lg tracking-wider underline underline-offset-8 lg:mr-10">See All</RouterLink>
         </div>
 
         <!-- Loading Spinner for News and Events -->
