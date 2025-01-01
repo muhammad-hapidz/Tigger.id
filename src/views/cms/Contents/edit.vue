@@ -180,7 +180,7 @@ const updateContent = async () => {
     );
     console.log('Content updated successfully:', response.data);
     toast.success('Content berhasil diperbarui!');
-    router.push('/cms/Contents');
+    router.push('/cms/contents');
   } catch (error) {
     console.error('Error updating content:', error);
     toast.error('Gagal memperbarui content. Silakan coba lagi. Pastikan Category Sesuai Dengan Segment yang anda pilih');

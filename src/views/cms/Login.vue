@@ -5,9 +5,9 @@
     <div class="w-full max-w-sm p-6 bg-white rounded-md shadow-md">
       <div class="flex items-center justify-center">
         <img
-          src="@/assets/img/logo.png"
+          src="@/assets/img/logotigger.png"
           alt="Logo Tigger ID"
-          class="w-24 h-24"
+          class="w-28 h-28"
         />
       </div>
 
@@ -17,7 +17,7 @@
           <input
             v-model="username"
             type="text"
-            class="p-2 block w-full mt-1 border border-gray-400 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
+            class="p-2 block w-full mt-1 border border-gray-400 rounded-md focus:outline-none focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
           />
         </label>
 
@@ -26,7 +26,7 @@
           <input
             v-model="password"
             type="password"
-            class="p-2 block w-full mt-1 border border-gray-400 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
+            class="p-2 block w-full mt-1 border border-gray-400 rounded-md focus:outline-none focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
           />
         </label>
 
@@ -121,7 +121,11 @@ async function login() {
 .bg-login {
   background-image: url('@/assets/img/2.png');
   background-size: cover; /* Pastikan gambar memenuhi layar */
-  background-position: center; /* Pusatkan gambar */
+  background-position: top; /* Fokuskan bagian atas gambar */
   background-repeat: no-repeat; /* Hindari pengulangan gambar */
+  min-height: 100vh; /* Pastikan elemen mencakup seluruh tinggi layar */
+  width: 100%; /* Pastikan elemen mencakup seluruh lebar layar */
 }
 </style>
+
+

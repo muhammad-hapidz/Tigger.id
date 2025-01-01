@@ -155,7 +155,7 @@ const createContent = async () => {
 
     console.log('Content created successfully:', response.data);
     toast.success('Content berhasil dibuat!');
-    router.push('/cms/Contents');
+    router.push('/cms/contents');
   } catch (error) {
     console.error('Error creating content:', error);
     toast('Gagal membuat content. Silakan coba lagi.');
@@ -255,7 +255,7 @@ onMounted(() => {
         <!-- Submit Button -->
         <div class="flex justify-end gap-2 mt-4">
           <router-link
-            to="/cms/Contents"
+            to="/cms/contents"
             class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
           >
             Back

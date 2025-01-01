@@ -118,58 +118,65 @@ const router = createRouter({
       meta: { guestOnly: true, layout: 'empty' },
     },
     {
-      path: '/cms/Users',
+      path: '/cms/users',
       name: 'Users',
       component: () => import('../views/cms/Users/index.vue'),
       meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
 
     },
     {
-      path: '/cms/Users/Create',
+      path: '/cms/users/Create',
       name: 'userCreate',
       component: () => import('../views/cms/Users/create.vue'),
       meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
     },
     {
-      path: '/cms/Users/edit/:id',
+      path: '/cms/users/edit/:id',
       name: 'userEdit',
       props: true,
       component: () => import('../views/cms/Users/edit.vue'),
       meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
     },
     {
-      path: '/cms/Users/:id',
+      path: '/cms/users/:id',
       name: 'userDetail',
       component: () => import('../views/cms/Users/detail.vue'),
       props: true,
       eta: { requiresAuth: true, showNavbar: false, showFooter: false, },
     },
     {
-      path: '/cms/Users/changePassword/:id',
+      path: '/cms/users/changePassword/:id',
       name: 'changePassword',
       component: () => import('../views/cms/Users/changePassword.vue'),
       props: true,
       eta: { requiresAuth: true, showNavbar: false, showFooter: false, },
     },
     {
-      path: '/cms/Contents',
+      path: '/cms/users/edit/:id/resetpw',
+      name: 'resetPassword',
+      component: () => import('../views/cms/Users/resetPassword.vue'),
+      props: true,
+      eta: { requiresAuth: true, showNavbar: false, showFooter: false, },
+    },
+    {
+      path: '/cms/contents',
       name: 'Contents',
       component: () => import('../views/cms/Contents/index.vue'),
       meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
     },
     {
-      path: '/cms/Contents/create',
+      path: '/cms/contents/create',
       name: 'contentCreate',
       component: () => import('../views/cms/Contents/create.vue'),
       meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
     },
     {
-      path: '/cms/Contents/edit/:id',
+      path: '/cms/contents/edit/:id',
       name: 'contentEdit',
       component: () => import('../views/cms/Contents/edit.vue'),
     },
     {
-      path: '/cms/Contents/:id',
+      path: '/cms/contents/:id',
       name: 'contentDetail',
       component: () => import('../views/cms/Contents/detail.vue'),
     },
@@ -299,8 +306,9 @@ router.beforeEach((to, from, next) => {
     document.title = to.meta.title || 'TIGGER ID'; // Default title
   next();
   const token = localStorage.getItem('authToken')
-  const allowedUrls = localStorage.getItem('allowedUrls')
-  const currentUrl = history.state.current
+  const allowedUrls = (JSON.parse(localStorage.getItem('allowedUrls')) || []).map(url => url.toLowerCase());;
+  const currentUrl = to.path.toLowerCase();
+  
 
   console.log('allowedUrls:',allowedUrls, 'currentUrl:',currentUrl)
 
@@ -311,9 +319,9 @@ router.beforeEach((to, from, next) => {
     return router.push('/cms/login'); // Redirect ke login jika belum login
     
   } else if (to.meta.requiresAuth && allowedUrls.length > 0) {
-    const isAllowed = allowedUrls.includes(currentUrl);
+    const isAllowed = allowedUrls.some(url => currentUrl.startsWith(url));
 
-    console.log(isAllowed)
+    console.log('isAllowed:',isAllowed)
     // const isAllowed = allowedUrls.some(url => currentUrl.startsWith(url));
     if (!isAllowed) {
       return router.push('/notfound');

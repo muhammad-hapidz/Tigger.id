@@ -3,23 +3,26 @@ import { ref, computed, onMounted } from 'vue'
 import axios from 'axios'
 
 const contents = ref([])
-const authToken = localStorage.getItem('authToken');
+const users = ref([])
+const fullName = localStorage.getItem('fullName');
+const authToken = localStorage.getItem('authToken')
 
-// Computed untuk menghitung total data pada contents
+// Ref untuk nilai yang akan ditampilkan dengan animasi
+const displayedUsers = ref(0)
+const displayedContents = ref(0)
+
+// Computed untuk menghitung total data
+const totalUsers = computed(() => users.value.length)
 const totalContents = computed(() => contents.value.length)
 
-// Ref untuk nilai yang akan di-animasi
-const displayedValue = ref(0)
-const targetValue = ref(0) // Ganti dengan nilai akhir yang Anda miliki
-
 // Fungsi untuk menjalankan animasi angka
-const animateNumber = (start, end, duration) => {
+const animateNumber = (start, end, duration, refValue) => {
   const startTime = performance.now()
 
   const updateNumber = (currentTime) => {
     const elapsedTime = currentTime - startTime
     const progress = Math.min(elapsedTime / duration, 1) // Progress antara 0 hingga 1
-    displayedValue.value = Math.floor(start + (end - start) * progress)
+    refValue.value = Math.floor(start + (end - start) * progress)
 
     if (progress < 1) {
       requestAnimationFrame(updateNumber) // Lanjutkan animasi
@@ -28,8 +31,27 @@ const animateNumber = (start, end, duration) => {
 
   requestAnimationFrame(updateNumber) // Mulai animasi
 }
-  
+
 // Fungsi untuk mengambil data API
+const fetchUsers = async () => {
+  try {
+    const response = await axios.get(
+      'https://apitiggerid.tri3a.com/api/Users/Getall/cms',
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      }
+    )
+    users.value = response.data
+
+    // Animasi angka untuk total users
+    animateNumber(0, totalUsers.value, 1500, displayedUsers)
+  } catch (error) {
+    console.error('Error fetching users:', error)
+  }
+}
+
 const fetchContents = async () => {
   try {
     const response = await axios.get(
@@ -37,37 +59,44 @@ const fetchContents = async () => {
       {
         headers: {
           Authorization: `Bearer ${authToken}`,
-        }
+        },
       }
     )
     contents.value = response.data
+
+    // Animasi angka untuk total contents
+    animateNumber(0, totalContents.value, 1500, displayedContents)
   } catch (error) {
     console.error('Error fetching contents:', error)
   }
 }
 
-onMounted(() => {
-  animateNumber(0, targetValue.value, 3000) // 3000ms atau 3 detik
+// Ambil data ketika komponen di-mount
+onMounted(async () => {
+  await Promise.all([fetchUsers(), fetchContents()])
 })
-onMounted(fetchContents)
-
 </script>
 
 <template>
-  <div>
-    <h3 class="text-3xl font-medium text-gray-700">
+  <div class="mt-6 p-4 bg-white shadow rounded-lg">
+    <h3 class="text-3xl font-medium text-gray-700 border-b pb-2">
       Dashboard
     </h3>
 
     <div class="mt-4">
+      <h2 class="text-2xl font-semibold text-gray-700 text-center border-b pb-2">Welcome, {{ fullName }}</h2>
+      <p class="mt-2 text-justify text-indent-8">CHERY COMMUNITY INDONESIA
+        <b>Tigger.id </b> adalah Komunitas Eksklusif khusus pengguna dan pemilik Chery Tiggo Series di Indonesia. Berdiri pada tanggal 19 Juli 2024 dengan dukungan dari pihak Chery Sales Indonesia (CSI). Berdiri pada tanggal 19 Juli 2024 oleh beberapa pengguna Chery Tiggo dengan dukungan dari pihak Chery Sales Indonesia (CSI). Komunitas Tigger.id berbentuk non-profit yang bertujuan sebagai wadah berkumpul, tukar pikiran, diskusi, dan having fun bagi seluruh Tiggo owners di Indonesia.</p>
+
+      </div>
+
+    <div class="mt-4">
       <div class="flex flex-wrap -mx-6">
-        <div class="w-full px-6 sm:w-1/2 xl:w-1/3">
-          <div
-            class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm"
-          >
-            <div class="p-3 bg-indigo-600 bg-opacity-75 rounded-full">
+        <div class="w-full px-6 sm:w-1/2 xl:w-1/2">
+          <router-link to="/cms/users" class="flex items-center px-5 py-6 bg-indigo-300 border rounded-md shadow hover:bg-indigo-400 transition duration-200">
+            <div class="p-3 bg-white rounded-full">
               <svg
-                class="w-8 h-8 text-white"
+                class="w-8 h-8 text-indigo-300"
                 viewBox="0 0 28 30"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -101,72 +130,32 @@ onMounted(fetchContents)
 
             <div class="mx-5">
               <h4 class="text-2xl font-semibold text-gray-700">
-                8,282
+                {{ displayedUsers }}
               </h4>
               <div class="text-gray-500">
-                New Users
+                Total Users
               </div>
             </div>
-          </div>
+        </router-link>
         </div>
 
-        <div class="w-full px-6 mt-6 sm:w-1/2 xl:w-1/3 sm:mt-0">
-          <div
-            class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm"
-          >
-            <div class="p-3 bg-blue-600 bg-opacity-75 rounded-full">
-              <svg class="h-8 w-8 text-white"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div class="w-full px-6 mt-6 sm:w-1/2 xl:w-1/2 sm:mt-0">
+          <router-link to="/cms/contents" class="flex items-center px-5 py-6 bg-green-300 border rounded-md shadow hover:bg-green-400 transition duration-200">
+            <div class="p-3 bg-white bg-opacity-75 rounded-full">
+              <svg class="h-8 w-8 text-green-300"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
               </svg>
-
             </div>
 
             <div class="mx-5">
               <h4 class="text-2xl font-semibold text-gray-700">
-                {{totalContents}}
+                {{ displayedContents }}
               </h4>
               <div class="text-gray-500">
                 Total Contents
               </div>
             </div>
-          </div>
-        </div>
-
-        <div class="w-full px-6 mt-6 sm:w-1/2 xl:w-1/3 xl:mt-0">
-          <div
-            class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm"
-          >
-            <div class="p-3 bg-pink-600 bg-opacity-75 rounded-full">
-              <svg
-                class="w-8 h-8 text-white"
-                viewBox="0 0 28 28"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M6.99998 11.2H21L22.4 23.8H5.59998L6.99998 11.2Z"
-                  fill="currentColor"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linejoin="round"
-                />
-                <path
-                  d="M9.79999 8.4C9.79999 6.08041 11.6804 4.2 14 4.2C16.3196 4.2 18.2 6.08041 18.2 8.4V12.6C18.2 14.9197 16.3196 16.8 14 16.8C11.6804 16.8 9.79999 14.9197 9.79999 12.6V8.4Z"
-                  stroke="currentColor"
-                  stroke-width="2"
-                />
-              </svg>
-            </div>
-
-            <div class="mx-5">
-              <h4 class="text-2xl font-semibold text-gray-700">
-                215,542
-              </h4>
-              <div class="text-gray-500">
-                Available Products
-              </div>
-            </div>
-          </div>
+          </router-link>
         </div>
       </div>
     </div>

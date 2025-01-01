@@ -110,7 +110,7 @@ onMounted(fetchContents)
   
 
   <div class="mt-6">
-    <router-link to="/cms/Contents/create">
+    <router-link to="/cms/contents/create">
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             + Create New
         </button>

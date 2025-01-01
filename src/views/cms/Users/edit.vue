@@ -192,10 +192,17 @@ onMounted(async () => {
             <input type="checkbox" v-model="content.isActive" id="isActive" />
             <label for="isActive" class="ml-2 text-gray-700">Is Active</label>
           </div>
+          
+          <div>
+            <router-link :to="{ name: 'resetPassword', params: { id: userId} }" class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">
+              Reset Password</router-link>
+          </div>
+
         </div>
+        
 
         <div class="flex justify-end mt-4">
-          <router-link to="/cms/Users" class="px-4 py-2 bg-red-500 text-white rounded">Back</router-link>
+          <router-link to="/cms/users" class="px-4 py-2 bg-red-500 text-white rounded">Back</router-link>
           <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded ml-2">Update</button>
         </div>
       </div>
