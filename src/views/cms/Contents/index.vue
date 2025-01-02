@@ -148,9 +148,13 @@ onMounted(fetchContents)
             <tr v-for="(content, index) in paginatedContents" :key="content.id">
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">{{ index + 1 + (currentPage - 1) * itemsPerPage }}</td>
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">{{ truncateText(content.title, 30) }}</td>
-              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200"> <p class="text-gray-900 whitespace-nowrap"
-                v-html=" truncateText(content.description, 30)">
-                    </p></td>
+              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
+  <p 
+    class="text-gray-900 break-words whitespace-normal"
+    v-html="truncateText(content.description, 300)"
+  ></p>
+</td>
+
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">{{ content.segments?.segmentName }}</td>
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">{{ content.category?.categoryName }}</td>
               <!-- <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">{{ content.createdBy }}</td> -->

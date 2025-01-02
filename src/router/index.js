@@ -102,8 +102,9 @@ const router = createRouter({
     // ROUTES CMS
     {
       path: '/cms',
-      name: 'CmsRedirect',  // Menambahkan route untuk redirect
-      redirect: '/cms/dashboard'  // Redirect ke halaman dashboard
+      name: 'CmsRedirect',
+      redirect: '/cms/dashboard',
+      meta: { requiresAuth: true, showNavbar: false, showFooter: false }
     },
     {
       path: '/cms/dashboard',
