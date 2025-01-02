@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router'
 import Navbar from './components/Navbar.vue';
 // import NewsEvent from './components/NewsEvent.vue'
 import Footer from '@/components/Footer.vue'
-import ToTop from './components/ToTop.vue';
+// import ToTop from './components/ToTop.vue';
 
 const defaultLayout = 'default'
 
@@ -21,6 +21,6 @@ const layout = computed(
     <Navbar v-if="$route.meta.showNavbar" />
     <RouterView />
     <Footer v-if="$route.meta.showFooter" />
-    <ToTop />
+    <!-- <ToTop /> -->
   </component>
 </template>

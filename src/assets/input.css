@@ -12,7 +12,9 @@
       background-color: transparent !important;
       color: #475569 !important;
     }
-        
+    input::-ms-reveal {
+      display: none;
+    }
   }
 }
 @layer components {

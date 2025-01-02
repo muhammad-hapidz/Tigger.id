@@ -23,7 +23,7 @@
       <div class="p-5 flex-grow flex flex-col justify-between">
         <div>
           <h3 class="text-lg font-semibold text-gray-800 mb-2">{{ article.title }}</h3>
-          <p class="text-gray-600 text-sm" v-html="truncateText(article.description, 400)"></p>
+          <p class="text-gray-600 text-sm" v-html="truncateText(article.description, 200)"></p>
         </div>
         <div class="flex items-center justify-between mt-4">
           <p class="text-gray-500 text-sm">{{ formatDate(article.createdDate) }}</p>

@@ -293,6 +293,10 @@ const router = createRouter({
       component: () => import ('@/views/cms/Menu/EditMenu.vue'),
       meta: { requiresAuth: true, showNavbar: false, showFooter: false, },
     },
+    {
+      path: '/:pathMatch(.*)*',
+      redirect: '/notfound',
+    },
 
   ],
 

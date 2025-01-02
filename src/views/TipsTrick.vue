@@ -55,7 +55,7 @@
             </div>
             <div class="flex-1">
               <h2 class="font-bold">{{ content.title }}</h2>
-              <p class="px-4">{{ content.content }}</p>
+              <p class="px-4" v-html="content.content"></p>
             </div>
           </div>
         </div>
