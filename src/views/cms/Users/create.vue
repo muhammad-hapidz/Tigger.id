@@ -85,7 +85,7 @@ const createUser = async () => {
     toast.success('User berhasil dibuat!');
 
     // Redirect ke halaman sebelumnya atau halaman /cms/Users
-    router.push('/cms/Users');
+    router.push('/cms/users');
   } catch (error) {
     console.error('Error creating user:', error);
     toast.error('Gagal membuat user. Silakan coba lagi.');
