@@ -174,8 +174,8 @@ onMounted(() => {
       toolbar: [
         [{ header: [1, 2, false] }],
         ['bold', 'italic', 'underline'],
-        ['image', 'code-block'],
-        [{ list: 'ordered' }, { list: 'bullet' }],
+        // ['image', 'code-block'],
+        // [{ list: 'ordered' }, { list: 'bullet' }],
       ],
     },
   });
