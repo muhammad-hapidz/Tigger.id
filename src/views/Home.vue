@@ -75,10 +75,22 @@
   <div class="my-8 border-t border-gray-300"></div>
 
 <!-- Tampilkan Video YouTube -->
-<h1 class="text-accent1 bg-white w-1/2 lg:w-1/4 p-2 font-semibold text-2xl mb-5">Our Content on <span class="text-red-500 uppercase">Youtube</span></h1>
-<div class="flex flex-wrap justify-around gap-3 pb-8">
+<h1 class="text-accent1 bg-white w-1/2 lg:w-1/5 p-2 font-semibold text-2xl mb-5">Our Content</h1>
+<div class="flex justify-center">
+  <div class="ml-5">
+  <video
+      class="rounded border-[4px] border-white w-full max-w-md"
+      height="auto"
+      controls>
+      <source src="../assets/video/video-1.mp4" type="video/mp4">
+      Browser Anda tidak mendukung tag video.
+    </video>
+  </div>
+
+<div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-1 gap-4 pb-8 ml-8">
+
   <iframe
-    width="560"
+    width="570"
     class="rounded border-[10px] border-white"
     height="315"
     src="https://www.youtube.com/embed/heZ_f6_9FV0?si=CVDe05g0tGr20HK3"
@@ -88,8 +100,9 @@
     referrerpolicy="strict-origin-when-cross-origin"
     allowfullscreen
   ></iframe>
+
   <iframe
-    width="560"
+    width="570"
     class="rounded border-[10px] border-white"
     height="315"
     src="https://www.youtube.com/embed/mZj37lmOhZQ?si=AKhni1IIMvfV9EzE"
@@ -101,7 +114,7 @@
   ></iframe>
 
   <iframe
-    width="560"
+    width="570"
     class="rounded border-[10px] border-white"
     height="315"
     src="https://www.youtube.com/embed/Cq9IRCKqPnA?si=YDT-u22PXhXZ90Hw"
@@ -111,6 +124,8 @@
     referrerpolicy="strict-origin-when-cross-origin"
     allowfullscreen
   ></iframe>
+</div>
+
 </div>
 
   </div>
