@@ -1,27 +1,93 @@
 <template>
   <div class="bg-primary pb-10">
-    <div>
-      <img src="../assets/img/2.png" alt="" class="w-full mt-[68px]">
+    <div class="mt-14 mb-20">
+<section class="bg-center bg-no-repeat bg-[url('../assets/img/bg-hero2.jpg')] bg-gray-400 bg-blend-multiply bg-cover">
+    <div class="px-4 mx-auto max-w-screen-xl text-center py-24 lg:py-56">
+        <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">We invest in the world’s potential</h1>
+        <p class="mb-8 text-lg font-normal text-gray-300 lg:text-xl sm:px-16 lg:px-48">Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p>
+        <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0">
+            <a href="/about" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-button hover:bg-opacity-0 border-2 border-button transition">
+                About Us
+            </a>
+            <a href="#" class="inline-flex justify-center hover:text-gray-900 items-center py-3 px-5 sm:ms-4 text-base font-medium text-center text-white rounded-lg border border-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-400 transition">
+                Contact Us
+            </a>  
+        </div>
     </div>
-    <div class="pt-10 lg:pt-20 pb-5 lg:mx-4 lg:mt-8 rounded-r-sm">
+</section>
+
+
+   
+    <div class="absolute inset-x-0 -mt-20 drop-shadow-xl flex justify-center lg:px-40 rounded-lg">
+ 
+    <div class="grid grid-cols-1 md:grid-cols-3">
+  
+      <div class="bg-white shadow-lg p-5  hover:-translate-y-4 transition duration-300 group">
+        <h1 class="text-slate-800 text-3xl font-medium">LAYANAN</h1>
+        <div class="mt-2 mb-2 border-t-[2.5px] rounded-full border-button w-1/3 group-hover:w-1/2 transition-all duration-300"></div>
+        <p class="text-gray-700 mb-3 font-light">
+          kami menawarkan layanan pembuatan website, pengembangan aplikasi Android, konsultasi IT, dan IT support yang dirancang untuk meningkatkan efisiensi, keamanan, dan daya saing bisnis Anda.
+        </p>
+        <div class="flex justify-end">
+        <RouterLink to="" class="px-3 py-2 rounded bg-button border text-white hover:text-button hover:bg-white hover:border-button transition opacity-0 group-hover:opacity-100 duration-200">Selengkapnya</RouterLink>
+      </div>
+      </div>
+
+     
+      <div class="bg-white shadow-lg p-5  hover:-translate-y-4 transition duration-300 group">
+        <h1 class="text-slate-800 text-3xl font-medium uppercase">Berpengalaman</h1>
+        <div class="mt-2 mb-2 border-t-[2.5px] rounded-full border-button w-1/3 group-hover:w-1/2 transition-all duration-300"></div>
+        <p class="text-gray-700  pt-4">
+          Tenaga ahli yang berpengalaman mulai dari junior, intermediate, dan senior
+        </p>
+      </div>
+
+   
+      <div class="bg-button shadow-lg p-10 py-20 group relative">
+  <h1 class="text-white text-3xl font-bold">
+    Butuh Bantuan? Kami Siap Membantu.
+  </h1>
+  <div class="absolute bottom-5 right-5">
+    <RouterLink to="" class="bg-white px-4 py-2 rounded shadow-md border hover:bg-button hover:border-white hover:text-white">
+      Hubungi Kami
+    </RouterLink>
+  </div>
+</div>
+
+
+      
+    </div>
+</div>
+
+</div>
+    <!-- <div class="pt-10 lg:pt-8 pb-5 lg:mx-4 lg:mt-8 max-w-screen-2xl absolute">
       <div class="text-center tracking-wider pt-5 pb-10">
-        <h2 class="text-accent1 text-lg">WELCOME TO</h2>
-        <h1 class="text-3xl text-white">
-          <span class="underline underline-offset-4 font-bold bg-white text-slate-800 rounded-lg px-2 pb-1 md:pb-2 leading-relaxed md:leading-none">CHERRY TIGGO</span> INDONESIA COMMUNITY
-        </h1>
+        <h2 class="text-2xl">About Our Company</h2>
       </div>
 
-      <div class="flex gap-5 mx-5 lg:mx-16 pt-5">
-        <h3 class="text-text text-lg text-justify"> <span class="text-3xl text-slate-100 ">Tigger.id</span> adalah komunitas online yang dihadirkan oleh pengguna mobil Chery Tiggo di Indonesia. Komunitas ini berfokus pada komunikasi, edukasi, dan berbagi pengalaman antara para pemilik kendaraan Chery. Komunitas ini sering kali digunakan sebagai wadah untuk berdiskusi tentang berbagai hal terkait mobil, mulai dari tips penggunaan, perawatan, hingga masalah teknis. Selain itu, Tigger.id juga memungkinkan anggotanya untuk berinteraksi dengan sesama pengguna dan mendapatkan informasi serta masukan dari pihak Chery Indonesia, sehingga memberikan rasa kedekatan antara konsumen dan brand tersebut</h3>
-      </div>
+      <div class="lg:grid grid-cols-2 px-8">
+        <div class="mt-8">
+          <img src="../assets/img/about-home.svg" alt="Programmer" class="w-3/4">
+        </div>
+        <div class="text-2xl text-justify p-4">
+          <div class="text-4xl tracking-wider">
+            About Our Company
+          </div>
+          <div class="mt-2 mb-10 border-t-[2.5px] rounded-full border-button w-1/3 ml-5"></div>
+        <p class="text-slate-700 text-base"> Di PT. ADITYA ARTA ABADI, kami adalah mitra teknologi terpercaya yang berfokus pada solusi digital inovatif untuk membantu bisnis berkembang di era digital. Sebagai IT Consultant yang berpengalaman, kami menawarkan layanan pembuatan website, pengembangan aplikasi Android, konsultasi IT, dan IT support yang dirancang untuk meningkatkan efisiensi, keamanan, dan daya saing bisnis Anda.</p>
+      
+        Dengan tim profesional yang berpengalaman di bidangnya, kami berkomitmen untuk memberikan solusi teknologi yang tepat guna, mulai dari pengembangan website profesional, pengembangan aplikasi Android yang user-friendly dan scalable, strategi IT yang efektif, hingga dukungan teknis yang responsif. Kami memahami bahwa setiap bisnis memiliki kebutuhan yang unik, itulah mengapa kami menghadirkan layanan yang fleksibel, scalable, dan sesuai dengan perkembangan teknologi terbaru.
 
-      <div class="flex mr-5 mt-10 lg:mr-16 lg:mt-32">
+Percayakan kebutuhan teknologi Anda kepada kami dan biarkan [Nama Perusahaan] menjadi bagian dari transformasi digital bisnis Anda!
+</div>
+      </div> -->
+      <!-- <div class="flex mr-5 mt-10 lg:mr-16 lg:mt-32">
         <RouterLink
         to="/about" 
         class="ml-auto bg-white p-1 rounded-lg px-10"
         @click="scrollToTop">Lihat Selengkapnya</RouterLink>
-      </div>
-    </div>
+      </div> -->
+    <!-- </div> -->
 
     <!-- ARTICLE -->
      <div class="bg-white lg:mr-16">
@@ -74,59 +140,6 @@
 
   <div class="my-8 border-t border-gray-300"></div>
 
-<!-- Tampilkan Video YouTube -->
-<h1 class="text-accent1 bg-white w-1/2 lg:w-1/5 p-2 font-semibold text-2xl mb-5">Our Content</h1>
-<div class="flex justify-center">
-  <div class="ml-5">
-  <video
-      class="rounded border-[4px] border-white w-full max-w-md"
-      height="auto"
-      controls>
-      <source src="../assets/video/video-1.mp4" type="video/mp4">
-      Browser Anda tidak mendukung tag video.
-    </video>
-  </div>
-
-<div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-1 gap-4 pb-8 ml-8">
-
-  <iframe
-    width="570"
-    class="rounded border-[10px] border-white"
-    height="315"
-    src="https://www.youtube.com/embed/heZ_f6_9FV0?si=CVDe05g0tGr20HK3"
-    title="YouTube video player"
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    referrerpolicy="strict-origin-when-cross-origin"
-    allowfullscreen
-  ></iframe>
-
-  <iframe
-    width="570"
-    class="rounded border-[10px] border-white"
-    height="315"
-    src="https://www.youtube.com/embed/mZj37lmOhZQ?si=AKhni1IIMvfV9EzE"
-    title="YouTube video player"
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    referrerpolicy="strict-origin-when-cross-origin"
-    allowfullscreen
-  ></iframe>
-
-  <iframe
-    width="570"
-    class="rounded border-[10px] border-white"
-    height="315"
-    src="https://www.youtube.com/embed/Cq9IRCKqPnA?si=YDT-u22PXhXZ90Hw"
-    title="YouTube video player"
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    referrerpolicy="strict-origin-when-cross-origin"
-    allowfullscreen
-  ></iframe>
-</div>
-
-</div>
 
   </div>
 </template>

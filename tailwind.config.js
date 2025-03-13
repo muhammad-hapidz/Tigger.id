@@ -10,7 +10,10 @@ export default {
         merriweather: ['Poppins', 'serif'], // Add Merriweather as a font family
       },
       colors: {
-        primary: '#f1f5f9', // Warna solid utama (gelap, netral)
+        primary: '#FFFFFF', // Warna solid utama (gelap, netral)
+        button:'#ff6e6c',
+
+
         secondary: '#111827', // Warna yang lebih gelap dari primary untuk elemen pendukung
         accent1: '#0EA5E9', // Biru terang untuk elemen aksen utama (CTA, link, dll.)
         accent2: '#6366F1', // Ungu lembut untuk aksen tambahan

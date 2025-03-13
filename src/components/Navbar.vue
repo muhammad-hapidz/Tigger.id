@@ -2,8 +2,10 @@
   <header class="bg-primary h-[70px] fixed top-0 left-0 w-full z-50 shadow-md">
     <div class="container mx-auto flex items-center justify-between px-4 py-3">
       <!-- Logo -->
-      <div class="text-2xl font-bold text-white">
-        <a href="/">TIGGER.ID</a>
+      <div>
+        <a href="/">
+          <img src="../assets/img/3alogo.png" alt="3a Logo">
+        </a>
       </div>
 
       <!-- Hamburger Menu -->
@@ -35,7 +37,7 @@
               to="/"
               :class="getNavClass('/')"
               @click="scrollToTop"
-              class="block text-slate-200 hover:text-slate-400 py-2"
+              class="block text-slate-900 hover:text-button py-2"
             >Home</RouterLink>
           </li>
           <li>
@@ -43,7 +45,7 @@
               to="/about"
               @click="scrollToTop"
               :class="getNavClass('/about')"
-              class="block text-slate-200 hover:text-slate-400 py-2"
+              class="block text-slate-900 hover:text-button py-2"
             >About Us</RouterLink>
           </li>
           <li>
@@ -51,32 +53,25 @@
               to="/news-and-event"
               @click="scrollToTop"
               :class="getNavClass('/news-and-event')"
-              class="block text-slate-200 hover:text-slate-400 py-2"
-            >News & Event</RouterLink>
+              class="block text-slate-900 hover:text-button py-2"
+            >Our Clients</RouterLink>
           </li>
           <li>
             <RouterLink
               to="/article"
               @click="scrollToTop"
               :class="getNavClass('/article')"
-              class="block text-slate-200 hover:text-slate-400 py-2"
+              class="block text-slate-900 hover:text-button py-2"
             >Article</RouterLink>
           </li>
-          <li>
-            <RouterLink
-              to="/tips-and-trick"
-              @click="scrollToTop"
-              :class="getNavClass('/tips-and-trick')"
-              class="block text-slate-200 hover:text-slate-400 py-2"
-            >Tips & Trick</RouterLink>
-          </li>
+          
           <li>
             <RouterLink
               to="/join-us"
               @click="scrollToTop"
               :class="getNavClass('/join-us')"
-              class="block text-slate-200 hover:text-slate-400 py-2"
-            >Join Us</RouterLink>
+              class="block text-slate-900 hover:text-button py-2"
+            >Contact Us</RouterLink>
           </li>
         </ul>
       </nav>
