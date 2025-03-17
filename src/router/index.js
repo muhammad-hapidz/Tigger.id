@@ -1,13 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/views/Home.vue'
 import About from '@/views/About.vue'
-import NewsEvent from '@/views/NewsEvent.vue'
+// import NewsEvent from '@/views/Portofolio.vue'
 import NewsEventDetail from '@/views/NewsEventDetail.vue'
 import Article from '@/views/Article.vue'
 import ArticleDetail from '@/views/ArticleDetail.vue'
 import TipsTrick from '@/views/TipsTrick.vue'
-import JoinUs from '@/views/JoinUs.vue'
+import ContactUs from '@/views/ContactUs.vue'
 import Forbidden from '@/views/Forbidden.vue'
+import Portofolio from '@/views/Portofolio.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,16 +18,16 @@ const router = createRouter({
       name: 'home',
       component: Home,
       meta:{
-        title:'TIGGER ID | Home'
+        title:'3A | Home'
       },
       meta: { showNavbar: true, showFooter: true, layout: 'MainLayout' },
     },
     {
-      path:'/news-and-event',
-      name:'newsandevent',
-      component: NewsEvent,
+      path:'/portofolio',
+      name:'Portofolio',
+      component: Portofolio,
       meta:{
-        title:'TIGGER ID | News & Event '
+        title:'3A | Portofolio '
       },
       meta: { showNavbar: true, showFooter: true, layout: 'MainLayout' },
     },
@@ -36,7 +37,7 @@ const router = createRouter({
       component: NewsEventDetail,
       props:true,
       meta:{
-        title: 'TIGGER ID | News & Event'
+        title: '3A | News & Event'
       },
       meta: { showNavbar: true, showFooter: true, layout: 'MainLayout' },
     },
@@ -45,7 +46,7 @@ const router = createRouter({
       name:'about',
       component: About,
       meta:{
-        title:'TIGGER ID | About Us'
+        title:'3A | About Us'
       },
       meta: { showNavbar: true, showFooter: true, layout: 'MainLayout' },
       
@@ -55,7 +56,7 @@ const router = createRouter({
       name: 'article',
       component: Article,
       meta:{
-        title:'TIGGER ID | Article'
+        title:'3A | Article'
       },
       meta: { showNavbar: true, showFooter: true, layout: 'MainLayout' },
     },
@@ -65,7 +66,7 @@ const router = createRouter({
       component: ArticleDetail,
       props:true,
       meta:{
-        title:'TIGGER ID | Article'
+        title:'3A | Article'
       },
       meta: { showNavbar: true, showFooter: true, layout: 'MainLayout' },
       
@@ -75,17 +76,17 @@ const router = createRouter({
       name:'tipsandtrick',
       component:TipsTrick,
       meta:{
-        title:'TIGGER ID | Tips & Trick'
+        title:'3A | Tips & Trick'
       },
       meta: { showNavbar: true, showFooter: true, layout: 'MainLayout' },
 
     },
     {
-      path:'/join-us',
-      name:'joinus',
-      component: JoinUs,
+      path:'/contact-us',
+      name:'ContactUs',
+      component: ContactUs,
       meta:{
-        title:'TIGGER ID | Join Us'
+        title:'3A | Contact Us'
       },
       meta: { showNavbar: true, showFooter: true, layout: 'MainLayout' },
     },
@@ -94,7 +95,7 @@ const router = createRouter({
       name:'forbidden',
       component: Forbidden,
       meta:{
-        title:'TIGGER ID | Not Found'
+        title:'3A | Not Found'
       },
       meta: { showNavbar: true, showFooter: true, layout: 'MainLayout' },
     },
@@ -308,7 +309,7 @@ const router = createRouter({
 // // Middleware untuk proteksi route
 // Navigation Guard
 router.beforeEach((to, from, next) => {
-    document.title = to.meta.title || 'TIGGER ID'; // Default title
+    document.title = to.meta.title || '3A'; // Default title
   next();
   const token = localStorage.getItem('authToken')
   const allowedUrls = (JSON.parse(localStorage.getItem('allowedUrls')) || []).map(url => url.toLowerCase());;

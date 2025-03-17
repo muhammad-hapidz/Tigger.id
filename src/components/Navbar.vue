@@ -50,13 +50,13 @@
           </li>
           <li>
             <RouterLink
-              to="/news-and-event"
+              to="/portofolio"
               @click="scrollToTop"
-              :class="getNavClass('/news-and-event')"
+              :class="getNavClass('/portofolio')"
               class="block text-slate-900 hover:text-button py-2"
-            >Our Clients</RouterLink>
+            >Portofolio</RouterLink>
           </li>
-          <li>
+          <!-- <li>
             <RouterLink
               to="/article"
               @click="scrollToTop"
@@ -64,12 +64,12 @@
               class="block text-slate-900 hover:text-button py-2"
             >Article</RouterLink>
           </li>
-          
+           -->
           <li>
             <RouterLink
-              to="/join-us"
+              to="/contact-us"
               @click="scrollToTop"
-              :class="getNavClass('/join-us')"
+              :class="getNavClass('/contact-us')"
               class="block text-slate-900 hover:text-button py-2"
             >Contact Us</RouterLink>
           </li>
@@ -91,7 +91,7 @@ const route = useRoute();
 
 // Fungsi untuk menentukan kelas navigasi aktif
 const getNavClass = (path) => {
-  return route.path === path ? "text-blue-500 font-semibold" : "";
+  return route.path === path ? "text-[#ff6e6c] font-semibold" : "";
 };
 
 const scrollToTop = () => {

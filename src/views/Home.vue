@@ -1,158 +1,196 @@
 <template>
-  <div class="bg-primary pb-10">
-    <div class="mt-14 mb-20">
+  <div class="bg-slate pb-10">
+    <div class="mt-14 bg-slate-200">
 <section class="bg-center bg-no-repeat bg-[url('../assets/img/bg-hero2.jpg')] bg-gray-400 bg-blend-multiply bg-cover">
     <div class="px-4 mx-auto max-w-screen-xl text-center py-24 lg:py-56">
-        <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">We invest in the world’s potential</h1>
-        <p class="mb-8 text-lg font-normal text-gray-300 lg:text-xl sm:px-16 lg:px-48">Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p>
+        <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">Kami Membangun Solusi Digital untuk Masa Depan</h1>
+        <p class="mb-8 text-lg font-normal text-gray-300 lg:text-xl sm:px-16 lg:px-48">Dari strategi hingga implementasi, kami membantu bisnis beradaptasi dan tumbuh di era digital.</p>
         <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0">
             <a href="/about" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-button hover:bg-opacity-0 border-2 border-button transition">
                 About Us
             </a>
-            <a href="#" class="inline-flex justify-center hover:text-gray-900 items-center py-3 px-5 sm:ms-4 text-base font-medium text-center text-white rounded-lg border border-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-400 transition">
+            <a href="/contact-us" class="inline-flex justify-center hover:text-gray-900 items-center py-3 px-5 sm:ms-4 text-base font-medium text-center text-white rounded-lg border border-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-400 transition">
                 Contact Us
             </a>  
         </div>
     </div>
 </section>
 
-
-   
-    <div class="absolute inset-x-0 -mt-20 drop-shadow-xl flex justify-center lg:px-40 rounded-lg">
- 
-    <div class="grid grid-cols-1 md:grid-cols-3">
-  
-      <div class="bg-white shadow-lg p-5  hover:-translate-y-4 transition duration-300 group">
-        <h1 class="text-slate-800 text-3xl font-medium">LAYANAN</h1>
-        <div class="mt-2 mb-2 border-t-[2.5px] rounded-full border-button w-1/3 group-hover:w-1/2 transition-all duration-300"></div>
-        <p class="text-gray-700 mb-3 font-light">
-          kami menawarkan layanan pembuatan website, pengembangan aplikasi Android, konsultasi IT, dan IT support yang dirancang untuk meningkatkan efisiensi, keamanan, dan daya saing bisnis Anda.
-        </p>
-        <div class="flex justify-end">
-        <RouterLink to="" class="px-3 py-2 rounded bg-button border text-white hover:text-button hover:bg-white hover:border-button transition opacity-0 group-hover:opacity-100 duration-200">Selengkapnya</RouterLink>
-      </div>
-      </div>
-
-     
-      <div class="bg-white shadow-lg p-5  hover:-translate-y-4 transition duration-300 group">
-        <h1 class="text-slate-800 text-3xl font-medium uppercase">Berpengalaman</h1>
-        <div class="mt-2 mb-2 border-t-[2.5px] rounded-full border-button w-1/3 group-hover:w-1/2 transition-all duration-300"></div>
-        <p class="text-gray-700  pt-4">
-          Tenaga ahli yang berpengalaman mulai dari junior, intermediate, dan senior
-        </p>
-      </div>
-
-   
-      <div class="bg-button shadow-lg p-10 py-20 group relative">
-  <h1 class="text-white text-3xl font-bold">
-    Butuh Bantuan? Kami Siap Membantu.
-  </h1>
-  <div class="absolute bottom-5 right-5">
-    <RouterLink to="" class="bg-white px-4 py-2 rounded shadow-md border hover:bg-button hover:border-white hover:text-white">
-      Hubungi Kami
-    </RouterLink>
-  </div>
-</div>
-
-
-      
-    </div>
-</div>
-
-</div>
-    <!-- <div class="pt-10 lg:pt-8 pb-5 lg:mx-4 lg:mt-8 max-w-screen-2xl absolute">
-      <div class="text-center tracking-wider pt-5 pb-10">
-        <h2 class="text-2xl">About Our Company</h2>
-      </div>
-
-      <div class="lg:grid grid-cols-2 px-8">
-        <div class="mt-8">
-          <img src="../assets/img/about-home.svg" alt="Programmer" class="w-3/4">
-        </div>
-        <div class="text-2xl text-justify p-4">
-          <div class="text-4xl tracking-wider">
-            About Our Company
-          </div>
-          <div class="mt-2 mb-10 border-t-[2.5px] rounded-full border-button w-1/3 ml-5"></div>
-        <p class="text-slate-700 text-base"> Di PT. ADITYA ARTA ABADI, kami adalah mitra teknologi terpercaya yang berfokus pada solusi digital inovatif untuk membantu bisnis berkembang di era digital. Sebagai IT Consultant yang berpengalaman, kami menawarkan layanan pembuatan website, pengembangan aplikasi Android, konsultasi IT, dan IT support yang dirancang untuk meningkatkan efisiensi, keamanan, dan daya saing bisnis Anda.</p>
-      
-        Dengan tim profesional yang berpengalaman di bidangnya, kami berkomitmen untuk memberikan solusi teknologi yang tepat guna, mulai dari pengembangan website profesional, pengembangan aplikasi Android yang user-friendly dan scalable, strategi IT yang efektif, hingga dukungan teknis yang responsif. Kami memahami bahwa setiap bisnis memiliki kebutuhan yang unik, itulah mengapa kami menghadirkan layanan yang fleksibel, scalable, dan sesuai dengan perkembangan teknologi terbaru.
-
-Percayakan kebutuhan teknologi Anda kepada kami dan biarkan [Nama Perusahaan] menjadi bagian dari transformasi digital bisnis Anda!
-</div>
-      </div> -->
-      <!-- <div class="flex mr-5 mt-10 lg:mr-16 lg:mt-32">
-        <RouterLink
-        to="/about" 
-        class="ml-auto bg-white p-1 rounded-lg px-10"
-        @click="scrollToTop">Lihat Selengkapnya</RouterLink>
-      </div> -->
-    <!-- </div> -->
-
-    <!-- ARTICLE -->
-     <div class="bg-white lg:mr-16">
-    <div class="tracking-wider mt-10 text-center lg:text-left mb-10 lg:mb-5 lg:ml-12">
-      <h1 class="text-slate-800 text-3xl mt-10 pt-10">
-               <span class="underline underline-offset-[15px] font-semibold">ARTICLE</span> 
-      </h1>
-    </div>
-
-    <div class="mx-8 mb-10">
-      <div class="flex justify-end mb-5">
-        <RouterLink 
-        to="/article"  @click="scrollToTop"
-        class="text-cyan-800 text-lg tracking-wider underline underline-offset-8 lg:mr-10">All Article</RouterLink>
-      </div>
-
-      <!-- Loading Spinner for Articles -->
-      <div v-if="loading" class="flex justify-center py-10">
-        <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-blue-500"></div>
-      </div>
-
-      <!-- Display Articles After Loading -->
-      <CardArticle v-else :articles="limitedArticles" />
-    </div>
+     <!-- Layanan, Berpengalaman, Butuh Bantuan -->
+<div class="relative inset-x-0 lg:-mt-20 -mt-5 drop-shadow-xl flex justify-center px-5 lg:px-40 z-10">
+  <div class="grid grid-cols-1 md:grid-cols-3">
     
-    <!-- News and Events Section -->
-    <div class="lg:mx-10 py-5 pb-5">
-      <div class="tracking-wider text-center lg:text-left  mt-5 pt-5">
-        <!-- <h1 class="text-accent1 lg:px-5 text-xl mt-12"> </h1> -->
-        <h2 class="text-3xl bg-white p-1 rounded-lg lg:px-3 underline underline-offset-[15px] inline-block font-semibold">NEWS AND EVENT</h2>
-      </div>
-
-      <div class="mx-8 mb-10 pt-5">
-        <div class="flex justify-end mb-5">
-          <RouterLink to="/news-and-event"
-          @click="scrollToTop"
-          class="text-cyan-800 text-lg tracking-wider underline underline-offset-8 lg:mr-10">See All</RouterLink>
-        </div>
-
-        <!-- Loading Spinner for News and Events -->
-        <div v-if="loading" class="">
-          <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-blue-500"></div>
-        </div>
-
-        <!-- Display News and Events After Loading -->
-        <CardNewsEvent v-else :newsAndEvents="limitedNewsevents"/>
+    <div class="relative bg-white shadow-lg p-5 hover:-translate-y-4 transition duration-300 group">
+      <h1 class="text-slate-800 text-3xl font-medium">LAYANAN</h1>
+      <div class="mt-2 mb-2 border-t-[2.5px] border-button w-1/6 group-hover:w-1/4 transition-all duration-300"></div>
+      <p class="text-gray-700 mb-3">
+        Kami menawarkan layanan pembuatan website, pengembangan aplikasi Android, konsultasi IT, dan IT support yang dirancang untuk meningkatkan efisiensi, keamanan, dan daya saing bisnis Anda.
+      </p>
+      <div class="flex justify-end pt-5">
+        <RouterLink to="/about" class="px-3 py-2 rounded bg-button border text-white hover:text-button hover:bg-white hover:border-button transition opacity-0 group-hover:opacity-100 duration-200">Selengkapnya</RouterLink>
       </div>
     </div>
+
+    <div class="relative bg-white shadow-lg p-5 hover:-translate-y-4 transition duration-300 group">
+      <h1 class="text-slate-800 text-3xl font-medium uppercase">Berpengalaman</h1>
+      <div class="mt-2 mb-2 border-t-[2.5px] border-button w-1/3 group-hover:w-1/2 transition-all duration-300"></div>
+      <p class="text-gray-700 mb-12 pt-4">
+        Berpengalaman dan berhasil membangun kerja sama dengan perusahaan-perusahaan besar!
+      </p>
+      <div class="flex justify-end pt-5">
+        <RouterLink to="/portofolio" class="px-3 py-2 rounded bg-button border text-white hover:text-button hover:bg-white hover:border-button transition opacity-0 group-hover:opacity-100 duration-200">Selengkapnya</RouterLink>
+      </div>
+    </div>
+
+    <div class="relative bg-button shadow-lg p-10 py-20 group">
+      <h1 class="text-white text-3xl font-bold">Butuh Bantuan? Kami Siap Membantu.</h1>
+      <div class="absolute bottom-5 right-5">
+        <RouterLink to="" class="bg-white px-4 py-2 rounded shadow-md border hover:bg-button hover:border-white hover:text-white">
+          Hubungi Kami
+        </RouterLink>
+      </div>
+    </div>
+
   </div>
+</div>
+<div class=" mt-20 lg:mt-32 p-4 w-full relative z-0">
+  <div class="text-center mb-4">
+    <h1 class="text-2xl text-slate-700 capitalize">Ingin tahu siapa saja tenaga ahli nya ?</h1>
+    <h2 class="text-3xl capitalize text-slate-800">Salam Kenal dari kami!</h2>
+  </div>
+  <div class="md:flex flex-row gap-5 overflow-x-auto whitespace-nowrap w-full snap-x snap-mandatory bg-white p-4 rounded">
+    <div class="relative w-64 h-96 flex-shrink-0 shadow-lg dark:bg-gray-800 overflow-hidden group">
+  <img class="absolute inset-0 w-full h-full object-cover" src="/img/members/acid2.jpg" alt="Programmer">
+  <div class="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-60 transition duration-300"></div>
+  <div class="absolute bottom-0 w-full p-5 text-white transform translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+    <h1 class="mb-2 text-2xl font-bold text-white whitespace-normal break-words max-w-[90%]">
+      Noteworthy technology acquisitions 2021
+    </h1>
+    <p class="mb-3 font-normal text-white whitespace-normal break-words max-w-[90%]">
+      Here are the biggest enterprise technology acquisitions of 2021 so far.
+    </p>
+  </div>
+</div>
 
-  <div class="my-8 border-t border-gray-300"></div>
 
+<div class="relative w-64 h-96 flex-shrink-0 shadow-lg dark:bg-gray-800 overflow-hidden group">
+  <img class="absolute inset-0 w-full h-full object-cover" src="/img/members/acid2.jpg" alt="Programmer">
+  <div class="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-60 transition duration-300"></div>
+  <div class="absolute bottom-0 w-full p-5 text-white transform translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+    <h1 class="mb-2 text-2xl font-bold text-white whitespace-normal break-words max-w-[90%]">
+      Noteworthy technology acquisitions 2021
+    </h1>
+    <p class="mb-3 font-normal text-white whitespace-normal break-words max-w-[90%]">
+      Here are the biggest enterprise technology acquisitions of 2021 so far.
+    </p>
+  </div>
+</div>
+
+<div class="relative w-64 h-96 flex-shrink-0 shadow-lg dark:bg-gray-800 overflow-hidden group">
+  <img class="absolute inset-0 w-full h-full object-cover" src="/img/members/acid2.jpg" alt="Programmer">
+  <div class="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-60 transition duration-300"></div>
+  <div class="absolute bottom-0 w-full p-5 text-white transform translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+    <h1 class="mb-2 text-2xl font-bold text-white whitespace-normal break-words max-w-[90%]">
+      Noteworthy technology acquisitions 2021
+    </h1>
+    <p class="mb-3 font-normal text-white whitespace-normal break-words max-w-[90%]">
+      Here are the biggest enterprise technology acquisitions of 2021 so far.
+    </p>
+  </div>
+</div>
+
+<div class="relative w-64 h-96 flex-shrink-0 shadow-lg dark:bg-gray-800 overflow-hidden group">
+  <img class="absolute inset-0 w-full h-full object-cover" src="/img/members/acid2.jpg" alt="Programmer">
+  <div class="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-60 transition duration-300"></div>
+  <div class="absolute bottom-0 w-full p-5 text-white transform translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+    <h1 class="mb-2 text-2xl font-bold text-white whitespace-normal break-words max-w-[90%]">
+      Noteworthy technology acquisitions 2021
+    </h1>
+    <p class="mb-3 font-normal text-white whitespace-normal break-words max-w-[90%]">
+      Here are the biggest enterprise technology acquisitions of 2021 so far.
+    </p>
+  </div>
+</div>
+
+<div class="relative w-64 h-96 flex-shrink-0 shadow-lg dark:bg-gray-800 overflow-hidden group">
+  <img class="absolute inset-0 w-full h-full object-cover" src="/img/members/acid2.jpg" alt="Programmer">
+  <div class="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-60 transition duration-300"></div>
+  <div class="absolute bottom-0 w-full p-5 text-white transform translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+    <h1 class="mb-2 text-2xl font-bold text-white whitespace-normal break-words max-w-[90%]">
+      Noteworthy technology acquisitions 2021
+    </h1>
+    <p class="mb-3 font-normal text-white whitespace-normal break-words max-w-[90%]">
+      Here are the biggest enterprise technology acquisitions of 2021 so far.
+    </p>
+  </div>
+</div>
+
+<div class="relative w-64 h-96 flex-shrink-0 shadow-lg dark:bg-gray-800 overflow-hidden group">
+  <img class="absolute inset-0 w-full h-full object-cover" src="/img/members/acid2.jpg" alt="Programmer">
+  <div class="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-60 transition duration-300"></div>
+  <div class="absolute bottom-0 w-full p-5 text-white transform translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+    <h1 class="mb-2 text-2xl font-bold text-white whitespace-normal break-words max-w-[90%]">
+      Noteworthy technology acquisitions 2021
+    </h1>
+    <p class="mb-3 font-normal text-white whitespace-normal break-words max-w-[90%]">
+      Here are the biggest enterprise technology acquisitions of 2021 so far.
+    </p>
+  </div>
+</div>
+  </div>
+</div>
+  </div>
+  <div class="bg-slate-200 py-16">
+    <div class=" px-6">
+        <h1 class="text-3xl font-semibold text-slate-600 ml-5 mb-8">Mengapa Memilih Kami?</h1>
+        <ul class="flex justify-between flex-wrap text-left gap-5">
+            <li class="flex items-start gap-4 bg-white p-5 rounded-lg shadow-md hover:shadow-lg transition max-w-3xl">
+                <span class="text-blue-500 text-2xl">✅</span>
+                <span class="text-gray-700">
+                    <strong>Berpengalaman & Profesional</strong> – Tim kami terdiri dari para ahli di bidangnya yang siap memberikan solusi terbaik untuk setiap tantangan teknologi yang dihadapi bisnis Anda.
+                </span>
+            </li>
+            <li class="flex items-start gap-4 bg-white p-5 rounded-lg shadow-md hover:shadow-lg transition max-w-3xl">
+                <span class="text-blue-500 text-2xl">✅</span>
+                <span class="text-gray-700">
+                    <strong>Teknologi Terkini</strong> – Kami selalu mengadopsi teknologi terbaru dalam setiap solusi yang kami kembangkan, memastikan bahwa sistem yang Anda gunakan aman, efisien, dan dapat berkembang seiring waktu.
+                </span>
+            </li>
+            <li class="flex items-start gap-4 bg-white p-5 rounded-lg shadow-md hover:shadow-lg transition max-w-3xl">
+                <span class="text-blue-500 text-2xl">✅</span>
+                <span class="text-gray-700">
+                    <strong>Kustomisasi Sesuai Kebutuhan</strong> – Kami memahami bahwa setiap bisnis memiliki kebutuhan unik. Oleh karena itu, kami menghadirkan layanan yang dapat disesuaikan dengan kebutuhan dan tujuan bisnis Anda.
+                </span>
+            </li>
+            <li class="flex items-start gap-4 bg-white p-5 rounded-lg shadow-md hover:shadow-lg transition max-w-3xl">
+                <span class="text-blue-500 text-2xl">✅</span>
+                <span class="text-gray-700">
+                    <strong>Dukungan & Maintenance</strong> – Kami tidak hanya berhenti pada tahap pengembangan. Kami juga menyediakan layanan dukungan dan pemeliharaan agar sistem Anda tetap optimal dan dapat berkembang sesuai kebutuhan bisnis.
+                </span>
+            </li>
+            <li class="flex items-start gap-4 bg-white p-5 rounded-lg shadow-md hover:shadow-lg transition max-w-3xl">
+                <span class="text-blue-500 text-2xl">✅</span>
+                <span class="text-gray-700">
+                    <strong>Komitmen terhadap Kepuasan Klien</strong> – Kepuasan Anda adalah prioritas kami. Kami selalu berusaha memberikan layanan terbaik dengan komunikasi yang transparan dan hasil yang sesuai dengan harapan.
+                </span>
+            </li>
+        </ul>
+    </div>
+</div>
 
   </div>
 </template>
-
 <script>
+
 import axios from "axios";
 import CardArticle from "@/components/CardArticle.vue";
 import CardNewsEvent from "@/components/CardNewsEvent.vue";
-
+// import Members from "@/components/Members.vue";
 export default {
   components: {
     CardArticle,
-    CardNewsEvent
+    CardNewsEvent,
+    // Members,
   },
   data() {
     return {

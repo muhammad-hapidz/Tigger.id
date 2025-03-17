@@ -6,7 +6,7 @@
           <div class="w-full md:w-1/3 mb-6 md:mb-0">
             <h3 class="text-lg font-semibold mb-3">About Us</h3>
             <p class="text-sm text-gray-300 text-justify">
-                Tigger.id adalah komunitas online yang dihadirkan oleh pengguna mobil Chery Tiggo di Indonesia. Komunitas ini berfokus pada komunikasi, edukasi, dan berbagi pengalaman antara para pemilik kendaraan Chery.
+              Di PT Aditya Arta Abadi, kami adalah perusahaan teknologi yang berfokus pada pengembangan solusi digital inovatif untuk membantu bisnis dan organisasi berkembang di era transformasi digital. Dengan pengalaman bertahun-tahun dalam industri IT, kami menghadirkan layanan web development, pengembangan aplikasi Android, konsultasi IT, serta pengembangan aplikasi desktop yang dirancang untuk meningkatkan efisiensi, produktivitas, dan daya saing bisnis Anda.
             </p>
           </div>
   

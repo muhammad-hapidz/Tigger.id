@@ -16,6 +16,7 @@
     "lodash": "^4.17.21",
     "pinia": "^2.3.0",
     "quill": "^2.0.3",
+    "swiper": "^11.2.5",
     "vue": "^3.5.13",
     "vue-filepond": "^7.0.4",
     "vue-multiselect": "^3.1.0",

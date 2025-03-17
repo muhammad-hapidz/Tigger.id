@@ -1,13 +1,66 @@
 <template>
-  <div class="bg-primary mt-16 pb-12">
-   <div class="text-white underline underline-offset-[10px] tracking-widest text-center lg:mx-14 pt-10">
-     <h1 class="text-2xl font-semibold ml-5 pb-2"> NEWS & EVENT </h1> 
+  <div class="mt-16">
+    <div class="">
+      <img src="../../public/img/img.jpg" class="w-full object-cover bg-cover h-[95vh]" alt="">
     </div>
-  <div class="mt-2 bg-white lg:mx-14 p-2">
+    <div class="px-8 lg:px-40 mt-10">
+      <div class="flex">
+        <div class="">
+        <h1 class="text-slate-600 uppercase tracking-tight font-light text-xl mr-4">Informasi Umum | </h1>
+        <h1 class="text-slate-800 uppercase tracking-tight text-xl">PORTOFOLIO</h1>
+      </div>
+        <div class="h-96">
+          <img src="../../public/img/portofolio1.jpg" class="w-full object-cover h-[350px]" alt="">
+        </div>
+        <div class="h-96">
+          <img src="../../public/img/portofolio2.jpg" class="w-full object-cover h-[350px]" alt="">
+        </div>
+      </div>
+      <div> 
+      
+      <h2 class="text-3xl text-slate-800 font-semibold "> PT. ADITYA ARTA ABADI</h2>
+      <p class="">Kami telah mengerjakan berbagai macam proyek dan studi kasus dari berbagai klien, mulai perusahaan, hingga instansi pemerintahan. Hasil dari pekerjaan kami sebelumnya diharapkan mampu menjadi solusi terbaik untuk kebutuhan sistem aplikasi berbasis web, android maupun dekstop dan mempermudah pekerjaan serta memberikan efisiensi terhadap klien.</p>
+    </div>
+
+</div>
+<!-- CLIENT -->
+<div class=" px-40 mt-10">
+ <div class=" pt-10">
+  <h1 class="text-slate-600 text-lg">Siapa saja yang sudah bekerja sama dengan kami ?</h1>
+  <h2 class="text-slate-800 text-2xl font-semibold mt-2">Berikut Adalah Perusahaan yang sudah mempercayai dan bekerja sama dengan kami</h2>
+ </div>
+<div class="flex flex-wrap py-10 gap-16 text-center justify-center">
+  <img src="../../public/img/clients/client1.png" alt="" class="w-60 h-40 filter grayscale transition duration-300 hover:filter-none hover:text-black">
+  <img src="../../public/img/clients/client2.png" alt="" class="w-60 h-40 filter grayscale transition duration-300 hover:filter-none hover:text-black">
+  <img src="../../public/img/clients/client3.png" alt="" class="w-60 h-40 filter grayscale transition duration-300 hover:filter-none hover:text-black">
+  <img src="../../public/img/clients/client4.png" alt="" class="w-60 h-40 filter grayscale transition duration-300 hover:filter-none hover:text-black">
+  <img src="../../public/img/clients/client5.png" alt="" class="w-60 h-40 filter grayscale transition duration-300 hover:filter-none hover:text-black">
+  <img src="../../public/img/clients/client6.png" alt="" class="w-60 h-40 filter grayscale transition duration-300 hover:filter-none">
+  <img src="../../public/img/clients/client7.png" alt="" class="w-60 h-40 filter grayscale transition duration-300 hover:filter-none">
+  <img src="../../public/img/clients/client8.png" alt="" class="w-60 h-40 filter grayscale transition duration-300 hover:filter-none">
+  <img src="../../public/img/clients/client9.png" alt="" class="w-64 h-40 filter grayscale transition duration-300 hover:filter-none">
+  <img src="../../public/img/clients/client10.png" alt="" class="w-60 h-40 filter grayscale transition duration-300 hover:filter-none">
+  <img src="../../public/img/clients/client11.png" alt="" class="w-60 h-40 filter grayscale transition duration-300 hover:filter-none">
+  <img src="../../public/img/clients/client12.png" alt="" class="w-60 h-40 filter grayscale transition duration-300 hover:filter-none">
+  <img src="../../public/img/clients/client13.png" alt="" class="w-64 h-40 filter grayscale transition duration-300 hover:filter-none">
+  <img src="../../public/img/clients/client14.png" alt="" class="w-64 h-40 filter grayscale transition duration-300 hover:filter-none">
+  <img src="../../public/img/clients/client15.png" alt="" class="w-60 h-40 filter grayscale transition duration-300 hover:filter-none">
+</div>
+
+  </div>
+
+
+<div class="bg-slate-100 lg:px-40 pb-10">
+   <div class="pt-10 mx-5 pb-8">
+     <h1 class="text-2xl font-semibold text-slate-600 tracking-tight"> PORTOFOLIO </h1>
+     <h2 class="text-slate-800 text-xl">Berikut Adalah Hasil Dari Pekerjaan Kami</h2> 
+    </div>
+
+  <!-- <div class="mt-2 bg-white lg:mx-14 p-2"> -->
     <!-- Input Pencarian dan Dropdown Filter Category -->
-    <div class="flex flex-wrap justify-between lg:mx-10 mb-5 p-5 items-center">
+    <!-- <div class="flex flex-wrap justify-between lg:mx-10 mb-5 p-5 items-center"> -->
       <!-- Input Pencarian -->
-      <div class="mb-5">
+      <!-- <div class="mb-5">
         <input
           v-model="searchQuery"
           @input="applyFilter"
@@ -15,10 +68,10 @@
           placeholder="Search News and Events..."
           class="w-full lg:w-80 px-4 py-2 rounded-md border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-      </div>
+      </div> -->
 
       <!-- Dropdown Filter Category -->
-      <div class="mb-5">
+      <!-- <div class="mb-5">
         <select
           v-model="selectedCategory"
           @change="applyFilter"
@@ -30,18 +83,78 @@
           </option>
         </select>
       </div>
+    </div>-->
+  <!-- </div>  -->
+
+<div class="flex gap-10 justify-evenly justify-items-start flex-wrap">
+<div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+  <div class="">
+        <img class="p-8 rounded-t-lg hover:scale-110 transition" src="../../public/img/portofolio/port1.png" alt="Portofolio image" />
+      </div>
+    <div class="px-5 pb-5">
+      <div class="mb-3 px-3 py-2 bg-blue-500 text-white">Web Development</div>
+            <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">SFA (Sales Force Automation)</h5>
+        
+        <div class="flex items-center mt-2.5 mb-5">
+          <p>Digunakan oleh admin untuk pengaturan  data pendukung seperti data customer, data produk, data harga, dll</p>
+        </div>
+        
     </div>
+</div>
+<div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+  <div class="">
+        <img class="p-8 rounded-t-lg hover:scale-110 transition" src="../../public/img/portofolio/port2.png" alt="Portofolio image" />
+      </div>
+    <div class="px-5 pb-5">
+      <div class="mb-3 px-3 py-2 bg-blue-500 text-white">Web Development</div>
+            <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">Monitoring Karyawan</h5>
+        
+        <div class="flex items-center mt-2.5 mb-5">
+          <p>Digunakan oleh perusahaan untuk memonitoring karyawan (daftar hadir, dll)</p>
+        </div>
+        
+    </div>
+</div>
+<div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+  <div class="">
+        <img class="p-8 rounded-t-lg hover:scale-110 transition" src="../../public/img/portofolio/port3.png" alt="Portofolio image" />
+      </div>
+    <div class="px-5 pb-5">
+      <div class="mb-3 px-3 py-2 bg-blue-500 text-white">Web Development</div>
+            <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">E-Procurement</h5>
+        
+        <div class="flex items-center mt-2.5 mb-5">
+          <p>Digunakan oleh admin untuk pengaturan  data pendukung seperti data customer, data produk, data harga, dll</p>
+        </div>
+        
+    </div>
+</div>
+<div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+  <div class="">
+        <img class="p-8 rounded-t-lg hover:scale-110 transition" src="../../public/img/portofolio/port4.png" alt="Portofolio image" />
+      </div>
+    <div class="px-5 pb-5">
+      <div class="mb-3 px-3 py-2 bg-blue-500 text-white">Web Development</div>
+            <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">Yayasan Kesejahteraan Pegawai (YKP)</h5>
+        
+        <div class="flex items-center mt-2.5 mb-5">
+          <p>Aplikasi untuk mengelola dana karyawan yang akan di pergunakan untuk karyawan itu sendiri dengan keperluan kesehatan dll</p>
+        </div>
+        
+    </div>
+</div>
+</div>
 
     <!-- Tampilkan Loading -->
-    <div v-if="loading" class="flex justify-center items-center py-10">
+    <!-- <div v-if="loading" class="flex justify-center items-center py-10">
       <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-blue-500"></div>
-    </div>
+    </div> -->
 
     <!-- Tampilkan Card NewsEvent setelah data dimuat -->
-    <CardNewsEvent v-else :newsAndEvents="paginatedNewsAndEvents" />
+    <!-- <CardNewsEvent v-else :newsAndEvents="paginatedNewsAndEvents" /> -->
 
     <!-- Tampilkan Pagination -->
-    <div v-if="filteredNewsAndEvents.length > 0" class="flex justify-end mt-10 mb-5 mx-10">
+    <!-- <div v-if="filteredNewsAndEvents.length > 0" class="flex justify-end mt-10 mb-5 mx-10">
       <button
         :disabled="currentPage === 1"
         @click="changePage(currentPage - 1)"
@@ -57,12 +170,12 @@
       >
         Next
       </button>
-    </div>
+    </div> -->
 
     <!-- Tampilkan pesan jika tidak ada hasil -->
-    <div v-else class="text-center py-5 text-gray-600">
+    <!-- <div v-else class="text-center py-5 text-gray-600">
       <p>No News and Events found.</p>
-    </div>
+    </div> -->
 
     <!-- <div class="my-8 border-t border-gray-300"></div>
 
@@ -103,10 +216,10 @@
         allowfullscreen
       ></iframe>
     </div> -->
-
+<!-- 
     <div v-if="loadingInstagram" class="flex justify-center items-center py-10">
       <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-blue-500"></div>
-    </div>
+    </div> -->
 
     <!-- IG -->
      <!-- <div v-if="!loadingInstagram" class="flex flex-wrap w-96 mx-10 pb-3 gap-10">
