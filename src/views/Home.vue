@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-slate pb-10">
+  <div class="bg-slate">
     <div class="mt-14 bg-slate-200">
 <section class="bg-center bg-no-repeat bg-[url('../assets/img/bg-hero2.jpg')] bg-gray-400 bg-blend-multiply bg-cover">
     <div class="px-4 mx-auto max-w-screen-xl text-center py-24 lg:py-56">
@@ -45,7 +45,7 @@
     <div class="relative bg-button shadow-lg p-10 py-20 group">
       <h1 class="text-white text-3xl font-bold">Butuh Bantuan? Kami Siap Membantu.</h1>
       <div class="absolute bottom-5 right-5">
-        <RouterLink to="" class="bg-white px-4 py-2 rounded shadow-md border hover:bg-button hover:border-white hover:text-white">
+        <RouterLink to="/contact-us" class="bg-white px-4 py-2 rounded shadow-md border hover:bg-button hover:border-white hover:text-white">
           Hubungi Kami
         </RouterLink>
       </div>
@@ -53,92 +53,48 @@
 
   </div>
 </div>
-<div class=" mt-20 lg:mt-32 p-4 w-full relative z-0">
-  <div class="text-center mb-4">
-    <h1 class="text-2xl text-slate-700 capitalize">Ingin tahu siapa saja tenaga ahli nya ?</h1>
-    <h2 class="text-3xl capitalize text-slate-800">Salam Kenal dari kami!</h2>
-  </div>
-  <div class="md:flex flex-row gap-5 overflow-x-auto whitespace-nowrap w-full snap-x snap-mandatory bg-white p-4 rounded">
-    <div class="relative w-64 h-96 flex-shrink-0 shadow-lg dark:bg-gray-800 overflow-hidden group">
-  <img class="absolute inset-0 w-full h-full object-cover" src="/img/members/acid2.jpg" alt="Programmer">
-  <div class="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-60 transition duration-300"></div>
-  <div class="absolute bottom-0 w-full p-5 text-white transform translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-    <h1 class="mb-2 text-2xl font-bold text-white whitespace-normal break-words max-w-[90%]">
-      Noteworthy technology acquisitions 2021
-    </h1>
-    <p class="mb-3 font-normal text-white whitespace-normal break-words max-w-[90%]">
-      Here are the biggest enterprise technology acquisitions of 2021 so far.
-    </p>
-  </div>
-</div>
+<div class="mt-20 lg:mt-32 p-4 w-full relative z-0">
+    <div class="text-center mb-10">
+      <h1 class="text-2xl text-slate-700 capitalize">Ingin tahu siapa saja tenaga ahli nya?</h1>
+      <h2 class="text-3xl capitalize text-slate-800 font-bold">Salam Kenal dari Kami!</h2>
+    </div>
 
+    <!-- Swiper Slider -->
+    <swiper
+      :effect="'coverflow'"
+      :grabCursor="true"
+      :centeredSlides="true"
+      :slidesPerView="3"
+      :spaceBetween="1"
+      :coverflowEffect="{
+        rotate: 50,
+        stretch: 0,
+        depth: 100,
+        modifier: 1,
+        slideShadows: true,
+      }"
+      :pagination="{ clickable: true }"
+      :autoplay="{ delay: 2500, disableOnInteraction: false }"
+      :modules="modules"
+      class="mySwiper"
+      :breakpoints="{
+        640: { slidesPerView: 1, spaceBetween: 5 },
+        1024: { slidesPerView: 3, spaceBetween: 10 }
+      }"
+    >
+      <swiper-slide v-for="(member, index) in teamMembers" :key="index">
+        <div class="relative w-64 h-96 shadow-lg dark:bg-gray-800 overflow-hidden group rounded-lg">
+          <img class="absolute inset-0 w-full h-full object-cover" :src="member.image" :alt="member.name">
+          <div class="absolute inset-0 group-hover:bg-black group-hover:bg-opacity-50 transition duration-300"></div>
+          <div class="absolute bottom-0 w-full p-5 text-white transform translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+            <h1 class="mb-2 text-2xl font-bold text-white text-center">{{ member.name }}</h1>
+            <p class="mb-3 font-normal text-white text-center">{{ member.position }}</p>
+          </div>
+        </div>
+      </swiper-slide>
+    </swiper>
 
-<div class="relative w-64 h-96 flex-shrink-0 shadow-lg dark:bg-gray-800 overflow-hidden group">
-  <img class="absolute inset-0 w-full h-full object-cover" src="/img/members/acid2.jpg" alt="Programmer">
-  <div class="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-60 transition duration-300"></div>
-  <div class="absolute bottom-0 w-full p-5 text-white transform translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-    <h1 class="mb-2 text-2xl font-bold text-white whitespace-normal break-words max-w-[90%]">
-      Noteworthy technology acquisitions 2021
-    </h1>
-    <p class="mb-3 font-normal text-white whitespace-normal break-words max-w-[90%]">
-      Here are the biggest enterprise technology acquisitions of 2021 so far.
-    </p>
   </div>
-</div>
-
-<div class="relative w-64 h-96 flex-shrink-0 shadow-lg dark:bg-gray-800 overflow-hidden group">
-  <img class="absolute inset-0 w-full h-full object-cover" src="/img/members/acid2.jpg" alt="Programmer">
-  <div class="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-60 transition duration-300"></div>
-  <div class="absolute bottom-0 w-full p-5 text-white transform translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-    <h1 class="mb-2 text-2xl font-bold text-white whitespace-normal break-words max-w-[90%]">
-      Noteworthy technology acquisitions 2021
-    </h1>
-    <p class="mb-3 font-normal text-white whitespace-normal break-words max-w-[90%]">
-      Here are the biggest enterprise technology acquisitions of 2021 so far.
-    </p>
-  </div>
-</div>
-
-<div class="relative w-64 h-96 flex-shrink-0 shadow-lg dark:bg-gray-800 overflow-hidden group">
-  <img class="absolute inset-0 w-full h-full object-cover" src="/img/members/acid2.jpg" alt="Programmer">
-  <div class="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-60 transition duration-300"></div>
-  <div class="absolute bottom-0 w-full p-5 text-white transform translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-    <h1 class="mb-2 text-2xl font-bold text-white whitespace-normal break-words max-w-[90%]">
-      Noteworthy technology acquisitions 2021
-    </h1>
-    <p class="mb-3 font-normal text-white whitespace-normal break-words max-w-[90%]">
-      Here are the biggest enterprise technology acquisitions of 2021 so far.
-    </p>
-  </div>
-</div>
-
-<div class="relative w-64 h-96 flex-shrink-0 shadow-lg dark:bg-gray-800 overflow-hidden group">
-  <img class="absolute inset-0 w-full h-full object-cover" src="/img/members/acid2.jpg" alt="Programmer">
-  <div class="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-60 transition duration-300"></div>
-  <div class="absolute bottom-0 w-full p-5 text-white transform translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-    <h1 class="mb-2 text-2xl font-bold text-white whitespace-normal break-words max-w-[90%]">
-      Noteworthy technology acquisitions 2021
-    </h1>
-    <p class="mb-3 font-normal text-white whitespace-normal break-words max-w-[90%]">
-      Here are the biggest enterprise technology acquisitions of 2021 so far.
-    </p>
-  </div>
-</div>
-
-<div class="relative w-64 h-96 flex-shrink-0 shadow-lg dark:bg-gray-800 overflow-hidden group">
-  <img class="absolute inset-0 w-full h-full object-cover" src="/img/members/acid2.jpg" alt="Programmer">
-  <div class="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-60 transition duration-300"></div>
-  <div class="absolute bottom-0 w-full p-5 text-white transform translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-    <h1 class="mb-2 text-2xl font-bold text-white whitespace-normal break-words max-w-[90%]">
-      Noteworthy technology acquisitions 2021
-    </h1>
-    <p class="mb-3 font-normal text-white whitespace-normal break-words max-w-[90%]">
-      Here are the biggest enterprise technology acquisitions of 2021 so far.
-    </p>
-  </div>
-</div>
-  </div>
-</div>
   </div>
   <div class="bg-slate-200 py-16">
     <div class=" px-6">
@@ -185,11 +141,20 @@
 import axios from "axios";
 import CardArticle from "@/components/CardArticle.vue";
 import CardNewsEvent from "@/components/CardNewsEvent.vue";
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import { EffectCoverflow, Pagination, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/pagination';
+import "swiper/css/autoplay";
+
 // import Members from "@/components/Members.vue";
 export default {
   components: {
     CardArticle,
     CardNewsEvent,
+    Swiper,
+    SwiperSlide,
     // Members,
   },
   data() {
@@ -197,6 +162,14 @@ export default {
       articles: [], // All articles fetched from API
       newsAndEvents: [], // All news and events fetched from API
       loading: true, // Loading state to show spinner while fetching data
+      modules: [EffectCoverflow, Pagination],
+      teamMembers: [
+        { name: "Acid", position: "Senior Developer", image: "/img/members/acid2.jpg" },
+        { name: "Robi", position: "Senior Developer", image: "/img/members/robi.jpg" },
+        { name: "Nina", position: "Admin IT", image: "/img/members/nina.jpg" },
+        { name: "Santo", position: "Senior Developer", image: "/img/members/santo.jpeg" },
+        { name: "Rian", position: "Senior Developer", image: "/img/members/rian.jpeg" },
+      ],
     };
   },
   computed: {
@@ -246,5 +219,12 @@ export default {
 </script>
 
 <style scoped>
-/* Additional styling for the loading spinner */
+.mySwiper {
+  padding-bottom: 40px;
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+}
 </style>
