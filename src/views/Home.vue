@@ -164,9 +164,9 @@ export default {
       loading: true, // Loading state to show spinner while fetching data
       modules: [EffectCoverflow, Pagination],
       teamMembers: [
-        { name: "Acid", position: "Senior Developer", image: "/img/members/acid2.jpg" },
-        { name: "Robi", position: "Senior Developer", image: "/img/members/robi.jpg" },
-        { name: "Nina", position: "Admin IT", image: "/img/members/nina.jpg" },
+        { name: "Muhammad Astrid", position: "Senior Developer", image: "/img/members/acid2.jpg" },
+        { name: "Robi Ilham", position: "Senior Developer", image: "/img/members/robi.jpg" },
+        { name: "Risma ", position: "Admin IT", image: "/img/members/nina.jpg" },
         { name: "Santo", position: "Senior Developer", image: "/img/members/santo.jpeg" },
         { name: "Rian", position: "Senior Developer", image: "/img/members/rian.jpeg" },
       ],

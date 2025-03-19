@@ -91,7 +91,7 @@ const route = useRoute();
 
 // Fungsi untuk menentukan kelas navigasi aktif
 const getNavClass = (path) => {
-  return route.path === path ? "text-[#ff6e6c] font-semibold" : "";
+  return route.path === path ? "text-button font-semibold" : "";
 };
 
 const scrollToTop = () => {

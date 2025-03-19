@@ -1,10 +1,18 @@
   <template>
     <div class="mt-16">
-      <div class="">
-        <img src="../../public/img/img.jpg" class="w-full object-cover bg-cover h-[95vh]" alt="">
+      <div class="relative group">
+        <img src="../assets/img/bg-port.jpg" class="w-full object-cover bg-cover h-[95vh]" alt="">
+
+        <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+        <div class="absolute top-1/3 md:left-10 transform -translate-y-1/4 px-6 py-3">
+    <h1 class="text-white text-3xl lg:text-6xl font-bold ml-5">PORTOFOLIO</h1>
+    <div class="mt-2 mb-2 border-t-[3px] border-white w-1/6 group-hover:w-1/2 transition-all duration-300"></div>
+    <h1 class="text-white text-3xl lg:text-6xl font-bold"><span class="font-light">|</span>Hasil Dari Pekerjaan Kami</h1>
+   
+  </div>
       </div>
       <div class="px-8 lg:px-40 mt-10">
-        <div class="flex">
+        <div class="md:flex">
           <div class="">
           <h1 class="text-slate-600 uppercase tracking-tight font-light text-xl mr-4">Informasi Umum | </h1>
           <h1 class="text-slate-800 uppercase tracking-tight text-xl">PORTOFOLIO</h1>
@@ -16,15 +24,15 @@
             <img src="../../public/img/portofolio2.jpg" class="w-full object-cover h-[350px]" alt="">
           </div>
         </div>
-        <div> 
         
+        <div> 
         <h2 class="text-3xl text-slate-800 font-semibold "> PT. ADITYA ARTA ABADI</h2>
         <p class="">Kami telah mengerjakan berbagai macam proyek dan studi kasus dari berbagai klien, mulai perusahaan, hingga instansi pemerintahan. Hasil dari pekerjaan kami sebelumnya diharapkan mampu menjadi solusi terbaik untuk kebutuhan sistem aplikasi berbasis web, android maupun dekstop dan mempermudah pekerjaan serta memberikan efisiensi terhadap klien.</p>
       </div>
 
   </div>
   <!-- CLIENT -->
-  <div class=" px-40 mt-10">
+  <div class="px-7 lg:px-40 mt-10">
   <div class=" pt-10">
     <h1 class="text-slate-600 text-lg">Siapa saja yang sudah bekerja sama dengan kami ?</h1>
     <h2 class="text-slate-800 text-2xl font-semibold mt-2">Berikut Adalah Perusahaan yang sudah mempercayai dan bekerja sama dengan kami</h2>
@@ -77,8 +85,8 @@
           <h5 class="text-xl font-semibold tracking-tight text-gray-900">
             {{ portfolio.title }}
           </h5>
-          <p class="text-gray-700 mt-2 line-clamp-3">
-            {{ portfolio.description }}
+          <p class="text-gray-700 mt-2 line-clamp-3" v-html="portfolio.description">
+
           </p>
         </div>
       </div>

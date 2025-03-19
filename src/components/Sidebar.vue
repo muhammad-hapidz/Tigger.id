@@ -15,11 +15,11 @@
       <div class="flex items-center justify-center mt-8">
         <div class="flex items-center">
           <img
-            src="@/assets/img/logotigger.png"
+            src="../assets/img/sitelogo.png"
             alt="Logo Tigger ID"
             class="w-16 h-16 bg-white"
           />
-          <span class="mx-2 text-2xl font-semibold text-white">TIGGER.ID</span>
+          <span class="mx-2 text-2xl font-semibold text-white">3A</span>
         </div>
       </div>
 

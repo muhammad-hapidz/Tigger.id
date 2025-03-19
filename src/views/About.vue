@@ -5,7 +5,7 @@
   <img src="../../public/img/about2.png" class="w-full" alt="">
 
   <!-- Overlay hitam dengan opacity 50% -->
-  <div class="absolute inset-0 bg-blue-900 bg-opacity-60"></div>
+  <div class="absolute inset-0 bg-black bg-opacity-60"></div>
 
   <!-- Kontainer untuk teks di atas gambar -->
   <div class="absolute top-1/3 md:left-10 transform -translate-y-1/4 px-6 py-3">
