@@ -76,57 +76,45 @@
 
 <!-- Tampilkan Video YouTube -->
 <h1 class="text-accent1 bg-white w-1/2 lg:w-1/5 p-2 font-semibold text-2xl mb-5">Our Content</h1>
-<div class="flex justify-center">
-  <div class="ml-5">
-  <video
-      class="rounded border-[4px] border-white w-full max-w-md"
-      height="auto"
-      controls>
-      <source src="../assets/video/video-1.mp4" type="video/mp4">
-      Browser Anda tidak mendukung tag video.
-    </video>
+<div class="bg-gray-100 py-12 px-6">
+    <div class="max-w-7xl mx-auto">
+      
+      <!-- Judul Galeri -->
+      <h2 class="text-center text-3xl font-bold text-gray-800 mb-8">🎥 Galeri Video</h2>
+
+      <!-- Grid Container -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <!-- Video Lokal -->
+        <div v-for="(video, index) in localVideos" :key="index" class="relative group overflow-hidden rounded-lg shadow-lg">
+          <video class="w-full h-56 object-cover rounded-lg group-hover:scale-105 transition-transform duration-300" controls>
+            <source :src="video.src" type="video/mp4">
+            Browser Anda tidak mendukung video.
+          </video>
+          <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 text-white text-center py-2">
+            {{ video.title }}
+          </div>
+        </div>
+
+        <!-- Video YouTube -->
+        <div v-for="(video, index) in youtubeVideos" :key="index" class="relative group overflow-hidden rounded-lg shadow-lg">
+          <iframe
+            class="w-full h-56 object-cover rounded-lg group-hover:scale-105 transition-transform duration-300"
+            :src="video.src"
+            title="YouTube Video"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+          <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 text-white text-center py-2">
+            {{ video.title }}
+          </div>
+        </div>
+
+      </div>
+      
+    </div>
   </div>
-
-<div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-1 gap-4 pb-8 ml-8">
-
-  <iframe
-    width="570"
-    class="rounded border-[10px] border-white"
-    height="315"
-    src="https://www.youtube.com/embed/heZ_f6_9FV0?si=CVDe05g0tGr20HK3"
-    title="YouTube video player"
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    referrerpolicy="strict-origin-when-cross-origin"
-    allowfullscreen
-  ></iframe>
-
-  <iframe
-    width="570"
-    class="rounded border-[10px] border-white"
-    height="315"
-    src="https://www.youtube.com/embed/mZj37lmOhZQ?si=AKhni1IIMvfV9EzE"
-    title="YouTube video player"
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    referrerpolicy="strict-origin-when-cross-origin"
-    allowfullscreen
-  ></iframe>
-
-  <iframe
-    width="570"
-    class="rounded border-[10px] border-white"
-    height="315"
-    src="https://www.youtube.com/embed/Cq9IRCKqPnA?si=YDT-u22PXhXZ90Hw"
-    title="YouTube video player"
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    referrerpolicy="strict-origin-when-cross-origin"
-    allowfullscreen
-  ></iframe>
-</div>
-
-</div>
 
   </div>
 </template>
@@ -146,6 +134,16 @@ export default {
       articles: [], // All articles fetched from API
       newsAndEvents: [], // All news and events fetched from API
       loading: true, // Loading state to show spinner while fetching data
+      localVideos: [
+  { src: new URL('@/assets/video/video-1.mp4', import.meta.url).href, title: "Video 1" },
+  { src: new URL('@/assets/video/video-2.mp4', import.meta.url).href, title: "Video 2" },
+],
+
+      youtubeVideos: [
+        { src: "https://www.youtube.com/embed/heZ_f6_9FV0" },
+        { src: "https://www.youtube.com/embed/mZj37lmOhZQ" },
+        { src: "https://www.youtube.com/embed/Cq9IRCKqPnA" },
+      ],
     };
   },
   computed: {
