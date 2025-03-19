@@ -80,7 +80,7 @@
     <div class="max-w-7xl mx-auto">
       
       <!-- Judul Galeri -->
-      <h2 class="text-center text-3xl font-bold text-gray-800 mb-8">🎥 Galeri Video</h2>
+      <h2 class="text-center text-3xl font-semibold text-gray-800 mb-8 uppercase">Galeri Video</h2>
 
       <!-- Grid Container -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
