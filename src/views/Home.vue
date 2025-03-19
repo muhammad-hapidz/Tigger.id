@@ -99,14 +99,14 @@
         <!-- Video YouTube -->
         <div v-for="(video, index) in youtubeVideos" :key="index" class="relative group overflow-hidden rounded-lg shadow-lg">
           <iframe
-            class="w-full h-56 object-cover rounded-lg group-hover:scale-105 transition-transform duration-300"
+            class="w-full h-56 object-cover rounded-lg group-hover:scale-105 transition-transform duration-300 mb-2"
             :src="video.src"
             title="YouTube Video"
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
           ></iframe>
-          <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 text-white text-center py-2">
+          <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white text-center py-2">
             {{ video.title }}
           </div>
         </div>
@@ -135,8 +135,8 @@ export default {
       newsAndEvents: [], // All news and events fetched from API
       loading: true, // Loading state to show spinner while fetching data
       localVideos: [
-  { src: new URL('@/assets/video/video-1.mp4', import.meta.url).href, title: "Video 1" },
-  { src: new URL('@/assets/video/video-2.mp4', import.meta.url).href, title: "Video 2" },
+  { src: new URL('@/assets/video/video-1.mp4', import.meta.url).href, title: "Ucapan Selamat Ridwan Hanif" },
+  { src: new URL('@/assets/video/video-2.mp4', import.meta.url).href, title: "kopdar sate Hj Yetti" },
 ],
 
       youtubeVideos: [
