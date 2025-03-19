@@ -31,7 +31,7 @@ const fetchSegmentCategories = async () => {
   }
   try {
     const response = await axios.get(
-      'https://apitiggerid.tri3a.com/api/Category/Getall/cms',
+      'https://apiweb3a.tri3a.com/api/Category/Getall/cms',
       {
         headers: {
           Authorization: `Bearer ${authToken}`,

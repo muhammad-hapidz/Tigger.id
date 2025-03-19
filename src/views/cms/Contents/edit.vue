@@ -36,7 +36,7 @@ let quillEditor = null;
 // const fetchSegments = async () => {
 //   const authToken = localStorage.getItem('authToken');
 //   try {
-//     const response = await axios.get('https://apitiggerid.tri3a.com/api/Segments/Getall/cms', {
+//     const response = await axios.get('https://apiweb3a.tri3a.com/api/Segments/Getall/cms', {
 //       headers: { Authorization: `Bearer ${authToken}` },
 //     });
 //     segments.value = response.data;
@@ -53,7 +53,7 @@ const fetchSegments = async () => {
   }
 
   try {
-    const response = await axios.get('https://apitiggerid.tri3a.com/api/Segments/Getall/cms', {
+    const response = await axios.get('https://apiweb3a.tri3a.com/api/Segments/Getall/cms', {
       headers: {
         Authorization: `Bearer ${authToken}`,
       },
@@ -72,7 +72,7 @@ const fetchSegments = async () => {
 // const fetchCategories = async () => {
 //   const authToken = localStorage.getItem('authToken');
 //   try {
-//     const response = await axios.get('https://apitiggerid.tri3a.com/api/Category/Getall/cms', {
+//     const response = await axios.get('https://apiweb3a.tri3a.com/api/Category/Getall/cms', {
 //       headers: { Authorization: `Bearer ${authToken}` },
 //     });
 //     categories.value = response.data;
@@ -89,7 +89,7 @@ const fetchCategories = async () => {
   }
 
   try {
-    const response = await axios.get('https://apitiggerid.tri3a.com/api/Category/Getall/cms', {
+    const response = await axios.get('https://apiweb3a.tri3a.com/api/Category/Getall/cms', {
       headers: {
         Authorization: `Bearer ${authToken}`,
       },
@@ -123,7 +123,7 @@ const fetchContent = async () => {
   }
 
   try {
-    const response = await axios.get(`https://apitiggerid.tri3a.com/api/Contents/cms/${contentId}`, {
+    const response = await axios.get(`https://apiweb3a.tri3a.com/api/Contents/cms/${contentId}`, {
       headers: { Authorization: `Bearer ${authToken}` },
     });
 
@@ -169,7 +169,7 @@ const updateContent = async () => {
 
   try {
     const response = await axios.put(
-      `https://apitiggerid.tri3a.com/api/Contents/cms/${contentId}`,
+      `https://apiweb3a.tri3a.com/api/Contents/cms/${contentId}`,
       payload,
       {
         headers: {

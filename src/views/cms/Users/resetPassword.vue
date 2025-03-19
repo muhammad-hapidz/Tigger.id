@@ -52,7 +52,7 @@ const resetPassword = async () => {
     }
 
     const response = await axios.post(
-      `https://apitiggerid.tri3a.com/api/Users/ChangePassword/cms/${userId}`,
+      `https://apiweb3a.tri3a.com/api/Users/ChangePassword/cms/${userId}`,
       payload,
       {
         headers: {

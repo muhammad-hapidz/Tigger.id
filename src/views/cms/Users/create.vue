@@ -42,7 +42,7 @@ const fetchRoles = async () => {
     return;
   }
   try {
-    const response = await axios.get('https://apitiggerid.tri3a.com/api/Roles/Getall/cms', {
+    const response = await axios.get('https://apiweb3a.tri3a.com/api/Roles/Getall/cms', {
       headers: {
         Authorization: `Bearer ${authToken}`,
       },
@@ -72,7 +72,7 @@ const createUser = async () => {
     };
 
     const response = await axios.post(
-      'https://apitiggerid.tri3a.com/api/Users/Post/all',
+      'https://apiweb3a.tri3a.com/api/Users/Post/all',
       payload,
       {
         headers: {

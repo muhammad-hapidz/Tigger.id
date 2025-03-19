@@ -35,7 +35,7 @@ const filteredCategories = computed(() =>
 const fetchSegments = async () => {
   const authToken = localStorage.getItem('authToken');
   try {
-    const response = await axios.get('https://apitiggerid.tri3a.com/api/Segments/Getall/cms', {
+    const response = await axios.get('https://apiweb3a.tri3a.com/api/Segments/Getall/cms', {
       headers: { Authorization: `Bearer ${authToken}` },
     });
     segments.value = response.data;
@@ -47,7 +47,7 @@ const fetchSegments = async () => {
 const fetchCategories = async () => {
   const authToken = localStorage.getItem('authToken');
   try {
-    const response = await axios.get('https://apitiggerid.tri3a.com/api/Category/Getall/cms', {
+    const response = await axios.get('https://apiweb3a.tri3a.com/api/Category/Getall/cms', {
       headers: { Authorization: `Bearer ${authToken}` },
     });
     categories.value = response.data;
@@ -63,7 +63,7 @@ const uploadImage = async (file) => {
 
   try {
     const response = await axios.post(
-      'https://apitiggerid.tri3a.com/api/UploadImage/upload-image/cms',
+      'https://apiweb3a.tri3a.com/api/UploadImage/upload-image/cms',
       formData,
       {
         headers: {
@@ -73,7 +73,7 @@ const uploadImage = async (file) => {
       }
     );
     console.log('Image uploaded successfully:', response.data);
-    return `https://apitiggerid.tri3a.com/${response.data.imagePath}`;
+    return `https://apiweb3a.tri3a.com/${response.data.imagePath}`;
   } catch (error) {
     console.error('Error uploading image:', error);
     toast.error('Gagal mengunggah gambar. Silakan coba lagi.');
@@ -86,7 +86,7 @@ const deleteImage = async (imagePath) => {
 
   try {
     const response = await axios.delete(
-      `https://apitiggerid.tri3a.com/api/UploadImage/delete-image`,
+      `https://apiweb3a.tri3a.com/api/UploadImage/delete-image`,
       {
         data: { imagePath }, // Hanya kirim path relatif
         headers: { Authorization: `Bearer ${authToken}` },
@@ -143,7 +143,7 @@ const createContent = async () => {
 
   try {
     const response = await axios.post(
-      'https://apitiggerid.tri3a.com/api/Contents/POST/cms',
+      'https://apiweb3a.tri3a.com/api/Contents/POST/cms',
       payload,
       {
         headers: {

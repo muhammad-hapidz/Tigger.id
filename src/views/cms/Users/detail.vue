@@ -19,7 +19,7 @@ const fetchUserDetail = async () => {
 
   try {
     const response = await axios.get(
-      `https://apitiggerid.tri3a.com/api/Users/cms/${userId}`,
+      `https://apiweb3a.tri3a.com/api/Users/cms/${userId}`,
       {
         headers: {
           Authorization: `Bearer ${authToken}`,

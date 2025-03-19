@@ -51,7 +51,7 @@ const fetchRoleMenus = async () => {
 
   try {
     const response = await axios.get(
-      'https://apitiggerid.tri3a.com/api/RoleMenu/Getall/cms',
+      'https://apiweb3a.tri3a.com/api/RoleMenu/Getall/cms',
       { headers: { Authorization: `Bearer ${authToken}` } }
     );
 
@@ -96,7 +96,7 @@ const updateRoleMenu = debounce(async (menu) => {
     if (menu.isActive) {
       // Tambahkan akses
       await axios.post(
-        'https://apitiggerid.tri3a.com/api/RoleMenu/POST/cms',
+        'https://apiweb3a.tri3a.com/api/RoleMenu/POST/cms',
         { roleId: role.value.id, menuId: menu.id },
         { headers: { Authorization: `Bearer ${authToken}` } }
       );
@@ -108,7 +108,7 @@ const updateRoleMenu = debounce(async (menu) => {
       );
       if (roleMenu) {
         await axios.delete(
-          `https://apitiggerid.tri3a.com/api/RoleMenu/cms/${roleMenu.roleMenuId}`,
+          `https://apiweb3a.tri3a.com/api/RoleMenu/cms/${roleMenu.roleMenuId}`,
           { headers: { Authorization: `Bearer ${authToken}` } }
         );
         toast.warning(`Menu "${menu.menuName}" berhasil dihapus.`);

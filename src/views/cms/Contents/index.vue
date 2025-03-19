@@ -20,7 +20,7 @@ const authToken = localStorage.getItem('authToken')
 
   try {
     const response = await axios.get(
-      'https://apitiggerid.tri3a.com/api/Contents/Getall/cms',
+      'https://apiweb3a.tri3a.com/api/Contents/Getall/cms',
       {
         headers: {
           Authorization: `Bearer ${authToken}`,

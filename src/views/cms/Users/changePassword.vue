@@ -55,7 +55,7 @@ const changePassword = async () => {
     }
 
     const response = await axios.post(
-      `https://apitiggerid.tri3a.com/api/Users/ChangePassword/cms/adminuser/${userId}`,
+      `https://apiweb3a.tri3a.com/api/Users/ChangePassword/cms/adminuser/${userId}`,
       payload,
       {
         headers: {

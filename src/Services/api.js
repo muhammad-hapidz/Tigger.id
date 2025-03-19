@@ -2,7 +2,7 @@ import axios from 'axios';
 import router from '@/router'; // Import Vue Router
 
 const api = axios.create({
-  baseURL: 'https://apitiggerid.tri3a.com/api',
+  baseURL: 'https://apiweb3a.tri3a.com/api',
 });
 
 // Interceptor untuk menambahkan token ke setiap request

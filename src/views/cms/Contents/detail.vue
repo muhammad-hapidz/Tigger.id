@@ -11,7 +11,7 @@ const fetchContent = async () => {
   const contentId = route.params.id; // ID konten dari parameter route
 
   try {
-    const response = await axios.get(`https://apitiggerid.tri3a.com/api/Contents/cms/${contentId}`, {
+    const response = await axios.get(`https://apiweb3a.tri3a.com/api/Contents/cms/${contentId}`, {
       headers: { Authorization: `Bearer ${authToken}` },
     });
     content.value = response.data;

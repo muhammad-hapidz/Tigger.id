@@ -36,7 +36,7 @@ const animateNumber = (start, end, duration, refValue) => {
 const fetchUsers = async () => {
   try {
     const response = await axios.get(
-      'https://apitiggerid.tri3a.com/api/Users/Getall/cms',
+      'https://apiweb3a.tri3a.com/api/Users/Getall/cms',
       {
         headers: {
           Authorization: `Bearer ${authToken}`,
@@ -55,7 +55,7 @@ const fetchUsers = async () => {
 const fetchContents = async () => {
   try {
     const response = await axios.get(
-      'https://apitiggerid.tri3a.com/api/Contents/Getall/cms',
+      'https://apiweb3a.tri3a.com/api/Contents/Getall/cms',
       {
         headers: {
           Authorization: `Bearer ${authToken}`,

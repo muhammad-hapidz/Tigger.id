@@ -164,7 +164,7 @@ const handleSubmit = async () => {
   console.log('Data to be sent:', formData);
 
   try {
-    const response = await api.post('https://apitiggerid.tri3a.com/api/Menu/POST/cms', {
+    const response = await api.post('https://apiweb3a.tri3a.com/api/Menu/POST/cms', {
       no: Number(formData.no),
       menuName: formData.menuName,
       icon: formData.icon, // Kirim SVG yang dipilih

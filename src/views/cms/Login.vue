@@ -58,7 +58,7 @@ const toast = useToast() // Initialize toast
 async function fetchRoleMenu(token, roleId) {
   try {
     const response = await axios.get(
-      `https://apitiggerid.tri3a.com/api/RoleMenu/role/${roleId}`,
+      `https://apiweb3a.tri3a.com/api/RoleMenu/role/${roleId}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }
@@ -77,7 +77,7 @@ async function fetchRoleMenu(token, roleId) {
 async function login() {
   try {
     const response = await axios.post(
-      'https://apitiggerid.tri3a.com/api/Auth/login',
+      'https://apiweb3a.tri3a.com/api/Auth/login',
       {
         username: username.value,
         password: password.value,
