@@ -9,19 +9,19 @@
   <h1 class="text-lg text-slate-700 font-light text-justify">Kami siap membantu Anda! Jangan ragu untuk menghubungi kami jika memiliki pertanyaan atau ingin berdiskusi lebih lanjut tentang layanan kami.</h1>
 <div class="mt-7">
   <div class="flex">
-    <svg class="h-8 w-8 text-red-500 pb-1 rounded py-1 px-2 bg-white mr-2"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <svg class="h-20 w-20 text-red-500 pb-1 rounded py-1 px-2 bg-white mr-2"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
 </svg>
 <div class="bg-white py-1 px-2 rounded">
-Jl. Rusa Raya IV B No. 46 Pondok Ranji Tangerang Selatan
+  Ruko Victorian Bintaro-Pd. Karya Blok CC06, Kec. Pd. Aren, Kota Tangerang Selatan, Banten 15225, Indonesia Bintaro, Tangerang Selatan.
   </div>
 </div>
 
   <div class="flex mt-2">
-   <svg class="h-8 w-8 text-red-500 rounded bg-white py-1 px-2 mr-2"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />  <polyline points="22,6 12,13 2,6" /></svg>
+   <svg class="h-11 w-10 text-red-500 rounded bg-white py-1 px-2 mr-2"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />  <polyline points="22,6 12,13 2,6" /></svg>
    <div class="bg-white py-1 px-4 rounded">
-   <a href="mailto:info@tri3a.com" class="underline underline-offset-4">Hubungi Melalui Email</a>
+   <a href="mailto:info@tri3a.com" class="">info@tri3a.com</a>
   </div>
   </div>
 </div>

@@ -4,29 +4,28 @@
         <div class="flex flex-wrap justify-between gap-1">
           <!-- About Section -->
           <div class="w-full md:w-1/3 mb-6 md:mb-0">
-            <h3 class="text-lg font-semibold mb-3">About Us</h3>
+            <h3 class="text-2xl font-semibold mb-3">ABOUT US</h3>
             <p class="text-sm text-gray-300 text-justify">
-              Di PT Aditya Arta Abadi, kami adalah perusahaan teknologi yang berfokus pada pengembangan solusi digital inovatif untuk membantu bisnis dan organisasi berkembang di era transformasi digital. Dengan pengalaman bertahun-tahun dalam industri IT, kami menghadirkan layanan web development, pengembangan aplikasi Android, konsultasi IT, serta pengembangan aplikasi desktop yang dirancang untuk meningkatkan efisiensi, produktivitas, dan daya saing bisnis Anda.
+              PT Aditya Arta Abadi, kami adalah perusahaan teknologi yang berfokus pada pengembangan solusi digital inovatif untuk membantu bisnis dan organisasi berkembang di era transformasi digital. Dengan pengalaman bertahun-tahun dalam industri IT, kami menghadirkan layanan web development, pengembangan aplikasi Android, konsultasi IT, serta pengembangan aplikasi desktop yang dirancang untuk meningkatkan efisiensi, produktivitas, dan daya saing bisnis Anda.
             </p>
           </div>
-  
-          <!-- Links Section -->
-          <!-- <div class="w-full md:w-1/3 mb-6 md:mb-0">
-            <h3 class="text-lg font-semibold mb-3">Quick Links</h3>
-            <ul class="text-sm text-gray-300 space-y-2">
-              <li><RouterLink to="/" @click="scrollToTop" class="hover:text-white">Home</RouterLink></li>
-              <li><RouterLink to="/about" @click="scrollToTop" class="hover:text-white">About Us</RouterLink></li>
-              <li><RouterLink to="/news-and-event" @click="scrollToTop" class="hover:text-white">News & Event</RouterLink></li>
-              <li><RouterLink to="/article" @click="scrollToTop" class="hover:text-white">Article</RouterLink></li>
-              <li><RouterLink to="/tips-and-trick" @click="scrollToTop" class="hover:text-white">Tips & Trick</RouterLink></li>
-              <li><RouterLink to="/join-us" @click="scrollToTop" class="hover:text-white">Join Us</RouterLink></li>
-            </ul>
-          </div> -->
-  
           <!-- Social Media Section -->
           <div class="md:w-1/3">
-            <h3 class="text-lg font-semibold mb-3">Hubungi Kami</h3>
-            <div class="flex space-x-4">
+            <h3 class="text-2xl font-semibold mb-3">HUBUNGI KAMI</h3>
+            <div class="flex gap-3">
+              <svg class="h-20 w-20 text-slate-100"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+</svg>
+<p class="text-white">Ruko Victorian Blok CC06, Jl.Bintaro Utama 3A-Pd. Karya  Kec. Pd. Aren, Kota Tangerang Selatan, Banten 15225, Indonesia</p>
+            </div>
+            <div class="flex gap-3">
+              <svg class="h-8 w-8 text-slate-100"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+</svg>
+<p class="text-white">(021)27592693</p>
+            </div>
+            <div class="flex space-x-4 mt-2">
               <!-- EMAIL -->
               <a href="mailto:info@tri3a.com" class="sosial-icon hover:scale-125 duration-200">
                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40" height="40" viewBox="0 0 48 48">

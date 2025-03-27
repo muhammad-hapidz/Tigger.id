@@ -18,10 +18,10 @@
           <h1 class="text-slate-800 uppercase tracking-tight text-xl">PORTOFOLIO</h1>
         </div>
           <div class="h-96">
-            <img src="../../public/img/portofolio1.jpg" class="w-full object-cover h-[350px]" alt="">
+            <img src="/img/portofolio1.jpg" class="w-full object-cover h-[350px]" alt="">
           </div>
           <div class="h-96">
-            <img src="../../public/img/portofolio2.jpg" class="w-full object-cover h-[350px]" alt="">
+            <img src="/img/portofolio2.jpg" class="w-full object-cover h-[350px]" alt="">
           </div>
         </div>
         
@@ -32,23 +32,21 @@
 
   </div>
   <!-- CLIENT -->
-  <div class="px-7 lg:px-40 mt-10">
+  <div class="lg:px-40 mt-10">
   <div class=" pt-10">
     <h1 class="text-slate-600 text-lg">Siapa saja yang sudah bekerja sama dengan kami ?</h1>
     <h2 class="text-slate-800 text-2xl font-semibold mt-2">Berikut Adalah Perusahaan yang sudah mempercayai dan bekerja sama dengan kami</h2>
   </div>
-  <div class="flex flex-wrap py-10 gap-16 text-center justify-center">
+  <div class="flex flex-wrap py-10 gap-5 justify-between">
       <img 
         v-for="(image, index) in images" 
         :key="index" 
         :src="image" 
         alt="Client Logo"
-        class="w-64 h-40 object-contain transition duration-300 filter grayscale hover:filter-none"
+        class="w-64 h-40 object-contain"
       />
     </div>
-
     </div>
-
 
     <div class="bg-slate-100 lg:px-40 pb-10">
     <div class="pt-10 mx-5 pb-8 text-center">
@@ -91,6 +89,49 @@
         </div>
       </div>
     </div>
+
+    
+      <div class="mt-20">
+           <h1 class="font-semibold text-2xl text-slate-700 text-center">What They Say About Us ?</h1>
+        <div class="mt-8">
+          <!-- Loading Indicator -->
+    <div v-if="testimoniStore.loading" class="flex justify-center items-center py-10">
+      <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-blue-500"></div>
+    </div>
+
+    <!-- Testimonial Cards -->
+    <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 px-5 lg:px-0">
+      <div
+        v-for="testimoni in testimoniStore.testimonis"
+        :key="testimoni.id"
+        class="bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-transform duration-300 hover:scale-105"
+      >
+        <!-- Gambar -->
+        <div class="relative">
+          <img
+        class="w-full h-60 bg-center object-cover"
+        :src="testimoni.image || '/img/project-review.jpg'"
+        alt="Portfolio Image"
+      />
+          <div class="absolute bottom-0 left-0 bg-blue-500 text-white px-4 py-2 text-sm font-semibold">
+            {{ testimoni.category.categoryName }}
+          </div>
+        </div>
+
+        <!-- Konten -->
+        <div class="p-5">
+          <h5 class="text-xl font-semibold tracking-tight text-gray-900">
+            {{ testimoni.title }}
+          </h5>
+          <p class="text-gray-700 mt-2 line-clamp-3" v-html="testimoni.description">
+
+          </p>
+        </div>
+      </div>
+    </div>
+        </div>
+      </div>
+
   </div>
   </div>
   </template>
@@ -98,12 +139,23 @@
   <script setup>
 import { onMounted } from "vue";
 import { usePortfolioStore } from "@/stores/usePortofolioStore";
+import { useTestimoniStore } from "@/stores/useTestimoniStore";
 
 const portfolioStore = usePortfolioStore();
-const images = Object.values(import.meta.glob("/public/img/clients/*.png", { eager: true })).map(i => i.default || i);
+const testimoniStore = useTestimoniStore();
+const images = Object.entries(import.meta.glob("../../public/img/clients/*.png", { eager: true }))
+  .map(([path, mod]) => ({
+    path,
+    src: mod.default || mod
+  }))
+  .sort((a, b) => a.path.localeCompare(b.path)) // Urutkan berdasarkan nama file
+  .map(i => i.src);
+
 
 onMounted(() => {
   portfolioStore.fetchPortfolios(); // Ambil data saat komponen dimuat
+  testimoniStore.fetchTestimonis();
+  
 });
   </script>
 

@@ -35,7 +35,7 @@
       <h1 class="text-slate-800 text-3xl font-medium uppercase">Berpengalaman</h1>
       <div class="mt-2 mb-2 border-t-[2.5px] border-button w-1/3 group-hover:w-1/2 transition-all duration-300"></div>
       <p class="text-gray-700 mb-12 pt-4">
-        Berpengalaman dan berhasil membangun kerja sama dengan perusahaan-perusahaan besar!
+        Kami Berpengalaman Dari Tahun 2009 dan berhasil membangun kerja sama dengan banyak perusahaan-perusahaan besar!
       </p>
       <div class="flex justify-end pt-5">
         <RouterLink to="/portofolio" class="px-3 py-2 rounded bg-button border text-white hover:text-button hover:bg-white hover:border-button transition opacity-0 group-hover:opacity-100 duration-200">Selengkapnya</RouterLink>
@@ -55,8 +55,8 @@
 </div>
 <div class="mt-20 lg:mt-32 p-4 w-full relative z-0">
     <div class="text-center mb-10">
-      <h1 class="text-2xl text-slate-700 capitalize">Ingin tahu siapa saja tenaga ahli nya?</h1>
-      <h2 class="text-3xl capitalize text-slate-800 font-bold">Salam Kenal dari Kami!</h2>
+      <h1 class="text-2xl text-slate-700 capitalize">Ingin tahu siapa saja Tim kami?</h1>
+      <!-- <h2 class="text-3xl capitalize text-slate-800 font-bold">Salam Kenal dari Kami!</h2> -->
     </div>
 
     <!-- Swiper Slider -->
@@ -99,32 +99,32 @@
   <div class="bg-slate-200 py-16">
     <div class=" px-6">
         <h1 class="text-3xl font-semibold text-slate-600 ml-5 mb-8">Mengapa Memilih Kami?</h1>
-        <ul class="flex justify-between flex-wrap text-left gap-5">
-            <li class="flex items-start gap-4 bg-white p-5 rounded-lg shadow-md hover:shadow-lg transition max-w-3xl">
+        <ul class="flex justify-between flex-wrap text-left gap-5 mx-5">
+            <li class="flex items-start gap-4 bg-white p-5 rounded-lg shadow-md hover:shadow-lg transition max-w-2xl">
                 <span class="text-blue-500 text-2xl">✅</span>
                 <span class="text-gray-700">
                     <strong>Berpengalaman & Profesional</strong> – Tim kami terdiri dari para ahli di bidangnya yang siap memberikan solusi terbaik untuk setiap tantangan teknologi yang dihadapi bisnis Anda.
                 </span>
             </li>
-            <li class="flex items-start gap-4 bg-white p-5 rounded-lg shadow-md hover:shadow-lg transition max-w-3xl">
+            <li class="flex items-start gap-4 bg-white p-5 rounded-lg shadow-md hover:shadow-lg transition max-w-2xl">
                 <span class="text-blue-500 text-2xl">✅</span>
                 <span class="text-gray-700">
                     <strong>Teknologi Terkini</strong> – Kami selalu mengadopsi teknologi terbaru dalam setiap solusi yang kami kembangkan, memastikan bahwa sistem yang Anda gunakan aman, efisien, dan dapat berkembang seiring waktu.
                 </span>
             </li>
-            <li class="flex items-start gap-4 bg-white p-5 rounded-lg shadow-md hover:shadow-lg transition max-w-3xl">
+            <li class="flex items-start gap-4 bg-white p-5 rounded-lg shadow-md hover:shadow-lg transition max-w-2xl">
                 <span class="text-blue-500 text-2xl">✅</span>
                 <span class="text-gray-700">
                     <strong>Kustomisasi Sesuai Kebutuhan</strong> – Kami memahami bahwa setiap bisnis memiliki kebutuhan unik. Oleh karena itu, kami menghadirkan layanan yang dapat disesuaikan dengan kebutuhan dan tujuan bisnis Anda.
                 </span>
             </li>
-            <li class="flex items-start gap-4 bg-white p-5 rounded-lg shadow-md hover:shadow-lg transition max-w-3xl">
+            <li class="flex items-start gap-4 bg-white p-5 rounded-lg shadow-md hover:shadow-lg transition max-w-2xl">
                 <span class="text-blue-500 text-2xl">✅</span>
                 <span class="text-gray-700">
                     <strong>Dukungan & Maintenance</strong> – Kami tidak hanya berhenti pada tahap pengembangan. Kami juga menyediakan layanan dukungan dan pemeliharaan agar sistem Anda tetap optimal dan dapat berkembang sesuai kebutuhan bisnis.
                 </span>
             </li>
-            <li class="flex items-start gap-4 bg-white p-5 rounded-lg shadow-md hover:shadow-lg transition max-w-3xl">
+            <li class="flex items-start gap-4 bg-white p-5 rounded-lg shadow-md hover:shadow-lg transition max-w-2xl">
                 <span class="text-blue-500 text-2xl">✅</span>
                 <span class="text-gray-700">
                     <strong>Komitmen terhadap Kepuasan Klien</strong> – Kepuasan Anda adalah prioritas kami. Kami selalu berusaha memberikan layanan terbaik dengan komunikasi yang transparan dan hasil yang sesuai dengan harapan.
@@ -164,11 +164,17 @@ export default {
       loading: true, // Loading state to show spinner while fetching data
       modules: [EffectCoverflow, Pagination],
       teamMembers: [
-        { name: "Muhammad Astrid", position: "Senior Developer", image: "/img/members/acid2.jpg" },
-        { name: "Robi Ilham", position: "Senior Developer", image: "/img/members/robi.jpg" },
-        { name: "Risma ", position: "Admin IT", image: "/img/members/nina.jpg" },
-        { name: "Santo", position: "Senior Developer", image: "/img/members/santo.jpeg" },
-        { name: "Rian", position: "Senior Developer", image: "/img/members/rian.jpeg" },
+        { name: "Robi Ilham", position: "Project Manajer", image: "/img/members/robi.jpeg" },
+        { name: "Susanto Hadiwijaya", position: "Team Leader", image: "/img/members/santoo.jpeg" },
+        { name: "Ahmad Riyanto", position: "Team Leader", image: "/img/members/riann.jpeg" },
+        { name: "Nina", position: "Finance", image: "/img/members/nina.jpeg" },
+        { name: "Nurhasanah ", position: "Senior Programmer", image: "/img/members/nur.jpeg" },
+        { name: "Panji", position: "Programmer", image: "/img/members/panji.jpeg" },
+        { name: "Aini Rahmawati Adla ", position: "Junior Programmer", image: "/img/members/aini.jpeg" },
+        { name: "Rafli", position: "Junior Programmer", image: "/img/members/rafli.jpeg" },
+        { name: "Muhammad Hapidz", position: "Junior Programmer", image: "/img/members/abin.jpeg" },
+        { name: "Septian Maolidin", position: "Operator", image: "/img/members/tian.jpeg" },
+        
       ],
     };
   },
