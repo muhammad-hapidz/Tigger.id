@@ -135,8 +135,10 @@ export default {
       newsAndEvents: [], // All news and events fetched from API
       loading: true, // Loading state to show spinner while fetching data
       localVideos: [
+  { src: new URL('/vid1.mp4', import.meta.url).href},
   { src: new URL('@/assets/video/video-1.mp4', import.meta.url).href, title: "Ucapan Selamat Ridwan Hanif" },
   { src: new URL('@/assets/video/video-2.mp4', import.meta.url).href, title: "kopdar sate Hj Yetti" },
+  
 ],
 
       youtubeVideos: [
