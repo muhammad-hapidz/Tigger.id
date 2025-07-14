@@ -23,7 +23,7 @@
           <img
             :src="newsAndEvents.image"
             alt="newsAndEvents Image"
-            class="w-full max-h-96 object-cover rounded shadow-md"
+            class="w-full object-cover rounded shadow-md"
           />
           <div class="pt-4 text-sm text-gray-600  border-t-2 border-slate-950 mt-5">
             <span class="font-medium text-xl text-slate-950 uppercase">Category:</span>

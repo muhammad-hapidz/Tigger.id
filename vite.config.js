@@ -6,6 +6,7 @@ import legacy from '@vitejs/plugin-legacy'; // Plugin Legacy
 import { fileURLToPath, URL } from 'node:url'; // Untuk alias path
 
 export default defineConfig({
+  base: '/cms/',
   plugins: [
     vue(),
     vueDevTools(),

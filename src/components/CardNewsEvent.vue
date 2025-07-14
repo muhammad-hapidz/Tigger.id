@@ -5,12 +5,12 @@
       :key="news.id"
       class="max-w-sm bg-white border border-slate-950 rounded-md shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col"
     >
-      <div class="relative min-w-96 w-full h-48">
+      <div class="relative min-w-96 w-full h-64">
         <img
           v-if="news.image"
           :src="news.image"
           alt="Card image"
-          class="min-w-96 w-full h-48 object-cover transition-transform hover:scale-110 duration-300"
+          class="flex items-center justify-center min-w-96 w-full h-64 object-cover transition-transform hover:scale-110 duration-300"
         />
         <div
           v-else
